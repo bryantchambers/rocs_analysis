@@ -86,7 +86,8 @@ main <- function() {
   # Load raw prokaryote data
   # ---------------------------------------------------------------------------
   log_msg("\nLoading raw prokaryote reads...")
-  prok_raw <- fread(file.path(config$base_dir, "results/microbial/taxonomy/dmg-summary-ssp_selected.tsv.gz"))
+  #prok_raw <- fread(file.path(config$base_dir, "results/microbial/taxonomy/dmg-summary-ssp_selected.tsv.gz"))
+  prok_raw <- fread("old/results/microbial/taxonomy/dmg-summary-ssp_selected.tsv.gz") 
   prok_raw <- prok_raw[label %in% meta$label & core %in% config$target_cores & is_dmg == "Damaged"]
   prok_raw <- merge(prok_raw[, .(subspecies, label, core, n_reads)],
                     mod_class[, .(taxon, module, functional_group)],

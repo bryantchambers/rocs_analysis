@@ -39,6 +39,8 @@ OLD <- list(
   emp_sap  = "/maps/projects/caeg/people/kbd606/scratch/mateu-rocs/analysis_wgcna/results/stage1/emp_sap"
 )
 
+
+
 # New outputs (written here)
 RESULTS <- list(
   stage1  = here("results", "stage1"),
@@ -132,5 +134,30 @@ TEA <- list(
     "K00394", "K00395",            # aprA/B   — SRPI
     "K00958",                      # sat      — SRPI
     "K11180", "K11181"             # dsrA/B   — SRPI
+  )
+)
+
+# ── Climate reference data ───────────────────────────────────────────────────
+
+CLIMATE <- list(
+  mis_boundaries = file.path(BASE, "results/network_global/mis_stage_boundaries.tsv"),
+  lr04_stack     = "/projects/fernandezguerra/people/ngm902/ROCS/associated_data/Lisiecki2005_copy.txt"
+)
+
+# ── Figure palettes ──────────────────────────────────────────────────────────
+
+PALETTES <- list(
+  # MIS climate periods: glacial vs interglacial
+  mis_climate = c(
+    glacial      = "#6cd3f5",
+    interglacial = "#fdb57ee8"
+  ),
+  # Prokaryote functional groups
+  prok_function = c(
+    Core_heterotrophy           = "#1B9E77",
+    Methanogenesis_diagenetic   = "#D95F02",
+    Pelagic_heterotroph_MGII    = "#7570B3",
+    Nitrification_AOA           = "#E7298A",
+    Unknown                     = "#CCCCCC"
   )
 )

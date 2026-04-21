@@ -7,6 +7,7 @@ suppressPackageStartupMessages({
   library(data.table)
   library(ggplot2)
   library(patchwork)
+  library(ggnewscale)
 })
 
 source(here("config.R"))
@@ -81,6 +82,48 @@ p_me_vs_age <- ggplot(me_long, aes(x = y_bp, y = eigengene, colour = core)) +
   ) +
   theme_ms
 
+
+# ── LR04 δ¹⁸O reference panel ────────────────────────────────────────────────
+
+log_msg("Creating LR04 climate reference panel...")
+
+# Load MIS stage boundaries
+mis_bounds <- fread(CLIMATE$mis_boundaries)
+setnames(mis_bounds, c("stage", "start_kyr", "end_kyr", "climate"), 
+         c("MIS", "start", "end", "climate"))
+mis_bounds <- mis_bounds[end <= 150]
+
+# Load LR04 benthic stack
+lr04 <- fread(CLIMATE$lr04_stack)
+setnames(lr04, c("Time_ka", "Benthic_d18O", "Standard_error"), 
+         c("age_kyr", "d18O", "se"))
+lr04_150 <- lr04[age_kyr <= 150]
+
+# Label positions for MIS stages
+mis_labels <- mis_bounds[start < 150]
+mis_labels[, label_x := (start + pmin(end, 150)) / 2]
+d18o_range <- range(lr04_150$d18O, na.rm = TRUE)
+
+p_lr04_climate <- ggplot() +
+  geom_rect(data = mis_bounds[start < 150],
+            aes(xmin = start, xmax = pmin(end, 150), ymin = -Inf, ymax = Inf, fill = climate),
+            alpha = 0.5) +
+  scale_fill_manual(values = PALETTES$mis_climate, guide = "none") +
+  geom_text(data = mis_labels,
+            aes(x = label_x, y = d18o_range[1] - 0.15, label = MIS),
+            size = 2.5, color = "grey30", fontface = "bold") +
+  geom_line(data = lr04_150, aes(x = age_kyr, y = d18O), color = "black", linewidth = 0.5) +
+  scale_x_reverse(limits = c(150, 0), breaks = seq(150, 0, -25), expand = c(0.01, 0)) +
+  scale_y_reverse() +
+  labs(x = NULL, y = expression(delta^{18}*"O (‰)"), 
+       title = "LR04 benthic δ¹⁸O stack") +
+  theme_ms +
+  theme(axis.text.x = element_blank(), 
+        plot.margin = margin(5, 5, 0, 5),
+        axis.title.y = element_text(size = 9))
+
+log_msg("LR04 panel created")
+
 # ── Module relative abundance by sample ──────────────────────────────────────
 
 log_msg("Computing module relative abundances...")
@@ -147,18 +190,6 @@ log_msg(sprintf("  Abundance check: min=%.6f, max=%.6f (should be ~1.0)",
 module_abund <- module_abund[order(core, -y_bp)]
 module_abund[, sample_order := paste0(core, "_", sprintf("%05d", rank(-y_bp)), by = core)]
 
-# ── 6. Stacked bar plot: Module composition across cores ────────────────────
-
-# Define module colors (consistent with theme)
-module_colors_pal <- c(
-  turquoise = "#1B9E77",
-  blue      = "#377EB8",
-  brown     = "#A65628",
-  yellow    = "#E6AB02",
-  green     = "#66A61E",
-  red       = "#E7298A",
-  grey      = "#CCCCCC"
-)
 
 # Optional: bin by age for smoother visualization
 module_abund[, age_bin := floor(age_kyr / 10) * 10 + 5]
@@ -183,8 +214,6 @@ module_abund_binned <- module_abund[, .(
 #     strip.text = element_text(size = 9, face = "bold")
 #   )
 
-log_msg("Module abundance plot created")
-
 # ── Area plot of module relative abundance vs y_bp ───────────────────────────
 
 module_abund <- module_abund[order(core, y_bp)]
@@ -204,7 +233,7 @@ p_module_abund <- ggplot(
   aes(x = y_bp, y = rel_abund, fill = module, group = module)
 ) +
   geom_area(position = "stack", colour = "black", size = 0.15, alpha = 0.85) +
-  facet_wrap(~ core, scales = "free_x", ncol = 1) +
+  facet_wrap(~ core, scales = "fixed", ncol = 1) +
   scale_fill_manual(values = module_colors_pal, name = "Module") +
   labs(
     title = "Module relative abundance through time",
@@ -216,7 +245,8 @@ p_module_abund <- ggplot(
     axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
     strip.text = element_text(size = 9, face = "bold")
   )
-
+log_msg("Module abundance plot created")
+plot(p_module_abund)
 
 #########
 # SUMMARY PLOTS
@@ -292,3 +322,56 @@ p_module_size <- ggplot(module_counts, aes(x = module, y = N, fill = module)) +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1, size = 8)
   )
+
+log_msg("Module composition plots created") 
+
+
+
+# =========================================
+# Plot D: state activity through time
+# =========================================
+
+# ── HMM states area plot ─────────────────────────────────────────────────────
+
+log_msg("Creating HMM states plot...")
+
+hmm_states <- fread(file.path(RESULTS$hmm, "hmm_states.tsv"))
+
+# Merge to get y_bp from metadata
+hmm_states <- merge(hmm_states, meta[, .(label, y_bp)], by.x = "sample", by.y = "label")
+hmm_states[, age_kyr := y_bp / 1000]
+
+# Order by core and y_bp
+hmm_states <- hmm_states[order(core, y_bp)]
+
+# Define colors for states (similar to module colors)
+state_colors <- c(
+  "1" = "#D51414", # Turquoise
+  "2" = "#377EB8", # Blue
+  "3" = "#A65628", # Brown
+  "4" = "#E6AB02", # Yellow
+  "5" = "#1e20a6"  # Green
+)
+
+p_hmm_states <- ggplot(hmm_states, aes(x = age_kyr, y = 1, fill = factor(state))) +
+  # Width is set large (15 ka) to ensure tiles overlap and form a continuous bar 
+  # despite irregular sampling intervals.
+  geom_tile(width = 15, height = 1, colour = NA) +
+  scale_fill_manual(values = state_colors, name = "State") +
+  scale_x_continuous(limits = c(0, 600)) +
+  facet_wrap(~ core, ncol = 1) +
+  labs(
+    title = "HMM States through time",
+    x = "Age (ka)",
+    y = NULL
+  ) +
+  theme_ms +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    strip.text = element_text(size = 9, face = "bold"),
+    panel.spacing = unit(0.2, "lines")
+  )
+
+log_msg("HMM states plot created")
+plot(p_hmm_states)
