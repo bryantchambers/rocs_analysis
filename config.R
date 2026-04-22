@@ -47,6 +47,7 @@ RESULTS <- list(
   hmm     = here("results", "hmm"),
   emp     = here("results", "emp"),
   tea     = here("results", "tea"),
+  importance = here("results", "importance"),
   figures = here("results", "figures")
 )
 

@@ -25,6 +25,24 @@ theme_ms <- theme_bw(base_size = 10) +
 
 log_msg <- function(...) message(sprintf("[%s] %s", format(Sys.time(), "%H:%M:%S"), paste0(...)))
 
+save_plots_to_results <- function(pattern = "^p_", suffix = "_draft", out_dir = FIGS) {
+  plot_names <- ls(envir = .GlobalEnv, pattern = pattern)
+  if (length(plot_names) == 0) {
+    log_msg("No plots found matching pattern: ", pattern)
+    return(NULL)
+  }
+  
+  log_msg("Saving ", length(plot_names), " plots to ", out_dir)
+  for (p_name in plot_names) {
+    p <- get(p_name)
+    if (inherits(p, "gg")) {
+      file_base <- file.path(out_dir, paste0(p_name, suffix))
+      ggsave(paste0(file_base, ".png"), plot = p, width = 8, height = 6, dpi = 300)
+      ggsave(paste0(file_base, ".pdf"), plot = p, width = 8, height = 6)
+    }
+  }
+}
+
 # ── Load new results ───────────────────────────────────────────────────────────
 
 log_msg("Loading new results...")
@@ -375,3 +393,11 @@ p_hmm_states <- ggplot(hmm_states, aes(x = age_kyr, y = 1, fill = factor(state))
 
 log_msg("HMM states plot created")
 plot(p_hmm_states)
+
+# ── Save all figures ──────────────────────────────────────────────────────────
+
+log_msg("Exporting figures...")
+
+
+save_plots_to_results()
+
