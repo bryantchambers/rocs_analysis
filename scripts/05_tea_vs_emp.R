@@ -331,7 +331,7 @@ emp_dt <- fread(file.path(RESULTS$emp, "emp_sap_per_sample.tsv"))
 full_dt <- Reduce(function(a, b) merge(a, b, by = "sample", all.x = TRUE),
                   list(tea_dt,
                        emp_dt[, .(sample, EMP, EMP_scaled, SAP)],
-                       meta[, .(label, core, y_bp, mis, temp_complete)][
+                       meta[, .(label, core, y_bp, mis, sst)][ #edited from antionios original see MATEU FOR EDITS!!!
                          , sample := label][, label := NULL]))
 full_dt[, age_kyr := y_bp / 1000]
 setnames(full_dt, "mis", "d18O")

@@ -80,7 +80,8 @@ fp_mat  <- as.matrix(fingerprints[, ..fp_cols])
 rownames(fp_mat) <- fingerprints$label
 
 # Match kME columns to fingerprint columns
-kme_cols <- paste0("kME", fp_cols)
+kme_cols <- gsub("^ME", "kME", fp_cols)
+
 kME_sub_mat <- as.matrix(kME_dt[, ..kme_cols])
 rownames(kME_sub_mat) <- kME_dt$taxon
 
@@ -96,7 +97,7 @@ log_msg("Fitting Random Forest for state prediction...")
 
 # Target variable: HMM state label
 ml_data <- as.data.table(vst_sub)
-ml_data[, target_state := factor(states_sub$label)]
+ml_data[, target_state := factor(make.names(states_sub$label))]
 
 # Withholding: Split into training (70%) and testing (30%)
 train_idx <- createDataPartition(ml_data$target_state, p = 0.7, list = FALSE)

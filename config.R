@@ -6,20 +6,19 @@ library(here)
 
 # ── Input data (upstream pipeline outputs, read-only) ────────────────────────
 
-BASE <- "/maps/projects/caeg/people/kbd606/scratch/mateu-rocs"
+BASE <- here()
 
 UPSTREAM <- list(
   # Per-taxon read counts, pre-filtered to damaged reads (is_dmg column)
-  tax_damage = "/maps/projects/caeg/people/ngm902/apps/repos/rocs_marine_cores_old/results/microbial/taxonomy/dmg-summary-ssp_selected.tsv.gz",
+  tax_damage = "results/microbial/damage/damage-classification-depositional/dmg-summary-ssp-damage-classification-depositional.tsv.gz",
   # Sample metadata (label, core, y_bp, mis, temp_complete)
-  metadata   = file.path(BASE, "data/metadata_v4.txt"),
+  metadata   = file.path(BASE, "data/metadata_v5.tsv"),
   # KEGG module completeness per genome (includes enzyme_hits_in_module)
-  kegg_mods  = file.path(BASE, "external/functionalDB/kegg-modules-summary-27-03-2026.tsv.gz")
+  kegg_mods  = file.path(BASE, "data/functional/kegg-modules-summary-rocs.tsv.gz")
 )
 
 # ── Classification reference files ───────────────────────────────────────────
-
-CLASS_DIR <- file.path(BASE, "analysis_wgcna/classification")
+CLASS_DIR <- file.path(BASE, "results/common/wgcna/classification")
 
 CLASS <- list(
   prokaryote_function = file.path(CLASS_DIR, "prokaryote_function_assigned.tsv"),
@@ -39,16 +38,17 @@ OLD <- list(
   emp_sap  = "/maps/projects/caeg/people/kbd606/scratch/mateu-rocs/analysis_wgcna/results/stage1/emp_sap"
 )
 
-
-
+RESULTS_DIR <- file.path(BASE, "results")
 # New outputs (written here)
 RESULTS <- list(
   stage1  = here("results", "stage1"),
   hmm     = here("results", "hmm"),
   emp     = here("results", "emp"),
   tea     = here("results", "tea"),
+  figures = here("results", "figures"),
   importance = here("results", "importance"),
-  figures = here("results", "figures")
+  importance_fuzzy = here("results", "importance_fuzzy"),
+  network_stats    = here("results", "network_stats")
 )
 
 for (d in RESULTS) dir.create(d, recursive = TRUE, showWarnings = FALSE)
@@ -135,30 +135,5 @@ TEA <- list(
     "K00394", "K00395",            # aprA/B   — SRPI
     "K00958",                      # sat      — SRPI
     "K11180", "K11181"             # dsrA/B   — SRPI
-  )
-)
-
-# ── Climate reference data ───────────────────────────────────────────────────
-
-CLIMATE <- list(
-  mis_boundaries = file.path(BASE, "results/network_global/mis_stage_boundaries.tsv"),
-  lr04_stack     = "/projects/fernandezguerra/people/ngm902/ROCS/associated_data/Lisiecki2005_copy.txt"
-)
-
-# ── Figure palettes ──────────────────────────────────────────────────────────
-
-PALETTES <- list(
-  # MIS climate periods: glacial vs interglacial
-  mis_climate = c(
-    glacial      = "#6cd3f5",
-    interglacial = "#fdb57ee8"
-  ),
-  # Prokaryote functional groups
-  prok_function = c(
-    Core_heterotrophy           = "#1B9E77",
-    Methanogenesis_diagenetic   = "#D95F02",
-    Pelagic_heterotroph_MGII    = "#7570B3",
-    Nitrification_AOA           = "#E7298A",
-    Unknown                     = "#CCCCCC"
   )
 )
