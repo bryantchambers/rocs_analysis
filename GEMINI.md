@@ -45,6 +45,15 @@ To identify the central taxa driving the functional configuration of each HMM st
     - **Bridging Centrality**: Identify taxa that act as critical bridges between different functional modules.
     - **Integration**: Generate a master driver table merging topological importance with taxonomic and functional annotations.
 
+## Analysis Workflows
+- **Taxon Importance (Fuzzy Forest)**: Executed `scripts/07b_taxon_importance_fuzzy.R`. Identified top taxonomic predictors for HMM states using recursive feature elimination across modules. Achieved 90% test accuracy.
+- **Network Topology & Centrality**: Executed `scripts/08_network_statistics.R`. Calculated Z-P roles, PageRank, Closeness, Betweenness, Bridging Centrality, and Nodal Efficiency (Vulnerability). Identified 50 keystone species and 4 "hidden gems".
+
+## Lessons Learned
+- **Taxon ID Consistency**: Standardized the use of `subspecies` (or Taxon ID) across VST, WGCNA, and metadata to ensure correct join operations. Previously, mismatching keys caused module representative loss.
+- **Network Optimization**: For large microbial networks (~1800 nodes), calculating global efficiency and vulnerability is computationally intensive. Sparsifying the Topological Overlap Matrix (TOM > 0.05) preserves core topology while drastically improving runtime (from >5 mins to <2 mins).
+- **Metric Distance vs. Strength**: Path-based centrality metrics (Closeness, Betweenness) require distances ($1-TOM$), while PageRank and Hub degree require strengths ($TOM$). Ensuring the correct weight mapping is critical for topological accuracy.
+
 ## Environment & Architecture
 - **Sandbox Context:** The scripts run inside a Singularity container.
 - **Working Directory:** All work happens in `/src`.
@@ -53,8 +62,12 @@ To identify the central taxa driving the functional configuration of each HMM st
 
 ## Tech Stack & Tools
 - **Language:** R 4.5.3 or python as necessary
-- **Key Libraries:** `data.tables`, `ggplot2`, `wcgna`, .
-- **Execution Rule:** To run code, use: `mamba run -n rocs_plots Rscript <script>.R`
+- **Key Libraries:** `data.tables`, `ggplot2`, `wcgna`, etc. ask and I'll confirm if I can add it.
+- **Execution Rule:** To run code, use: `Rscript <script>.R`
+
+## Data Availability and structure
+- **Data Summary** A markdown containing a summary of data can be found in `DATA_SUMMARY.md`. The script used to gather the outputs here is found at `/src/script/inspect_data.R`. update this script and summary as you proceed towards each milestone and review it before starting each day or at each milestone to review what data is present and what we can use for analysis. 
+
 
 ## Project Rules (The "Guardrails")
 1.  **Memory:** Before writing code, check `/src/scripts/` to see if a similar utility already exists.
