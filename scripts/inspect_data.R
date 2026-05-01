@@ -97,5 +97,21 @@ if (file.exists("results/network_stats/network_metrics_summary.tsv")) {
   cat("\n")
 }
 
+# 9. Integrated Driver Results
+if (file.exists("results/importance/integrated_driver_summary.tsv")) {
+  cat("## Integrated Driver Results\n")
+  drivers <- fread("results/importance/integrated_driver_summary.tsv")
+  cat("- Super-Drivers (Statistical + Topological):", sum(drivers$is_super_driver, na.rm = TRUE), "\n")
+  cat("- Driver Categories:\n\n")
+  cat_counts <- drivers[, .N, by = driver_category][order(-N)]
+  print(knitr::kable(cat_counts))
+  cat("\n")
+  
+  cat("- Super-Driver List:\n\n")
+  sd_list <- drivers[is_super_driver == TRUE][order(-integrated_score)]
+  print(knitr::kable(sd_list[, .(taxon, module, functional_group, genus, variable_importance, pagerank)]))
+  cat("\n")
+}
+
 sink()
 message("Summary written to DATA_SUMMARY.md")

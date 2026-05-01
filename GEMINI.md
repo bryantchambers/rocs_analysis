@@ -48,6 +48,7 @@ To identify the central taxa driving the functional configuration of each HMM st
 ## Analysis Workflows
 - **Taxon Importance (Fuzzy Forest)**: Executed `scripts/07b_taxon_importance_fuzzy.R`. Identified top taxonomic predictors for HMM states using recursive feature elimination across modules. Achieved 90% test accuracy.
 - **Network Topology & Centrality**: Executed `scripts/08_network_statistics.R`. Calculated Z-P roles, PageRank, Closeness, Betweenness, Bridging Centrality, and Nodal Efficiency (Vulnerability). Identified 50 keystone species and 4 "hidden gems".
+- **Driver Integration**: Executed `scripts/09_driver_integration.R`. Combined Fuzzy Forest importance with topological centrality. Identified 5 "Super-Drivers" (High Predictive Power AND High Topological Influence) predominantly in the Turquoise module. Linked drivers to EMP thermodynamic capacity and TEA redox preferences.
 
 ## Lessons Learned
 - **Taxon ID Consistency**: Standardized the use of `subspecies` (or Taxon ID) across VST, WGCNA, and metadata to ensure correct join operations. Previously, mismatching keys caused module representative loss.

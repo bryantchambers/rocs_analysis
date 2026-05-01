@@ -90,3 +90,28 @@
 |S__GCA_905479195.1        |yellow    |Sulfate_reduction_diagenetic |s__GCA-2698665 sp905479195   |
 |S__GCA_014237975.1        |turquoise |Particle_heterotroph         |s__Mariniblastus sp014237975 |
 
+## Integrated Driver Results
+- Super-Drivers (Statistical + Topological): 5 
+- Driver Categories:
+
+
+
+|driver_category       |    N|
+|:---------------------|----:|
+|Peripheral            | 1576|
+|Topological Keystone  |  171|
+|Predictive Specialist |   41|
+|Super-Driver          |    9|
+
+- Super-Driver List:
+
+
+
+|taxon              |module    |functional_group         |genus              | variable_importance|  pagerank|
+|:------------------|:---------|:------------------------|:------------------|-------------------:|---------:|
+|S__3300027847_13   |turquoise |Core_heterotrophy        |g__UBA8437         |           0.0304044| 0.0030501|
+|S__3300020389_47   |yellow    |Pelagic_heterotroph      |g__CACPJA01        |           0.0138238| 0.0024278|
+|S__GCA_012964335.1 |turquoise |Pelagic_heterotroph_MGII |g__MGIIb-Q1        |           0.0351686| 0.0021088|
+|S__3300027779_22   |turquoise |Core_heterotrophy        |g__GCA-2722105     |           0.0330220| 0.0020534|
+|S__GCA_905182885.1 |turquoise |Pelagic_heterotroph      |g__SCGC-AAA076-P13 |           0.0255379| 0.0020697|
+
