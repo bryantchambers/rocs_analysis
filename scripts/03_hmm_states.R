@@ -3,10 +3,12 @@
 #
 # Pipeline:
 #   1. Residualise eigengenes within core (remove core offsets)
-#   2. PCA on residualised eigengenes (first 3 PCs)
-#   3. Fit multi-sequence HMM (depmixS4) for K = 2..5
-#   4. Select K by BIC; validate K=5 against MIS stage timing
-#   5. Save state assignments + fingerprints
+#   2. PCA on training cores; project validation/all samples
+#   3. Fit multi-sequence HMM (depmixS4) for K = 2..5 on training cores
+#   4. Score held-out validation core with fixed parameters
+#   5. Select K using train BIC + held-out likelihood/stability
+#   6. Refit selected K on all cores for final state outputs
+#   7. Save state assignments + fingerprints + validation metrics
 #
 # Inputs:  results/stage1/wgcna/module_eigengenes.tsv
 #          results/stage1/sample_metadata_stage1.tsv
@@ -14,7 +16,9 @@
 #   hmm_states.tsv              sample → HMM state label + d18O
 #   state_fingerprints.tsv      per-state mean eigengene (ecological fingerprint)
 #   state_mis_crosstab.tsv      state × MIS stage cross-tabulation
-#   bic_comparison.tsv          BIC per K
+#   bic_comparison.tsv          BIC per K (training cores)
+#   hmm_validation_metrics.tsv  held-out performance/stability per K
+#   hmm_model_selection.tsv     hybrid model-selection table
 #   pca_loadings.tsv            PCA loadings used for HMM input
 #   hmm_model.rds               best-fit depmixS4 model object
 #   all_hmm_models.rds          all K=2..5 fitted models (for inspection)
@@ -66,13 +70,16 @@ resid_cols <- paste0(me_cols, "_resid")
 log_msg("PCA on residualised eigengenes...")
 
 resid_mat <- as.matrix(dt[, ..resid_cols])
-pca       <- prcomp(resid_mat, scale. = TRUE)
+train_idx <- dt$core %in% PARAMS$stage1_cores
+valid_idx <- dt$core == PARAMS$validation_core
+
+pca <- prcomp(resid_mat[train_idx, , drop = FALSE], scale. = TRUE)
 
 # Retain first 3 PCs. In the original analysis these captured ≥ 70% of variance.
 # Check the log output above; if PC1–PC3 explain substantially less (< 60%),
 # consider increasing n_pcs or inspecting whether modules have changed structure.
 n_pcs    <- 3
-pc_scores <- as.data.table(pca$x[, 1:n_pcs])
+pc_scores <- as.data.table(predict(pca, newdata = resid_mat)[, 1:n_pcs, drop = FALSE])
 names(pc_scores) <- paste0("PC", 1:n_pcs)
 
 pc_var <- summary(pca)$importance[2, 1:n_pcs]
@@ -90,14 +97,31 @@ fwrite(loadings_dt, file.path(RESULTS$hmm, "pca_loadings.tsv"), sep = "\t")
 log_msg("Fitting HMMs for K = 2..5...")
 
 # depmixS4: treat each core as a separate sequence
-core_lengths <- pca_dt[, .N, by = core][order(match(core, PARAMS$stage1_cores)), N]
+pca_train <- pca_dt[core %in% PARAMS$stage1_cores]
+pca_valid <- pca_dt[core == PARAMS$validation_core]
 
-fit_hmm <- function(k) {
+train_lengths <- pca_train[, .N, by = core][order(match(core, PARAMS$stage1_cores)), N]
+valid_lengths <- pca_valid[, .N, by = core][order(match(core, PARAMS$validation_core)), N]
+all_lengths <- pca_dt[, .N, by = core][order(match(core, PARAMS$all_cores)), N]
+
+decode_metrics <- function(state_vec) {
+  n <- length(state_vec)
+  if (n <= 1) {
+    return(list(self_transition_rate = NA_real_, switches_per_100 = NA_real_))
+  }
+  transitions <- sum(state_vec[-1] != state_vec[-n], na.rm = TRUE)
+  list(
+    self_transition_rate = 1 - (transitions / (n - 1)),
+    switches_per_100 = transitions / (n - 1) * 100
+  )
+}
+
+fit_hmm <- function(k, data, ntimes) {
   mod <- depmix(
     list(PC1 ~ 1, PC2 ~ 1, PC3 ~ 1),
-    data      = pca_dt,
+    data      = data,
     nstates   = k,
-    ntimes    = core_lengths,
+    ntimes    = ntimes,
     family    = list(gaussian(), gaussian(), gaussian())
   )
   tryCatch(
@@ -111,7 +135,7 @@ hmm_fits <- lapply(2:5, function(k) {
   log_msg(sprintf("  K = %d ...", k))
   best <- NULL
   for (i in seq_len(PARAMS$hmm_n_start)) {
-    f <- fit_hmm(k)
+    f <- fit_hmm(k, data = pca_train, ntimes = train_lengths)
     if (!is.null(f)) {
       if (is.null(best) || BIC(f) < BIC(best)) best <- f
     }
@@ -128,28 +152,80 @@ bic_dt <- data.table(
 )
 fwrite(bic_dt, file.path(RESULTS$hmm, "bic_comparison.tsv"), sep = "\t")
 
-best_k <- bic_dt[!is.na(BIC)][which.min(BIC), K]
-# Override BIC minimum with validated K=5 when the BIC difference is < 10.
-# A ΔBIC < 10 is within the range where model selection is ambiguous (Kass &
-# Raftery 1995); K=5 was validated in the original analysis by correspondence
-# with MIS stage boundaries (glacial, interglacial, substages MIS 5a–e).
-if (best_k != PARAMS$hmm_k && !is.na(bic_dt[K == PARAMS$hmm_k, BIC])) {
-  delta_bic <- bic_dt[K == PARAMS$hmm_k, BIC] - bic_dt[K == best_k, BIC]
-  if (delta_bic < 10) {
-    log_msg(sprintf("  BIC difference K%d vs K%d = %.1f < 10; using validated K=%d",
-                    PARAMS$hmm_k, best_k, delta_bic, PARAMS$hmm_k))
-    best_k <- PARAMS$hmm_k
+validation_rows <- lapply(seq_along(hmm_fits), function(i) {
+  k <- 1 + i
+  fit_k <- hmm_fits[[i]]
+  if (is.null(fit_k) || nrow(pca_valid) == 0) {
+    return(data.table(
+      K = k,
+      validation_logLik = NA_real_,
+      validation_logLik_per_sample = NA_real_,
+      validation_mean_max_posterior = NA_real_,
+      validation_self_transition_rate = NA_real_,
+      validation_switches_per_100 = NA_real_,
+      validation_n_observed_states = NA_integer_
+    ))
   }
-}
+
+  valid_mod <- depmix(
+    list(PC1 ~ 1, PC2 ~ 1, PC3 ~ 1),
+    data    = pca_valid,
+    nstates = k,
+    ntimes  = valid_lengths,
+    family  = list(gaussian(), gaussian(), gaussian())
+  )
+  valid_mod <- setpars(valid_mod, getpars(fit_k))
+  valid_ll <- as.numeric(logLik(valid_mod))
+  valid_post <- posterior(valid_mod, type = "viterbi")
+  max_post <- valid_post[, grep("^S", names(valid_post)), drop = FALSE]
+  decoded <- valid_post$state
+  dm <- decode_metrics(decoded)
+
+  data.table(
+    K = k,
+    validation_logLik = valid_ll,
+    validation_logLik_per_sample = valid_ll / nrow(pca_valid),
+    validation_mean_max_posterior = mean(apply(max_post, 1, max), na.rm = TRUE),
+    validation_self_transition_rate = dm$self_transition_rate,
+    validation_switches_per_100 = dm$switches_per_100,
+    validation_n_observed_states = uniqueN(decoded)
+  )
+})
+valid_dt <- rbindlist(validation_rows, fill = TRUE)
+fwrite(valid_dt, file.path(RESULTS$hmm, "hmm_validation_metrics.tsv"), sep = "\t")
+
+sel_dt <- merge(bic_dt, valid_dt, by = "K", all = TRUE)
+best_bic_k <- sel_dt[!is.na(BIC)][which.min(BIC), K]
+sel_dt[, delta_bic := BIC - min(BIC, na.rm = TRUE)]
+sel_dt[, bic_ambiguous := delta_bic <= 10]
+
+# Hybrid selection: among BIC-ambiguous K, choose best held-out logLik/sample.
+# If tied, prefer cleaner transitions (higher self-transition rate).
+cand <- sel_dt[bic_ambiguous == TRUE & !is.na(validation_logLik_per_sample)]
+if (nrow(cand) == 0) cand <- sel_dt[!is.na(BIC)]
+setorder(cand, -validation_logLik_per_sample, -validation_self_transition_rate, BIC)
+best_k <- cand[1, K]
+
+fwrite(sel_dt, file.path(RESULTS$hmm, "hmm_model_selection.tsv"), sep = "\t")
 
 log_msg(sprintf("  Selected K = %d", best_k))
-best_fit <- hmm_fits[[paste0("K", best_k)]]
+log_msg(sprintf("  Best train-BIC K = %d; hybrid selected K = %d", best_bic_k, best_k))
+
+log_msg("Refitting selected K on all cores for final outputs...")
+best_fit <- NULL
+for (i in seq_len(PARAMS$hmm_n_start)) {
+  f <- fit_hmm(best_k, data = pca_dt, ntimes = all_lengths)
+  if (!is.null(f)) {
+    if (is.null(best_fit) || BIC(f) < BIC(best_fit)) best_fit <- f
+  }
+}
+if (is.null(best_fit)) stop("Failed to fit final HMM on all cores.")
 
 # ── 5. Extract state assignments ──────────────────────────────────────────────
 
 log_msg("Extracting state assignments...")
 
-pca_dt[, state := posterior(best_fit)$state]
+pca_dt[, state := posterior(best_fit, type = "viterbi")$state]
 
 # Characterise states by d18O (link to glacial/interglacial)
 state_d18o <- pca_dt[, .(mean_d18O = mean(d18O, na.rm = TRUE),
@@ -157,9 +233,16 @@ state_d18o <- pca_dt[, .(mean_d18O = mean(d18O, na.rm = TRUE),
 glacial_state <- state_d18o[which.max(mean_d18O), state]
 log_msg(sprintf("  Glacial state (highest mean d18O): state %d", glacial_state))
 
-# Label states
-state_d18o[, label := ifelse(state == glacial_state, "G-A",
-                              paste0("IG-", LETTERS[rank(-mean_d18O)[state != glacial_state]]))]
+# Label states deterministically with unique labels for any selected K.
+# Glacial state stays G-A. Remaining states are ordered by mean d18O (high to low)
+# and labeled IG-B, IG-C, ...
+state_d18o[, label := NA_character_]
+state_d18o[state == glacial_state, label := "G-A"]
+ig_states <- state_d18o[state != glacial_state][order(-mean_d18O)]
+if (nrow(ig_states) > 0) {
+  ig_labels <- paste0("IG-", LETTERS[seq.int(2, length.out = nrow(ig_states))])
+  state_d18o[ig_states, label := ig_labels, on = "state"]
+}
 
 # ── 6. State fingerprints ─────────────────────────────────────────────────────
 

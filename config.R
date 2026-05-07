@@ -42,6 +42,7 @@ RESULTS_DIR <- file.path(BASE, "results")
 # New outputs (written here)
 RESULTS <- list(
   stage1  = here("results", "stage1"),
+  wgcna_stability = here("results", "wgcna_stability"),
   hmm     = here("results", "hmm"),
   emp     = here("results", "emp"),
   tea     = here("results", "tea"),
@@ -81,6 +82,14 @@ PARAMS <- list(
   wgcna_soft_power       = NULL,  # auto-selected (scale-free R2 >= 0.80)
   wgcna_eigengene_r_min  = 0.70,
   wgcna_module_zscore    = 2,
+  # runtime mode for WGCNA scripts: "build" (fast) or "final" (overnight)
+  wgcna_run_mode = "build",
+  wgcna_preservation_permutations_build = 200,
+  wgcna_preservation_permutations_final = 700,
+  # stability resampling in 02b_wgcna_stability.R
+  wgcna_stability_bootstrap_build = 30,
+  wgcna_stability_bootstrap_final = 120,
+  wgcna_stability_age_grid_points = 100,
 
   # HMM
   hmm_k       = 5,                # validated number of states

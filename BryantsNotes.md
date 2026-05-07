@@ -1,5 +1,23 @@
 # Bryant's Analysis Notes: Ancient Ocean Ecosystems
 
+## HMM Hybrid Decision (2026-05-05)
+
+We switched `03_hmm_states.R` to a hybrid strategy to favor robust, low-noise state calls in damaged ancient DNA:
+
+1. Fit candidate HMMs (K=2..5) on training cores only (`ST8`, `ST13`, `GeoB25202_R1`).
+2. Score held-out `GeoB25202_R2` using fixed trained parameters.
+3. Select K from BIC-ambiguous models (ΔBIC <= 10) by held-out log-likelihood per sample and transition stability.
+4. Refit selected K on all cores to produce final state labels for downstream analysis.
+
+Current run summary:
+- Train-BIC best model: **K=5** (BIC 1185.36)
+- Hybrid-selected model: **K=4**
+- Held-out logLik/sample: **K=4 = -15.392**, **K=5 = -15.477**
+- Held-out confidence (mean max posterior): **0.990** (K=4)
+- Held-out switch rate: **4.17 transitions per 100** (K=4)
+
+Interpretation: K=4 gives slightly better holdout predictive behavior with clean transitions and high confidence, while staying within the BIC-ambiguous band of K=5.
+
 ## Topological Metrics & Driver Paradoxes
 
 ### 1. The "Peripheral Super-Driver" Paradox
@@ -37,4 +55,4 @@ To avoid being too conservative (only 9 Super-Drivers), we use a tiered system:
 *   **Climate-Function Coupling:** Microbes with the highest metabolic capacity are disproportionately favored during Glacial cycles, acting as the stable "engines" of the ecosystem when environmental forcing is high.
 
 ---
-*Last Updated: 2026-05-01*
+*Last Updated: 2026-05-05*

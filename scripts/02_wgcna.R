@@ -25,6 +25,22 @@ options(stringsAsFactors = FALSE)
 
 log_msg <- function(...) message(sprintf("[%s] %s", format(Sys.time(), "%H:%M:%S"), paste0(...)))
 
+args <- commandArgs(trailingOnly = TRUE)
+run_mode <- PARAMS$wgcna_run_mode
+if (length(args) > 0) {
+  mode_arg <- sub("^--mode=", "", args[grep("^--mode=", args)][1])
+  if (!is.na(mode_arg) && nzchar(mode_arg)) run_mode <- mode_arg
+}
+if (!run_mode %in% c("build", "final")) {
+  stop("Invalid WGCNA mode: ", run_mode, ". Use --mode=build or --mode=final.")
+}
+preservation_perms <- if (run_mode == "final") {
+  PARAMS$wgcna_preservation_permutations_final
+} else {
+  PARAMS$wgcna_preservation_permutations_build
+}
+log_msg(sprintf("Run mode: %s (modulePreservation permutations=%d)", run_mode, preservation_perms))
+
 WGCNA_OUT <- file.path(RESULTS$stage1, "wgcna")
 dir.create(WGCNA_OUT, recursive = TRUE, showWarnings = FALSE)
 
@@ -149,7 +165,7 @@ r2_samps <- rownames(expr_by_core[[PARAMS$validation_core]])
 # R1 and R2 have different sample counts (26 vs 25), so a direct vector
 # correlation is not meaningful. We log per-module means as a sanity check;
 # for a formal concordance test, interpolate both cores to a common age grid.
-log_msg("  R1/R2 eigengene mean (concordance check skipped — unequal sample counts)")
+log_msg("  R1/R2 eigengene mean (quick sanity check)")
 for (me in me_cols) {
   m1 <- mean(MEs_all[sample %in% r1_samps][[me]], na.rm = TRUE)
   m2 <- mean(MEs_all[sample %in% r2_samps][[me]], na.rm = TRUE)
@@ -172,7 +188,7 @@ mp <- modulePreservation(
   multiColor       = list(GeoB_R1 = module_colors[good]),
   referenceNetworks = 1,
   testNetworks     = 2,
-  nPermutations    = 200,
+  nPermutations    = preservation_perms,
   randomSeed       = PARAMS$seed,
   verbose          = 0
 )
@@ -189,9 +205,68 @@ pres_dt[, preserved := fcase(
   Zsummary >  2, "moderate",
   default = "weak"
 )]
+pres_dt[, module_type := fcase(
+  module %in% c("grey", "gold"), "technical",
+  default = "biological"
+)]
 log_msg("  Preservation:")
 for (p in c("strong", "moderate", "weak"))
   log_msg(sprintf("    %s: %d modules", p, sum(pres_dt$preserved == p, na.rm = TRUE)))
+
+pres_bio <- pres_dt[module_type == "biological"]
+log_msg("  Biological module preservation only:")
+for (p in c("strong", "moderate", "weak"))
+  log_msg(sprintf("    %s: %d modules", p, sum(pres_bio$preserved == p, na.rm = TRUE)))
+
+# ── 5b. Age-aligned eigengene concordance (R1 ↔ R2) ──────────────────────────
+
+log_msg("Age-aligned R1/R2 eigengene concordance on common age grid...")
+r1_dt <- merge(
+  data.table(sample = r1_samps),
+  meta[, .(label, y_bp)],
+  by.x = "sample",
+  by.y = "label",
+  all.x = TRUE
+)
+r2_dt <- merge(
+  data.table(sample = r2_samps),
+  meta[, .(label, y_bp)],
+  by.x = "sample",
+  by.y = "label",
+  all.x = TRUE
+)
+r1_dt[, age_kyr := y_bp / 1000]
+r2_dt[, age_kyr := y_bp / 1000]
+
+me_train <- MEs_all[sample %in% r1_samps]
+me_valid <- MEs_all[sample %in% r2_samps]
+
+concordance <- rbindlist(lapply(me_cols, function(me) {
+  d1 <- merge(r1_dt[, .(sample, age_kyr)], me_train[, .(sample, value = get(me))], by = "sample")
+  d2 <- merge(r2_dt[, .(sample, age_kyr)], me_valid[, .(sample, value = get(me))], by = "sample")
+  d1 <- d1[is.finite(age_kyr) & is.finite(value)][order(age_kyr)]
+  d2 <- d2[is.finite(age_kyr) & is.finite(value)][order(age_kyr)]
+  if (nrow(d1) < 3 || nrow(d2) < 3) {
+    return(data.table(module = me, pearson_r = NA_real_, spearman_rho = NA_real_, rmse = NA_real_))
+  }
+  age_min <- max(min(d1$age_kyr), min(d2$age_kyr))
+  age_max <- min(max(d1$age_kyr), max(d2$age_kyr))
+  if (!is.finite(age_min) || !is.finite(age_max) || age_max <= age_min) {
+    return(data.table(module = me, pearson_r = NA_real_, spearman_rho = NA_real_, rmse = NA_real_))
+  }
+  xout <- seq(age_min, age_max, length.out = PARAMS$wgcna_stability_age_grid_points)
+  y1 <- approx(d1$age_kyr, d1$value, xout = xout, rule = 2)$y
+  y2 <- approx(d2$age_kyr, d2$value, xout = xout, rule = 2)$y
+  data.table(
+    module = me,
+    pearson_r = unname(suppressWarnings(cor(y1, y2, method = "pearson"))),
+    spearman_rho = unname(suppressWarnings(cor(y1, y2, method = "spearman"))),
+    rmse = sqrt(mean((y1 - y2)^2, na.rm = TRUE))
+  )
+}), fill = TRUE)
+setnames(concordance,
+         old = names(concordance),
+         new = sub("\\.V1$", "", names(concordance)))
 
 # ── 6. Save ───────────────────────────────────────────────────────────────────
 
@@ -201,6 +276,8 @@ fwrite(data.table(taxon = names(module_colors), module = module_colors),
        file.path(WGCNA_OUT, "module_assignments.tsv"), sep = "\t")
 fwrite(MEs_all,  file.path(WGCNA_OUT, "module_eigengenes.tsv"),  sep = "\t")
 fwrite(pres_dt,  file.path(WGCNA_OUT, "preservation.tsv"),       sep = "\t")
+fwrite(pres_bio, file.path(WGCNA_OUT, "preservation_biological.tsv"), sep = "\t")
+fwrite(concordance, file.path(WGCNA_OUT, "eigengene_concordance_age_aligned.tsv"), sep = "\t")
 saveRDS(net,     file.path(WGCNA_OUT, "consensus_wgcna.rds"))
 
 log_msg("Done. Outputs in ", WGCNA_OUT)

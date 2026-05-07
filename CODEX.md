@@ -7,8 +7,8 @@ This is a project atempting to isolate changes in and drivers of ancient ocean e
 
 ## Research Strategy
 1. **Data Preparation (`01_data_prep.R`)**: Filtered taxa (prevalence ≥ 10), CLR-transformed counts for WGCNA, and performed DESeq2 normalization (poscounts + reference-length) for metabolic modeling.
-2. **Consensus WGCNA (`02_wgcna.R`)**: Identified 6 stable prokaryote co-expression modules (Turquoise, Blue, Brown, Yellow, Green, Red) across three training cores (ST8, ST13, GeoB R1). Validated module preservation in GeoB R2.
-3. **HMM State Discovery (`03_hmm_states.R`)**: Identified 5 ecological states (K=5) by fitting a multi-sequence Hidden Markov Model to the first 3 PCs of residualized module eigengenes. States correspond to glacial (G-A) and interglacial (IG-A to IG-D) cycles.
+2. **Consensus WGCNA (`02_wgcna.R`)**: Identified 5 stable non-grey prokaryote co-expression modules (Turquoise, Blue, Brown, Yellow, Green) across three training cores (ST8, ST13, GeoB R1). Validated module preservation in GeoB R2.
+3. **HMM State Discovery (`03_hmm_states.R`)**: Uses a hybrid strategy for stable state discovery on damaged aDNA: train candidate HMMs on ST8/ST13/GeoB R1, score held-out GeoB R2 with fixed parameters, select K using train BIC + held-out likelihood/transition stability, then refit selected K on all cores for final labels.
 4. **Functional Modeling (`04_emp.R`, `05_tea_vs_emp.R`)**: Computed Encoded Metabolic Potential (EMP), Sugar/Acid Pathway (SAP) preference, and Terminal Electron Acceptor (TEA) indices. Correlated these functional metrics with δ¹⁸O climate signals.
 5. **Visualization (`06_figures.R`, `06b_bryantfigures.R`)**: Generated diagnostic and manuscript-quality figures comparing modules, HMM states, and functional indices against the LR04 climate stack.
 
@@ -46,6 +46,7 @@ To identify the central taxa driving the functional configuration of each HMM st
     - **Integration**: Generate a master driver table merging topological importance with taxonomic and functional annotations.
 
 ## Analysis Workflows
+- **HMM Hybrid Validation (current)**: Executed `scripts/03_hmm_states.R` in hybrid mode. Current run selected **K=4** (best held-out performance among BIC-ambiguous models): train-BIC best at K=5 (1185.36), held-out logLik/sample favored K=4 (-15.392 vs -15.477 at K=5), with high state confidence (mean max posterior = 0.990) and low switch rate (4.17 per 100 transitions).
 - **Taxon Importance (Fuzzy Forest)**: Executed `scripts/07b_taxon_importance_fuzzy.R`. Identified top taxonomic predictors for HMM states using recursive feature elimination across modules. Achieved 90% test accuracy.
 - **Network Topology & Centrality**: Executed `scripts/08_network_statistics.R`. Calculated Z-P roles, PageRank, Closeness, Betweenness, Bridging Centrality, and Nodal Efficiency (Vulnerability). Identified 50 keystone species and 4 "hidden gems".
 - **Driver Integration**: Executed `scripts/09_driver_integration.R`. Combined Fuzzy Forest importance with topological centrality. Identified 5 "Super-Drivers" (High Predictive Power AND High Topological Influence) predominantly in the Turquoise module. Linked drivers to EMP thermodynamic capacity and TEA redox preferences.

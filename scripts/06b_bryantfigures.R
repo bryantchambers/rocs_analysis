@@ -12,6 +12,20 @@ suppressPackageStartupMessages({
 
 source(here("config.R"))
 
+# Local fallbacks for environments where config.R does not define CLIMATE/PALETTES
+# or points to non-local paths.
+if (!exists("CLIMATE")) {
+  CLIMATE <- list(
+    mis_boundaries = NULL,
+    lr04_stack = here("old", "Lisiecki2005_copy.txt")
+  )
+}
+if (!exists("PALETTES")) {
+  PALETTES <- list(
+    mis_climate = c(glacial = "#6cd3f5", interglacial = "#fdb57ee8")
+  )
+}
+
 # Path to pre-computed original analysis outputs used for new-vs-old comparisons.
 # Update this if the original results are moved; it is intentionally not in
 # config.R because it is system-specific and read-only reference data.
@@ -57,8 +71,8 @@ new_tea   <- fread(file.path(RESULTS$tea, "tea_indices_per_sample.tsv"))
 tea_corr  <- fread(file.path(RESULTS$tea, "tea_vs_emp_correlations.tsv"))
 tea_clim  <- fread(file.path(RESULTS$tea, "tea_climate_models.tsv"))
 
-# Merge metadata into new MEs (temp_complete loaded for potential future use)
-new_trait <- merge(new_MEs, meta[, .(label, core, y_bp, mis, temp_complete)],
+# Merge metadata into new MEs
+new_trait <- merge(new_MEs, meta[, .(label, core, y_bp, mis)],
                    by.x = "sample", by.y = "label")
 new_trait[, age_kyr := y_bp / 1000]
 setnames(new_trait, "mis", "d18O")
@@ -105,13 +119,25 @@ p_me_vs_age <- ggplot(me_long, aes(x = y_bp, y = eigengene, colour = core)) +
 
 log_msg("Creating LR04 climate reference panel...")
 
-# Load MIS stage boundaries
-mis_bounds <- fread(CLIMATE$mis_boundaries)
-setnames(mis_bounds, c("stage", "start_kyr", "end_kyr", "climate"), 
-         c("MIS", "start", "end", "climate"))
+# Load MIS stage boundaries (fallback to built-in intervals if file unavailable)
+if (!is.null(CLIMATE$mis_boundaries) && file.exists(CLIMATE$mis_boundaries)) {
+  mis_bounds <- fread(CLIMATE$mis_boundaries)
+  setnames(mis_bounds, c("stage", "start_kyr", "end_kyr", "climate"),
+           c("MIS", "start", "end", "climate"))
+} else {
+  mis_bounds <- data.table(
+    MIS = c("MIS1", "MIS2", "MIS3", "MIS4", "MIS5", "MIS6"),
+    start = c(0.0, 11.7, 29.0, 57.0, 71.0, 130.0),
+    end = c(11.7, 29.0, 57.0, 71.0, 130.0, 150.0),
+    climate = c("interglacial", "glacial", "interglacial", "glacial", "interglacial", "glacial")
+  )
+}
 mis_bounds <- mis_bounds[end <= 150]
 
 # Load LR04 benthic stack
+if (!file.exists(CLIMATE$lr04_stack)) {
+  stop("LR04 stack not found: ", CLIMATE$lr04_stack)
+}
 lr04 <- fread(CLIMATE$lr04_stack)
 setnames(lr04, c("Time_ka", "Benthic_d18O", "Standard_error"), 
          c("age_kyr", "d18O", "se"))
@@ -206,7 +232,7 @@ log_msg(sprintf("  Abundance check: min=%.6f, max=%.6f (should be ~1.0)",
 # ── 5. Order samples by age and cores ────────────────────────────────────────
 
 module_abund <- module_abund[order(core, -y_bp)]
-module_abund[, sample_order := paste0(core, "_", sprintf("%05d", rank(-y_bp)), by = core)]
+module_abund[, sample_order := paste0(core, "_", sprintf("%05d", as.integer(rank(-y_bp)))), by = core]
 
 
 # Optional: bin by age for smoother visualization
@@ -400,4 +426,3 @@ log_msg("Exporting figures...")
 
 
 save_plots_to_results()
-

@@ -22,6 +22,7 @@ theme_ms <- theme_bw(base_size = 10) +
         plot.title = element_text(size = 10, face = "bold"))
 
 log_msg <- function(...) message(sprintf("[%s] %s", format(Sys.time(), "%H:%M:%S"), paste0(...)))
+safe_fread <- function(path) if (file.exists(path)) fread(path) else NULL
 
 # ── Load new results ───────────────────────────────────────────────────────────
 
@@ -37,8 +38,8 @@ new_tea   <- fread(file.path(RESULTS$tea, "tea_indices_per_sample.tsv"))
 tea_corr  <- fread(file.path(RESULTS$tea, "tea_vs_emp_correlations.tsv"))
 tea_clim  <- fread(file.path(RESULTS$tea, "tea_climate_models.tsv"))
 
-# Merge metadata into new MEs (temp_complete loaded for potential future use)
-new_trait <- merge(new_MEs, meta[, .(label, core, y_bp, mis, temp_complete)],
+# Merge metadata into new MEs
+new_trait <- merge(new_MEs, meta[, .(label, core, y_bp, mis)],
                    by.x = "sample", by.y = "label")
 new_trait[, age_kyr := y_bp / 1000]
 setnames(new_trait, "mis", "d18O")
@@ -46,23 +47,29 @@ setnames(new_trait, "mis", "d18O")
 # ── Load old results ───────────────────────────────────────────────────────────
 
 log_msg("Loading old results...")
-old_MEs  <- fread(file.path(OLD_WGCNA, "wgcna_prokaryotes", "module_eigengenes.tsv"))
-old_mods <- fread(file.path(OLD_WGCNA, "wgcna_prokaryotes", "module_assignments.tsv"))
-old_hmm  <- fread(file.path(OLD_WGCNA, "hmm_states", "hmm_states.tsv"))
-old_emp  <- fread(file.path(OLD_WGCNA, "emp_sap", "emp_sap_per_sample.tsv"))
+old_MEs  <- safe_fread(file.path(OLD_WGCNA, "wgcna_prokaryotes", "module_eigengenes.tsv"))
+old_mods <- safe_fread(file.path(OLD_WGCNA, "wgcna_prokaryotes", "module_assignments.tsv"))
+old_hmm  <- safe_fread(file.path(OLD_WGCNA, "hmm_states", "hmm_states.tsv"))
+old_emp  <- safe_fread(file.path(OLD_WGCNA, "emp_sap", "emp_sap_per_sample.tsv"))
+have_old <- !is.null(old_MEs) && !is.null(old_mods) && !is.null(old_hmm) && !is.null(old_emp)
 
-old_trait <- merge(old_MEs, meta[, .(label, core, y_bp, mis, temp_complete)],
-                   by.x = "sample", by.y = "label")
-old_trait[, age_kyr := y_bp / 1000]
-setnames(old_trait, "mis", "d18O")
+if (!have_old) {
+  log_msg("Old reference outputs are unavailable; generating new-only comparison figures.")
+  old_trait <- NULL
+} else {
+  old_trait <- merge(old_MEs, meta[, .(label, core, y_bp, mis)],
+                     by.x = "sample", by.y = "label")
+  old_trait[, age_kyr := y_bp / 1000]
+  setnames(old_trait, "mis", "d18O")
+}
 
 # ── Fig 1: Module composition comparison ─────────────────────────────────────
 
 log_msg("Fig 1: module sizes...")
 
 new_sz <- new_mods[, .(n = .N, run = "new"), by = module][module != "grey"]
-old_sz <- old_mods[, .(n = .N, run = "old"), by = module][module != "grey"]
-mod_sz <- rbind(new_sz, old_sz)
+old_sz <- if (have_old) old_mods[, .(n = .N, run = "old"), by = module][module != "grey"] else NULL
+mod_sz <- rbindlist(list(new_sz, old_sz), use.names = TRUE, fill = TRUE)
 
 p_mods <- ggplot(mod_sz, aes(x = reorder(module, -n), y = n, fill = run)) +
   geom_col(position = "dodge", width = 0.7) +
@@ -126,19 +133,26 @@ p_state_d18o <- ggplot(new_hmm, aes(x = label, y = d18O, fill = label)) +
 
 log_msg("Fig 5: EMP comparison...")
 
-emp_both <- merge(
-  new_emp[, .(sample, EMP_new = EMP_scaled)],
-  old_emp[, .(sample, EMP_old = EMP_scaled)],
-  by = "sample"
-)
-r_emp <- cor(emp_both$EMP_new, emp_both$EMP_old, use = "complete.obs")
-
-p_emp_comp <- ggplot(emp_both, aes(x = EMP_old, y = EMP_new)) +
-  geom_point(alpha = 0.6, size = 1.5) +
-  geom_smooth(method = "lm", colour = "steelblue") +
-  labs(title = sprintf("F. EMP: new vs old (r = %.3f)", r_emp),
-       x = "EMP old (scaled)", y = "EMP new (scaled)") +
-  theme_ms
+if (have_old) {
+  emp_both <- merge(
+    new_emp[, .(sample, EMP_new = EMP_scaled)],
+    old_emp[, .(sample, EMP_old = EMP_scaled)],
+    by = "sample"
+  )
+  r_emp <- cor(emp_both$EMP_new, emp_both$EMP_old, use = "complete.obs")
+  p_emp_comp <- ggplot(emp_both, aes(x = EMP_old, y = EMP_new)) +
+    geom_point(alpha = 0.6, size = 1.5) +
+    geom_smooth(method = "lm", colour = "steelblue") +
+    labs(title = sprintf("F. EMP: new vs old (r = %.3f)", r_emp),
+         x = "EMP old (scaled)", y = "EMP new (scaled)") +
+    theme_ms
+} else {
+  p_emp_comp <- ggplot() +
+    annotate("text", x = 0.5, y = 0.5, label = "Old EMP reference unavailable", size = 5) +
+    labs(title = "F. EMP comparison unavailable", x = NULL, y = NULL) +
+    theme_void() +
+    theme(plot.title = element_text(size = 10, face = "bold"))
+}
 
 # ── Fig 6: EMP and TEA vs d18O ────────────────────────────────────────────────
 
@@ -235,14 +249,21 @@ log_msg("Figures saved to ", FIGS)
 cat("\n=== RESULTS COMPARISON ===\n")
 cat(sprintf("%-30s %10s %10s\n", "Metric", "New", "Old"))
 cat(strrep("-", 52), "\n")
-cat(sprintf("%-30s %10d %10d\n", "Samples (stage1)",        nrow(new_MEs), nrow(old_MEs)))
-cat(sprintf("%-30s %10d %10d\n", "WGCNA taxa",              nrow(new_mods), nrow(old_mods)))
-cat(sprintf("%-30s %10d %10d\n", "Non-grey modules",        new_mods[module!="grey", uniqueN(module)], old_mods[module!="grey", uniqueN(module)]))
+old_n_me <- if (have_old) nrow(old_MEs) else NA_integer_
+old_n_mod <- if (have_old) nrow(old_mods) else NA_integer_
+old_non_grey <- if (have_old) old_mods[module!="grey", uniqueN(module)] else NA_integer_
+cat(sprintf("%-30s %10d %10s\n", "Samples (stage1)",        nrow(new_MEs), ifelse(is.na(old_n_me), "NA", old_n_me)))
+cat(sprintf("%-30s %10d %10s\n", "WGCNA taxa",              nrow(new_mods), ifelse(is.na(old_n_mod), "NA", old_n_mod)))
+cat(sprintf("%-30s %10d %10s\n", "Non-grey modules",        new_mods[module!="grey", uniqueN(module)], ifelse(is.na(old_non_grey), "NA", old_non_grey)))
 new_emp_summary <- fread(file.path(RESULTS$emp, "emp_sap_summary.tsv"))
 new_emp_r <- new_emp_summary[metric == "EMP", cor_d18O]
-old_emp_m <- merge(old_emp, meta[, .(label, d18O = mis)], by.x = "sample", by.y = "label")
-old_emp_r <- cor(old_emp_m$EMP, old_emp_m$d18O, use = "complete.obs")
-cat(sprintf("%-30s %10.3f %10.3f\n", "EMP ~ d18O (r)", new_emp_r, old_emp_r))
+if (have_old) {
+  old_emp_m <- merge(old_emp, meta[, .(label, d18O = mis)], by.x = "sample", by.y = "label")
+  old_emp_r <- cor(old_emp_m$EMP, old_emp_m$d18O, use = "complete.obs")
+  cat(sprintf("%-30s %10.3f %10.3f\n", "EMP ~ d18O (r)", new_emp_r, old_emp_r))
+} else {
+  cat(sprintf("%-30s %10.3f %10s\n", "EMP ~ d18O (r)", new_emp_r, "NA"))
+}
 cat(sprintf("%-30s %10s %10s\n", "Significant TEA (FDR<0.05)",
             paste(tea_clim[!is.na(fdr) & fdr < 0.05, index], collapse=","), "—"))
 cat("\n")

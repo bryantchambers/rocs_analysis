@@ -1,6 +1,6 @@
 # CODEX Summary
 
-Snapshot date: 2026-05-01
+Snapshot date: 2026-05-04
 
 ## What I Read
 
@@ -98,11 +98,11 @@ The biggest immediate issue is the HMM label logic. `results/hmm/state_fingerpri
 
 The project prose says there are 6 stable non-grey modules including red, but current `module_assignments.tsv` has 5 non-grey modules and no red module. This may be an expected newer run, but the docs and current outputs should be reconciled before making claims about module count.
 
-`DATA_SUMMARY.md` is partly stale relative to current outputs. It refers to `driver_category`, while current integration uses `driver_tier`. It also reports inconsistent Super-Driver counts compared with current `integrated_driver_summary.tsv`.
+`DATA_SUMMARY.md` was refreshed on 2026-05-04 from current outputs and should be treated as the current quick-reference memory for output shapes, driver tiers, module-count drift, and state-label warnings.
 
-`run_all.sh` only executes scripts 1 through 5. The current scientific story depends on scripts 7b through 16, but they are not part of the orchestrated pipeline.
+`run_all.sh` now orchestrates the numbered scripts through step 16, including the driver, state-network, functional-linkage, and final story visualization scripts. It accepts numeric starts like `7`, `07`, and `010`, plus suffix starts like `07b`.
 
-The local shell currently has no `R` or `Rscript` on `PATH`, and `run_all.sh` points to a hard-coded Rscript path that does not exist in this environment. Future execution needs the correct Singularity/Mamba/R runtime path before the pipeline can be rerun here.
+The local shell currently has no `R` or `Rscript` on `PATH`. `run_all.sh` now uses `${RSCRIPT:-Rscript}`, so future execution needs either `Rscript` on `PATH` or an explicit `RSCRIPT=/path/to/Rscript` / container invocation.
 
 `config_B.R` and `config_ant.R` include climate paths and palettes used by `06b_bryantfigures.R`, but current `config.R` does not include `CLIMATE` or `PALETTES`. As written, `06b_bryantfigures.R` is likely not reproducible with the active `config.R`.
 
@@ -117,7 +117,7 @@ Some methods need careful interpretation:
 
 1. Stabilize reproducibility first.
    - Fix the R runtime path or document the required container invocation.
-   - Expand `run_all.sh` to cover scripts 7b through 16 or create a second driver script for driver/network/narrative analysis.
+   - Use the expanded `run_all.sh` to cover scripts 01 through 16 once the runtime is available.
    - Ensure every analysis script writes logs under `logs/`.
 
 2. Fix and rerun HMM labeling before further interpretation.
@@ -152,7 +152,7 @@ Some methods need careful interpretation:
 ## Best Immediate Next Tasks
 
 1. Patch `03_hmm_states.R` state-label assignment so all five numeric states receive unique labels.
-2. Patch `scripts/inspect_data.R` to use current `driver_tier` fields and regenerate `DATA_SUMMARY.md`.
-3. Add scripts 7b through 16 to the orchestrator or create a reproducible `run_driver_analysis.sh`.
+2. Run `scripts/inspect_data.R` in the proper R runtime to regenerate `DATA_SUMMARY.md` from code rather than the manual shell refresh.
+3. Use the expanded `run_all.sh` as the main orchestrator once the correct `Rscript` path/container is available.
 4. Fix `config.R` or `06b_bryantfigures.R` so climate references and palettes are defined in the active config.
 5. Rerun downstream driver/network summaries after HMM labels are fixed.

@@ -16,9 +16,9 @@ graph TD
     B1[Data Prep: 01_data_prep.R]
     B1 --> |Filter: Prev >= 10| B2[CLR Transformation]
     B2 --> C1[WGCNA: 02_wgcna.R]
-    C1 --> |Consensus across 3 cores| C2[6 Consensus Modules]
+    C1 --> |Consensus across 3 cores| C2[5 Consensus Modules]
     C2 --> D1[HMM Discovery: 03_hmm_states.R]
-    D1 --> |K=5 States| D2[Glacial vs Interglacial States]
+    D1 --> |Hybrid train/holdout/refit| D2[Stable Ecological States]
     end
 
     %% Step 2: Driver Identification
@@ -44,8 +44,19 @@ graph TD
 | Phase | Step | Method | Key Parameters/Thresholds | Output |
 | :--- | :--- | :--- | :--- | :--- |
 | **Foundation** | Data Prep | CLR Transformation | Prevalence ≥ 10 samples | Normalized abundance matrix |
-| | Module Const. | Consensus WGCNA | Soft Power: 12; Min Module Size: 20 | 6 Stable Modules (Turquoise, Blue, etc.) |
-| | State Discovery | Multi-sequence HMM | K=5 (validated via BIC); PCs 1-3 | 5 Ecological States (e.g., G-A, IG-B) |
+| | Module Const. | Consensus WGCNA | Soft Power: 12; Min Module Size: 20 | 5 Stable Non-grey Modules (Turquoise, Blue, Brown, Yellow, Green) |
+| | State Discovery | Hybrid HMM (train/holdout/refit) | Train: ST8/ST13/GeoB R1; Holdout: GeoB25202_R2; Refit on all cores; PCs 1-3 | Current run: 4 Ecological States (G-A, IG-B, IG-C, IG-D) |
+
+## 3. HMM Hybrid Validation Metrics (Current Run)
+
+| Metric | Value |
+| :--- | :--- |
+| Train-BIC best K | 5 (BIC = 1185.36) |
+| Hybrid-selected K | 4 |
+| Held-out logLik/sample (K=4) | -15.392 |
+| Held-out logLik/sample (K=5) | -15.477 |
+| Held-out mean max posterior (K=4) | 0.990 |
+| Held-out switches per 100 transitions (K=4) | 4.17 |
 | **Discovery** | Stat. Importance | Fuzzy Forest | Recursive Feature Elimination; 90% Acc | Rank of predictive taxa per state |
 | | Topo. Influence | Centrality Analysis | TOM Sparse > 0.05; PageRank; Bridging | Z-P Roles (Hubs, Connectors, Peripherals) |
 | | Integration | Tiered Scoring | **Tier 1**: Top 10% Stat + Top 10% Topo | Integrated Driver Summary |
