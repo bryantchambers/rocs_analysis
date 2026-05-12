@@ -194,4 +194,110 @@ These were raised and should stay visible:
 - “How do Pearson/Spearman/RMSE differ and why use all?”
 - “How does age-grid alignment actually work?”
 - “Could consensus pressure across cores push taxa into grey?”
+- “Why did the full graph plots look like a random shotgun pattern?”
+- “Could the original top-5 full evaluation miss better settings with more than 5 modules?”
 
+---
+
+## 12) Network graph plotting lesson
+
+The original `full_graph_*.png` plots looked like random scatter because the graph included all `1797` taxa, but at the plotted top-edge threshold most nodes were isolates.
+
+Current diagnostics at the top 0.5% TOM edge threshold:
+
+- Baseline: 455 non-isolated nodes, 1342 isolates
+- opt5: 349 non-isolated nodes, 1448 isolates
+- Leiden: 349 non-isolated nodes, 1448 isolates
+
+Interpretation:
+- The layout algorithm spreads isolated nodes around the canvas.
+- Those isolated nodes visually swamp the real connected components.
+- The network is not necessarily wrong; the all-node visualization was misleading.
+
+Better plots:
+- remove isolates,
+- show largest component separately,
+- show non-grey non-isolates separately,
+- show module-level meta-graph.
+
+Generated corrected plots:
+- `networkQC/results/figures/layout_diagnostics/*_nonisolates_fr.png`
+- `networkQC/results/figures/layout_diagnostics/*_largest_component_fr.png`
+- `networkQC/results/figures/layout_diagnostics/*_module_meta_graph.png`
+
+---
+
+## 13) Top-N parameter sweep caveat
+
+The first full evaluation used the decision-matrix top 5. Those were all in the same parameter region:
+
+- `power=12`
+- `deepSplit=1`
+- `5` non-grey modules
+- grey fraction about `34%`
+
+This was reasonable if we strongly prefer a 5-module answer. But it may miss better solutions if we allow 6-10 modules.
+
+Promising excluded settings:
+
+- `power=12, deepSplit=2, mergeCutHeight=0.25, minModuleSize=30`: 6 modules, grey about `33.2%`
+- `power=12, deepSplit=2, mergeCutHeight=0.25, minModuleSize=20`: 7 modules, grey about `29.1%`
+- `power=12, deepSplit=3, mergeCutHeight=0.25, minModuleSize=20`: 8 modules, grey about `28.7%`
+- `power=12, deepSplit=3, mergeCutHeight=0.20, minModuleSize=20`: 9 modules, grey about `28.7%`
+
+Next best check:
+- run a second full evaluation on a diverse candidate shortlist, not just the top 5 under the 5-module prior.
+
+---
+
+## 14) TOM edge threshold: plotting versus module construction
+
+The `top 0.5% TOM edge threshold` is a graph-plotting choice, not a WGCNA
+module-construction parameter.
+
+Where it appears:
+- `networkQC/scripts/08_graph_layout_diagnostics.R` computes adjacency, then TOM,
+  then keeps only edges above the 99.5th percentile of TOM values for plotting.
+
+Where module construction happens:
+- `scripts/02_wgcna.R` and `networkQC/scripts/02_wgcna_parameter_sweep.R` use
+  `blockwiseConsensusModules(...)`.
+- That function uses the full weighted network structure to build modules. It is
+  not limited to the top 0.5% plotted TOM edges.
+
+Important distinction:
+- `power` changes the adjacency matrix by raising correlations to a soft-threshold
+  power.
+- WGCNA converts adjacency into TOM, which measures shared-neighborhood similarity.
+- WGCNA clusters taxa using TOM-based dissimilarity, usually `1 - TOM`.
+- `deepSplit` controls how aggressively the dendrogram is cut into modules.
+- `minModuleSize` prevents tiny modules.
+- `mergeCutHeight` merges modules with similar eigengenes after the initial tree cut.
+
+So:
+- The optimized WGCNA parameters affect module identities.
+- The top-edge TOM threshold affects how much of the network we can see clearly in
+  a static plot.
+
+Cheat-sheet definitions:
+- Correlation matrix: pairwise similarity between two taxa across samples/time.
+- Adjacency matrix: softened network strength after applying the WGCNA power. In
+  a signed network, strong positive correlations become strong edges; weak or
+  negative relationships become weak edges.
+- TOM, or topological overlap matrix: neighborhood-aware similarity. Two taxa have
+  high TOM if they are directly connected and/or connected to many of the same
+  other taxa.
+
+Why plots need filtering:
+- With about `1797` taxa, a full weighted graph has more than 1.6 million possible
+  pairwise edges.
+- Plotting all edges is unreadable.
+- Keeping the strongest TOM edges makes the graph visible, but it is a diagnostic
+  simplification of the fitted network, not the network used to call modules.
+
+How to interpret graph plots:
+- Use them to ask whether strong edges mostly stay within modules.
+- Use them to spot isolates, bridges, and strange module mixing.
+- Do not judge module validity from one edge threshold alone.
+- Compare several TOM thresholds, non-isolate plots, largest-component plots, and
+  module-level meta-graphs.
