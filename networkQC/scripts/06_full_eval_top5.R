@@ -51,11 +51,19 @@ n_boot <- as.integer(arg_val("n_boot", as.character(PARAMS$wgcna_stability_boots
 n_perm <- as.integer(arg_val("n_perm", as.character(PARAMS$wgcna_preservation_permutations_final)))
 top_n <- as.integer(arg_val("top_n", "5"))
 edge_quantile <- as.numeric(arg_val("edge_q", "0.995"))
+force_run <- as.integer(arg_val("force", "0")) == 1L
+include_expansion <- as.integer(arg_val("include_expansion", "1")) == 1L
 
-log_msg(sprintf("full_eval settings: n_boot=%d, n_perm=%d, top_n=%d", n_boot, n_perm, top_n))
+log_msg(sprintf(
+  "full_eval settings: n_boot=%d, n_perm=%d, top_n=%d, force=%s, include_expansion=%s",
+  n_boot, n_perm, top_n, force_run, include_expansion
+))
 if (file.exists(log_file)) file.remove(log_file)
 if (file.exists(progress_tsv)) file.remove(progress_tsv)
-log_append(sprintf("full_eval settings: n_boot=%d, n_perm=%d, top_n=%d", n_boot, n_perm, top_n))
+log_append(sprintf(
+  "full_eval settings: n_boot=%d, n_perm=%d, top_n=%d, force=%s, include_expansion=%s",
+  n_boot, n_perm, top_n, force_run, include_expansion
+))
 
 # Archive sweep artifacts in dedicated folder
 for (f in c("qc_parameter_sweep_summary.tsv", "qc_parameter_sweep_recommended.tsv", "qc_decision_matrix.tsv", "qc_decision_top3.tsv")) {
@@ -86,7 +94,40 @@ baseline <- data.table(
   minModuleSize = PARAMS$wgcna_min_module_size,
   setting_id = "baseline"
 )
+
 settings <- rbindlist(list(baseline, selected), fill = TRUE, use.names = TRUE)
+
+if (include_expansion) {
+  expansion_path <- file.path(OUT_TABLE, "qc_candidate_expansion_shortlist.tsv")
+  if (!file.exists(expansion_path)) {
+    log_append(sprintf("Expansion candidate file not found: %s", expansion_path))
+  } else {
+    expansion <- unique(fread(expansion_path)[, .(power, deepSplit, mergeCutHeight, minModuleSize)])
+    expansion[, `:=`(
+      power = as.integer(power),
+      deepSplit = as.integer(deepSplit),
+      mergeCutHeight = as.numeric(mergeCutHeight),
+      minModuleSize = as.integer(minModuleSize)
+    )]
+    key_cols <- c("power", "deepSplit", "mergeCutHeight", "minModuleSize")
+    expansion[, param_key := do.call(paste, c(.SD, sep = "|")), .SDcols = key_cols]
+    settings[, param_key := do.call(paste, c(.SD, sep = "|")), .SDcols = key_cols]
+    expansion <- expansion[!param_key %in% settings$param_key]
+    expansion[, param_key := NULL]
+    if (nrow(expansion) > 0) {
+      expansion[, setting_id := paste0("exp", .I)]
+      settings[, param_key := NULL]
+      settings <- rbindlist(list(settings, expansion), fill = TRUE, use.names = TRUE)
+      log_append(sprintf("Added %d expansion candidate settings", nrow(expansion)))
+    } else {
+      settings[, param_key := NULL]
+      log_append("No new expansion candidate settings after de-duplication")
+    }
+  }
+}
+
+fwrite(settings, file.path(OUT_FULL, "settings_to_evaluate.tsv"), sep = "\t")
+log_append(sprintf("Settings queued: %s", paste(settings$setting_id, collapse = ", ")))
 
 jaccard <- function(a, b) {
   inter <- length(intersect(a, b))
@@ -162,6 +203,58 @@ plot_network <- function(module_assign, power, setting_label, out_png) {
        vertex.color = colv, main = paste0("Network Graph - ", setting_label))
   legend("topleft", legend = lev, col = pal, pch = 16, pt.cex = 1, bty = "n", cex = 0.8)
   dev.off()
+}
+
+params_match <- function(summary_row, par) {
+  if (nrow(summary_row) != 1) return(FALSE)
+  identical(as.integer(summary_row$power), as.integer(par$power)) &&
+    identical(as.integer(summary_row$deepSplit), as.integer(par$deepSplit)) &&
+    isTRUE(all.equal(as.numeric(summary_row$mergeCutHeight), as.numeric(par$mergeCutHeight), tolerance = 1e-8)) &&
+    identical(as.integer(summary_row$minModuleSize), as.integer(par$minModuleSize))
+}
+
+reuse_setting <- function(par) {
+  sid <- par$setting_id
+  sdir <- file.path(OUT_FULL, sid)
+  summary_path <- file.path(sdir, "setting_summary.tsv")
+  if (force_run || !file.exists(summary_path)) return(NULL)
+
+  required <- file.path(sdir, c(
+    "module_assignments.tsv",
+    "module_eigengenes.tsv",
+    "preservation.tsv",
+    "preservation_biological.tsv",
+    "eigengene_concordance_age_aligned.tsv",
+    "bootstrap_module_stability.tsv",
+    "bootstrap_module_stability_summary.tsv",
+    "core_balance_module_jaccard.tsv",
+    "core_balance_summary.tsv",
+    "setting_summary.tsv"
+  ))
+  missing <- required[!file.exists(required)]
+  if (length(missing) > 0) {
+    log_append(sprintf("Cannot reuse %s; missing %d expected files", sid, length(missing)))
+    return(NULL)
+  }
+
+  summary_row <- tryCatch(fread(summary_path), error = function(e) NULL)
+  if (is.null(summary_row) || !params_match(summary_row, par)) {
+    log_append(sprintf("Cannot reuse %s; existing summary parameters do not match queued setting", sid))
+    return(NULL)
+  }
+
+  log_append(sprintf("Reusing completed %s", sid))
+  progress_update(sid, "reuse", "ok", "existing setting_summary.tsv")
+
+  graph_path <- file.path(OUT_FIG, paste0("full_graph_", sid, ".png"))
+  if (!file.exists(graph_path)) {
+    progress_update(sid, "plot_network", "start", "recreate missing graph from reused assignments")
+    mods <- fread(file.path(sdir, "module_assignments.tsv"))
+    plot_network(mods, par$power, sid, graph_path)
+    progress_update(sid, "plot_network", "ok", "recreated missing graph from reused assignments")
+  }
+
+  summary_row
 }
 
 evaluate_setting <- function(par) {
@@ -327,7 +420,10 @@ for (i in seq_len(nrow(settings))) {
   par <- settings[i]
   sid <- par$setting_id
   res_list[[i]] <- tryCatch(
-    evaluate_setting(par),
+    {
+      reused <- reuse_setting(par)
+      if (!is.null(reused)) reused else evaluate_setting(par)
+    },
     error = function(e) {
       msg <- paste("ERROR:", conditionMessage(e))
       log_append(sprintf("Setting %s failed: %s", sid, msg))

@@ -56,6 +56,364 @@ To identify the central taxa driving the functional configuration of each HMM st
 - **Network Optimization**: For large microbial networks (~1800 nodes), calculating global efficiency and vulnerability is computationally intensive. Sparsifying the Topological Overlap Matrix (TOM > 0.05) preserves core topology while drastically improving runtime (from >5 mins to <2 mins).
 - **Metric Distance vs. Strength**: Path-based centrality metrics (Closeness, Betweenness) require distances ($1-TOM$), while PageRank and Hub degree require strengths ($TOM$). Ensuring the correct weight mapping is critical for topological accuracy.
 
+## NetworkQC Summary: How We Chose the Current WGCNA Network
+
+### Final NetworkQC Decision
+
+Current best WGCNA parameter set:
+
+- **Setting ID:** `exp3`
+- **Soft power:** `12`
+- **deepSplit:** `3`
+- **mergeCutHeight:** `0.25`
+- **minModuleSize:** `20`
+- **Non-grey modules:** `8`
+- **Grey fraction:** `28.66%`
+
+Practical interpretation: `exp3` is the best available consensus WGCNA network under the current input strategy. It is not perfect, because sequencing-depth / preservation structure is still visible in the data, but it is the best-balanced setting across grey burden, stability, preservation, eigengene concordance, kME membership, and TOM topology.
+
+Important implementation note: the main pipeline has not fully been switched to `exp3` until `config.R`, `scripts/02_wgcna.R`, and `scripts/02b_wgcna_stability.R` are updated to respect `PARAMS$wgcna_soft_power = 12` rather than reselecting soft power automatically.
+
+### Why NetworkQC Was Needed
+
+The original WGCNA network produced a biologically interpretable 5-module solution, but it had a very large grey module and limited direct evidence that module assignments were stable under resampling, core imbalance, or alternative parameter choices.
+
+The scientific goal was to build the most stable biological association network possible from damaged ancient DNA. That required balancing several competing needs:
+
+- Keep grey burden low enough that biological signal is not thrown away.
+- Avoid over-splitting into many tiny unstable modules.
+- Preserve module structure in the held-out validation core `GeoB25202_R2`.
+- Recover similar module trajectories across age-aligned cores.
+- Confirm that taxa assigned to modules actually move with their module eigengenes.
+- Confirm that modules have stronger internal TOM topology than external topology.
+- Track depth / sequencing artifacts honestly rather than assuming normalization solved them.
+
+### Main Script and Workflow Changes
+
+The WGCNA workflow was expanded from a single module-building step into a multi-layer QC system.
+
+Main pipeline-facing changes:
+
+- `scripts/02_wgcna.R` now supports build/final modes for preservation permutation depth and writes age-aligned R1/R2 eigengene concordance.
+- `scripts/02b_wgcna_stability.R` was added as a separate stability diagnostic script using repeated consensus reruns / bootstrap-style checks.
+- `run_all.sh` includes `02b` after `02`, so WGCNA construction and WGCNA stability review are both part of the main pipeline order.
+- `config.R` includes build vs final runtime controls for preservation permutations and stability bootstraps.
+
+Isolated NetworkQC additions:
+
+- `networkQC/` was created to keep parameter searches, Leiden comparisons, topology plots, and input sensitivity tests out of the main pipeline.
+- `networkQC/scripts/02_wgcna_parameter_sweep.R` explored WGCNA parameter combinations.
+- `networkQC/scripts/06_full_eval_top5.R` ran full bootstrap/preservation/core-balance evaluation on the best and expanded candidate settings.
+- `networkQC/scripts/09_full_eval_heatmaps.R` generated setting-level and module-level heatmaps.
+- `networkQC/input_evaluation/` rebuilt input variants and compared preprocessing choices.
+- `networkQC/scripts/10_kme_topology_review.R` added kME/module membership and TOM topology evaluation.
+
+### Input and Preprocessing Findings
+
+The biggest caution found during review was in `scripts/01_data_prep.R`.
+
+The matrix described as CLR is actually taxon-centered log counts:
+
+```r
+clr_mat <- log(count_mat + 0.5)
+clr_mat <- clr_mat - rowMeans(clr_mat)
+```
+
+Because `count_mat` is taxa x samples, this centers each taxon across samples. In plain language, each taxon is compared to its own average across time. This is useful for expression-style correlation, but it is not a true sample-wise CLR, where each sample is centered against all taxa inside that sample.
+
+Consequence: sample-wide sequencing depth / preservation structure can still influence WGCNA correlations. The current WGCNA input had PC1 strongly correlated with log total reads, about `r = -0.894`.
+
+Input variants tested in `networkQC/input_evaluation`:
+
+- `current_taxon_centered_log`: current main-pipeline input and continuity anchor.
+- `deseq_length_log`: DESeq2 poscounts + reference-length normalized log counts, taxon-centered.
+- `sample_clr_raw`: true sample-wise CLR on raw filtered counts.
+- `log_depth_residualized`: current log matrix after removing linear log-depth signal per taxon; strict technical-control sensitivity only.
+
+Input decision for `exp3`:
+
+|input|role|mean overlap|grey %|PC1-depth|mean aligned ME correlation|interpretation|
+|---|---|---:|---:|---:|---:|---|
+|current exp3|current anchor|1.000|28.66|0.894|1.000|best continuity and biological coherence, but depth remains visible|
+|DESeq + length log|candidate fallback|0.633|37.62|0.877|0.897|closest non-current alternative, still depth-correlated|
+|sample CLR raw|compositional stress test|0.425|24.93|0.769|0.607|changes module geometry substantially|
+|depth residualized|technical control|0.488|40.46|0.000|0.588|removes depth but strongly alters modules; not a production default|
+
+Conclusion: changing inputs did not cleanly solve the depth issue. Depth-related structure appears to be embedded in the data across reasonable transforms. We therefore carried this forward as a caveat and continued evaluating WGCNA parameter quality under the current input strategy.
+
+ALR was also checked quickly after reviewing a 2026 compositional-bias preprint. Single-reference ALR collapsed the network, and panel-reference ALR shifted depth structure to another PC and changed module assignments substantially. ALR was not adopted as the main WGCNA input.
+
+### Parameter Sweep and Grey-Burden Review
+
+The original baseline had a high grey burden:
+
+- **baseline:** power `20`, deepSplit `2`, mergeCutHeight `0.15`, minModuleSize `20`
+- **grey fraction:** `66.56%`
+- **non-grey modules:** `5`
+
+The NetworkQC sweep explored alternatives that lowered grey burden while preserving stable module formation. The goal was not simply "more modules" or "less grey"; the goal was a balanced network where additional non-grey taxa formed coherent, stable, biologically useful modules.
+
+Expanded candidates included `opt*` settings from the first optimization pass and `exp*` settings that relaxed the prior expectation of exactly 5 non-grey modules.
+
+Full-eval top settings:
+
+|rank|setting|power|deepSplit|mergeCutHeight|minModuleSize|grey %|non-grey modules|key interpretation|
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+|1|`exp3`|12|3|0.25|20|28.66|8|best overall balance|
+|2|`exp4`|12|3|0.20|20|28.66|9|runner-up; slightly stronger preservation count but weaker stability/topology|
+|3|`opt5`|12|1|0.20|20|34.06|5|best conservative 5-module-style fallback|
+|10|`baseline`|20|2|0.15|20|66.56|5|not competitive because too much signal remains grey|
+
+### Stability, Preservation, and Correlation Metrics
+
+The full evaluation did not rely on one metric. It combined several independent questions.
+
+Bootstrap Jaccard:
+
+- Tests whether the same taxa tend to stay together when samples are resampled.
+- Higher values mean module membership is more reproducible.
+- `exp3` had the best mean bootstrap Jaccard among the main candidates: `0.400`.
+
+Core-balance Jaccard:
+
+- Tests whether module construction is dominated by the larger / denser cores.
+- Uses balanced core sampling to see whether modules remain similar.
+- `exp3` had the best mean balanced Jaccard among the main candidates: `0.517`.
+
+Preservation in held-out `GeoB25202_R2`:
+
+- Uses WGCNA module preservation statistics.
+- `Zsummary > 10` is strong evidence, `2-10` is moderate evidence, `<2` is weak evidence.
+- `exp3`: `6` strongly preserved biological modules and `2` moderately preserved biological modules.
+- `exp4`: `7` strong and `2` moderate, but weaker bootstrap/core-balance behavior.
+- `opt5`: `5` strong, no moderate.
+- `baseline`: `4` strong and `1` moderate, with very high grey burden.
+
+Age-aligned eigengene concordance:
+
+- Aligns `GeoB25202_R1` and `GeoB25202_R2` module eigengenes on a common age grid before computing agreement.
+- Pearson checks linear agreement.
+- Spearman checks rank/shape agreement.
+- RMSE checks absolute trajectory distance.
+- `exp3` showed strong concordance: mean Pearson `0.857`, Spearman `0.740`, RMSE `0.089`.
+
+Size and grey-burden review:
+
+- Grey burden measures how many taxa are unassigned to biological modules.
+- Module count and size balance check whether low grey is being achieved by over-fragmenting the network.
+- `exp3` lowered grey from baseline `66.56%` to `28.66%` while preserving stable biological modules.
+
+### Graph Layout and TOM Plot Diagnostics
+
+Early full-network plots looked like a "shotgun blast" and raised concern that the graph might have no meaningful topology.
+
+NetworkQC diagnosed this as mostly a plotting artifact:
+
+- The plotted graph used only the top `0.5%` of TOM edges.
+- Many taxa were isolates at that sparse threshold.
+- Showing all isolates made the layout look structureless.
+
+Important distinction:
+
+- WGCNA module construction uses the full weighted TOM / dendrogram structure.
+- Graph visualization requires thresholding TOM edges for plotting.
+- A plotting threshold does not determine module construction unless explicitly used as an input to clustering.
+
+We therefore added topology summaries instead of relying on visual appearance alone.
+
+### kME / Module Membership Review
+
+kME asks whether taxa assigned to a module actually move with that module's eigengene.
+
+For each taxon:
+
+```text
+kME = cor(taxon abundance profile, module eigengene)
+```
+
+Useful kME metrics:
+
+- Median assigned kME: typical module-membership strength.
+- p05 assigned kME: weak-member lower tail.
+- Fraction assigned kME `< 0.2`: weakly attached taxa.
+- Fraction negative assigned kME: taxa moving opposite their module.
+- Assigned-is-max fraction: assigned module is also the taxon's strongest module.
+- kME margin: assigned kME minus next-best kME.
+- Grey-rescuable fraction: grey taxa with decent kME to a biological module.
+
+kME results:
+
+|setting|bio median kME|bio p05 kME|assigned-is-max|grey-rescuable fraction|interpretation|
+|---|---:|---:|---:|---:|---|
+|`exp3`|0.703|0.383|0.830|0.181|strong membership and low grey-rescuable burden|
+|`exp4`|0.710|0.391|0.792|0.181|slightly higher median kME but more ambiguous assignment|
+|`opt5`|0.689|0.384|0.838|0.160|good conservative fallback|
+|`baseline`|0.783|0.602|0.897|0.379|biological modules look clean, but many useful taxa are trapped in grey|
+
+Conclusion: `exp3` is not simply over-splitting noise. Its taxa track their assigned modules well, weak/negative membership is not a problem, and it avoids baseline's large grey-rescuable pool.
+
+### TOM Topology Review
+
+TOM asks whether two taxa share network neighbors. It is the WGCNA topology used for module discovery.
+
+Topology QC asked whether taxa inside the same biological module are more connected than taxa in different modules.
+
+Key topology metrics:
+
+- Within-module TOM median.
+- Between-module TOM median.
+- TOM separation ratio: within / between.
+- TOM silhouette-like separation.
+- Fraction of top TOM edges that stay within modules at thresholds such as top `0.5%`.
+- Modularity of the thresholded graph.
+- Largest component and isolate fraction, to avoid over-interpreting sparse plots.
+
+Topology results:
+
+|setting|within TOM median|between TOM median|TOM separation|within-edge fraction top 0.5%|interpretation|
+|---|---:|---:|---:|---:|---|
+|`exp3`|0.0433|0.0123|3.53|0.995|best optimized topology|
+|`exp4`|0.0408|0.0134|3.04|0.736|good but weaker than exp3|
+|`opt5`|0.0341|0.0137|2.49|0.736|acceptable conservative fallback|
+|`baseline`|0.0331|0.0007|48.01|0.761|inflated separation because many taxa are grey/isolate-like|
+
+Conclusion: `exp3` has the strongest topology among realistic optimized settings. Baseline's high separation ratio is not sufficient evidence for quality because the setting excludes too many taxa into grey.
+
+### Integrated Final Ranking
+
+The final NetworkQC ranking combined:
+
+- Existing full-eval score: `55%`
+- kME/module-membership score: `25%`
+- topology score: `20%`
+
+Integrated ranking:
+
+|rank|setting|full eval|kME|topology|integrated|flags|
+|---:|---|---:|---:|---:|---:|---:|
+|1|`exp3`|0.926|0.476|0.418|0.753|0|
+|2|`exp4`|0.868|0.309|0.034|0.588|0|
+|3|`opt5`|0.546|0.408|0.000|0.353|0|
+|4|`baseline`|0.227|0.714|0.703|0.319|1|
+
+Final conclusion: keep `exp3`.
+
+Why `exp3` wins:
+
+- Much lower grey burden than baseline.
+- More biological modules than the conservative 5-module settings without failing kME checks.
+- Best full-eval score.
+- Best bootstrap/core-balance behavior among main candidates.
+- Strong biological preservation.
+- Strong age-aligned eigengene concordance.
+- No kME review flags.
+- Strongest realistic TOM topology among optimized settings.
+
+Why `exp4` does not win:
+
+- It has one more strongly preserved biological module and slightly higher median kME.
+- But it has weaker bootstrap/core-balance stability and weaker topology.
+- It is a credible runner-up, not the best overall choice.
+
+Why `opt5` does not win:
+
+- It is a reasonable conservative fallback.
+- But it keeps fewer modules, has higher grey burden, and lower eigengene concordance than `exp3`.
+
+Why baseline does not win:
+
+- Its biological modules have high kME, but it puts `66.56%` of taxa into grey.
+- Many grey taxa look potentially rescuable.
+- Its apparent topology separation is partly a consequence of excluding many taxa rather than a better biological network.
+
+### Current Caveats and Next Actions
+
+Standing caveat:
+
+- Sequencing-depth / preservation structure remains visible across inputs.
+- This is likely a property of the damaged ancient DNA dataset, not something solved by one normalization swap.
+- Downstream biology should be interpreted with this caveat in mind.
+
+Next implementation needed before rerunning the main pipeline as `exp3`:
+
+- Set `PARAMS$wgcna_soft_power = 12`.
+- Set `PARAMS$wgcna_deep_split = 3`.
+- Set `PARAMS$wgcna_merge_cut_height = 0.25`.
+- Keep `PARAMS$wgcna_min_module_size = 20`.
+- Update `scripts/02_wgcna.R` and `scripts/02b_wgcna_stability.R` so configured `wgcna_soft_power` overrides automatic soft-power selection when non-NULL.
+
+After that, rerun from WGCNA onward:
+
+```bash
+bash run_all.sh --start 02 --mode final
+```
+
+For a faster smoke test:
+
+```bash
+bash run_all.sh --start 02 --mode build
+```
+
+### NetworkQC Workflow Diagram
+
+```mermaid
+flowchart TD
+    A[Start: original WGCNA pipeline] --> B[Inspect 01_data_prep.R and 02_wgcna.R]
+    B --> C{Input transform issue?}
+    C -->|Found taxon-centered log, not sample-wise CLR| D[Create isolated networkQC/input_evaluation lane]
+    D --> E[Test input variants: current, DESeq+length, sample CLR, depth residualized]
+    E --> F[Input decision report]
+    F --> G{Did alternate input solve depth artifact?}
+    G -->|No, depth persists across inputs| H[Carry depth as caveat]
+    G -->|Potential fallback| I[Mark DESeq+length as first fallback]
+    H --> J[Keep current input for parameter QC]
+    I --> J
+
+    J --> K[Baseline WGCNA reference: power 20, deepSplit 2, merge 0.15]
+    K --> L[Parameter sweep across power, deepSplit, mergeCutHeight, minModuleSize]
+    L --> M[Initial decision matrix: grey burden, module count, size balance]
+    M --> N[Full eval shortlist: baseline, opt/exp candidates]
+
+    N --> O[Bootstrap module stability: best-match Jaccard]
+    N --> P[Held-out preservation in GeoB25202_R2: Zsummary, Zdensity, Zconnectivity]
+    N --> Q[Age-aligned R1/R2 eigengene concordance: Pearson, Spearman, RMSE]
+    N --> R[Core-balance sensitivity: balanced downsampling Jaccard]
+    O --> S[Full-eval ranking]
+    P --> S
+    Q --> S
+    R --> S
+
+    S --> T{Top candidates}
+    T --> U[exp3: best full-eval score]
+    T --> V[exp4: runner-up, stronger preservation count]
+    T --> W[opt5: conservative 5-module fallback]
+    T --> X[baseline: original reference]
+
+    U --> Y[kME/module membership QC]
+    V --> Y
+    W --> Y
+    X --> Y
+    Y --> Z[Check assigned kME, weak/negative kME, assigned-is-max, kME margin, grey-rescuable taxa]
+
+    U --> AA[TOM topology QC]
+    V --> AA
+    W --> AA
+    X --> AA
+    AA --> AB[Check within vs between TOM, top-edge within fraction, modularity, isolate fraction]
+
+    Z --> AC[Integrated final score]
+    AB --> AC
+    S --> AC
+    AC --> AD{Final NetworkQC decision}
+    AD -->|Best balance, no review flags| AE[Choose exp3]
+    AD -->|If exp3 failed topology or membership| AF[Consider exp4]
+    AD -->|If expanded settings over-fragment| AG[Fallback opt5]
+    AD -->|Only if all optimized settings fail| AH[Return to baseline]
+
+    AE --> AI[Main pipeline update needed: config + soft-power override]
+    AI --> AJ[Run: bash run_all.sh --start 02 --mode final]
+```
+
 ## Environment & Architecture
 - **Sandbox Context:** The scripts run inside a Singularity container.
 - **Working Directory:** All work happens in `/src`.
