@@ -1,0 +1,496 @@
+---
+title: "Input and Network QC for Ancient Metagenomic WGCNA"
+subtitle: "A grounded walkthrough using current repository outputs"
+author: "Project practical"
+date: "2026-05-19"
+format:
+  revealjs:
+    theme: simple
+    css: styles.css
+    width: 1280
+    height: 720
+    margin: 0.06
+    slide-number: c/t
+    transition: none
+    controls: true
+    progress: true
+    self-contained: false
+execute:
+  echo: false
+---
+
+## Scientific Question
+
+Can we build a stable, biologically interpretable microbial network from damaged ancient DNA?
+
+Key practical challenge:
+
+::: {.callout}
+The strongest input PC is associated with detected taxa and read depth. We need to separate technical/preservation structure from biological structure before trusting downstream WGCNA modules and HMM states.
+:::
+
+## Repository Map
+
+```{mermaid}
+flowchart LR
+  A[data + scripts/01_data_prep.R] --> B[scripts/02_wgcna.R]
+  B --> C[scripts/02b_wgcna_stability.R]
+  C --> D[scripts/03_hmm_states.R]
+  A --> E[InputQC/]
+  B --> F[networkQC/]
+  E --> G[Input transforms, rarefaction, ST8 low-taxa review]
+  F --> H[Parameter sweep, full eval, kME, topology]
+  H --> I[Recommended WGCNA setting: exp3]
+```
+
+::: {.caption}
+The main pipeline remains separate from contained QC analyses. InputQC and networkQC are decision-support folders.
+:::
+
+## What Each QC Area Answers
+
+| Area | Main question | Current outcome |
+|---|---|---|
+| `InputQC/` | Is input structure dominated by depth/taxa detection? | PC1 strongly tracks detected taxa/read depth |
+| `networkQC/` | Which WGCNA parameters produce stable modules? | `exp3` is the best balanced setting |
+| `scripts/02b_wgcna_stability.R` | Do modules recur under resampling? | Bootstrap Jaccard and preservation summarize confidence |
+| `scripts/03_hmm_states.R` | How many ecological states are supported? | Hybrid K selection favors stable held-out states |
+
+## Run Order: Practical View
+
+1. `scripts/01_data_prep.R`: build count-derived inputs and metadata.
+2. `scripts/02_wgcna.R`: consensus modules across ST8, ST13, GeoB R1; hold out GeoB R2.
+3. `scripts/02b_wgcna_stability.R`: bootstrap module assignment stability.
+4. `networkQC/`: sweep and evaluate WGCNA hyperparameters.
+5. `InputQC/`: stress-test input artifacts and low-detection samples.
+6. `scripts/03_hmm_states.R`: HMM state discovery from module eigengenes.
+
+## Main InputQC Finding
+
+From `InputQC/INPUT_QC_DIAGNOSTIC_REPORT.md`:
+
+| Variant / PC | Covariate | Pearson r | Spearman rho |
+|---|---|---:|---:|
+| current PC1 | detected taxa | -0.987 | -0.980 |
+| current PC1 | log total reads | -0.894 | -0.906 |
+| current PC1 | Shannon raw | -0.776 | -0.774 |
+| sample CLR PC1 | detected taxa | 0.844 | 0.815 |
+
+::: {.warn}
+Changing the transform alone did not remove the detection/depth axis. CLR normalizes observed composition; it cannot recover taxa that were never observed.
+:::
+
+## Input Ordination: Depth Axis
+
+::: {.columns}
+::: {.column width="58%"}
+![](../InputQC/results/figures/ordination_current_by_depth.png)
+:::
+::: {.column width="42%"}
+What to notice:
+
+- Low-read samples cluster together.
+- PC1 is almost a detected-taxa axis.
+- This is diagnostic, not an exclusion rule.
+- Filtering by PC position would risk circular reasoning.
+:::
+:::
+
+## Low-Detection Structure
+
+From `InputQC/LOW_DETECTION_STRUCTURE_REPORT.md`:
+
+| Group | n |
+|---|---:|
+| ST8 | 27 |
+| ST13 | 4 |
+| GeoB25202_R1 | 4 |
+| GeoB25202_R2 | 2 |
+
+Primary rule: `total_reads < 100000 OR detected_taxa < 250`.
+
+::: {.callout}
+The low-detection group spans 4.75-133.78 kyr. It is ST8-enriched but not ST8-exclusive, so it may mix technical weakness, preservation, and real paleoenvironmental signal.
+:::
+
+## Reads, Taxa, and Shannon Through Time
+
+::: {.columns}
+::: {.column width="50%"}
+![](../InputQC/results/figures/reads_by_age_core.png)
+:::
+::: {.column width="50%"}
+![](../InputQC/results/figures/shannon_by_age_core.png)
+:::
+:::
+
+::: {.caption}
+The same ST8 intervals that have low reads also tend to have low diversity.
+:::
+
+## Rarefaction / Depth QC
+
+From `InputQC/rarefaction_depth_qc/RAREFACTION_DEPTH_QC_REPORT.md`:
+
+| QC class | n | pct | median reads | median observed taxa |
+|---|---:|---:|---:|---:|
+| adequate depth | 177 | 82.7 | 511586 | 541 |
+| low diversity but saturated | 34 | 15.9 | 41495 | 108.5 |
+| insufficient for call | 3 | 1.4 | 6403 | 20 |
+
+::: {.ok}
+Most low-read / low-taxa samples do not look like classic still-rising rarefaction failures in the processed matrix.
+:::
+
+## Rarefaction Caveat
+
+::: {.columns}
+::: {.column width="56%"}
+![](../InputQC/rarefaction_depth_qc/results/figures/depth_richness_qc_classes.png)
+:::
+::: {.column width="44%"}
+Important warning:
+
+- `phyloseq`/`vegan` reported no singletons.
+- Chao1 is weak when singleton information is absent.
+- We therefore interpret rarefaction slope and observed richness more than Chao1.
+:::
+:::
+
+## Core / Age Imbalance
+
+From `InputQC/core_age_imbalance/CORE_AGE_IMBALANCE_REPORT.md`:
+
+| Core | n | age span kyr | samples / 10 kyr | low-detection % |
+|---|---:|---:|---:|---:|
+| GeoB25202_R1 | 26 | 146.51 | 1.77 | 15.4 |
+| GeoB25202_R2 | 26 | 146.51 | 1.77 | 7.7 |
+| ST13 | 48 | 142.43 | 3.37 | 8.3 |
+| ST8 | 118 | 106.16 | 11.12 | 22.9 |
+
+ST8 is much more densely sampled, so age-window fairness matters.
+
+## Age-Bin Imbalance: 90-110 kya
+
+| Age band | Core | n | median reads | median taxa | low-detection % |
+|---|---|---:|---:|---:|---:|
+| 90-110 kya | GeoB R1 | 4 | 580310 | 593 | 0.0 |
+| 90-110 kya | GeoB R2 | 4 | 730409 | 600 | 0.0 |
+| 90-110 kya | ST13 | 4 | 832988 | 710 | 0.0 |
+| 90-110 kya | ST8 | 16 | 42592 | 110 | 93.8 |
+
+::: {.danger}
+The strongest concern is not generic ST8 sampling density; it is a specific ST8 interval where low detection is enriched beyond the other cores.
+:::
+
+## Imbalance Figures
+
+::: {.columns}
+::: {.column width="50%"}
+![](../InputQC/core_age_imbalance/results/figures/core_age_coverage_heatmap.png)
+:::
+::: {.column width="50%"}
+![](../InputQC/core_age_imbalance/results/figures/low_detection_fraction_heatmap.png)
+:::
+:::
+
+## ST8 Low-Taxa Review
+
+Definition: ST8 samples with `detected_taxa < 250`.
+
+| Group | n | median library conc. | median reads | median taxa | median Shannon |
+|---|---:|---:|---:|---:|---:|
+| ST8 low taxa | 27 | 36.23 | 39371 | 109 | 4.00 |
+| ST8 not low taxa | 91 | 99.94 | 361920 | 508 | 5.39 |
+| non-ST8 | 100 | 93.77 | 619230 | 558 | 5.05 |
+
+::: {.callout}
+Library concentration contributes strongly, but it does not explain every low-taxa ST8 sample.
+:::
+
+## Are Reads Collapsed Into Few Taxa?
+
+From `InputQC/st8_low_taxa_review/ST8_LOW_TAXA_REVIEW.md`:
+
+| Metric | Median |
+|---|---:|
+| top taxon read share | 11.7% |
+| top 5 taxa read share | 36.0% |
+| top 10 taxa read share | 49.7% |
+| taxa needed for 80% reads | 45 |
+| Pielou evenness | 0.87 |
+
+Most samples are not single-taxon collapses, but the sparsest ~100-103 kya samples are concentrated.
+
+## ST8 Low-Taxa Figures
+
+::: {.columns}
+::: {.column width="50%"}
+![](../InputQC/st8_low_taxa_review/results/figures/st8_low_taxa_read_concentration_by_age.png)
+:::
+::: {.column width="50%"}
+![](../InputQC/st8_low_taxa_review/results/figures/st8_low_taxa_top_taxa_heatmap.png)
+:::
+:::
+
+## WGCNA: Main Construction Logic
+
+`scripts/02_wgcna.R`
+
+```r
+# lines 4-6
+# Consensus across ST8, ST13, GeoB25202_R1.
+# GeoB25202_R2 held out for preservation testing.
+# Soft power selected by signed R² (negative slope required).
+```
+
+```r
+# lines 119-130
+blockwiseConsensusModules(
+  multiExpr = multiExpr, power = soft_power,
+  networkType = "signed", corType = "pearson",
+  minModuleSize = PARAMS$wgcna_min_module_size,
+  deepSplit = PARAMS$wgcna_deep_split,
+  mergeCutHeight = PARAMS$wgcna_merge_cut_height
+)
+```
+
+## WGCNA Concepts Students Need
+
+| Object | Plain meaning |
+|---|---|
+| correlation matrix | taxa that rise/fall together |
+| adjacency | correlation transformed by soft power |
+| TOM | shared-neighbor similarity; more stable than raw edges |
+| dynamic tree cut | finds modules from TOM dissimilarity |
+| eigengene | first PC summarizing each module |
+| grey | unassigned/technical catch-all, not automatically biological |
+
+## Preservation and Age-Aligned Concordance
+
+`scripts/02_wgcna.R`
+
+```r
+# lines 183-193: R1 -> R2 preservation
+modulePreservation(
+  multiData = list(GeoB_R1 = ..., GeoB_R2 = ...),
+  multiColor = list(GeoB_R1 = module_colors[good]),
+  nPermutations = preservation_perms,
+  randomSeed = PARAMS$seed
+)
+```
+
+```r
+# lines 257-264: common age grid
+xout <- seq(age_min, age_max, length.out = PARAMS$wgcna_stability_age_grid_points)
+y1 <- approx(d1$age_kyr, d1$value, xout = xout)$y
+y2 <- approx(d2$age_kyr, d2$value, xout = xout)$y
+```
+
+## Bootstrap Stability
+
+`scripts/02b_wgcna_stability.R`
+
+```r
+# lines 82-88: resample samples within each training core
+idx <- sample(seq_len(nrow(dat)), size = nrow(dat), replace = TRUE)
+dat[idx, , drop = FALSE]
+```
+
+```r
+# lines 143-154: match each original module to best bootstrap module
+jaccard = intersection(original, bootstrap) / union(original, bootstrap)
+```
+
+::: {.callout}
+Bootstrap stability asks whether module membership survives sample perturbation, not whether a module is biologically important.
+:::
+
+## Original WGCNA Stability Output
+
+From `results/wgcna_stability/WGCNA_STABILITY_REPORT.md`:
+
+| module | median Jaccard | p05 | p95 | baseline size |
+|---|---:|---:|---:|---:|
+| brown | 0.554 | 0.269 | 0.819 | 85 |
+| turquoise | 0.475 | 0.281 | 0.729 | 237 |
+| blue | 0.373 | 0.000 | 0.617 | 138 |
+| yellow | 0.314 | 0.149 | 0.515 | 76 |
+| green | 0.039 | 0.000 | 0.566 | 65 |
+
+This motivated the deeper `networkQC/` parameter sweep.
+
+## networkQC: Parameter Sweep
+
+`networkQC/scripts/02_wgcna_parameter_sweep.R`
+
+```r
+# lines 30-35
+grid <- CJ(
+  power = c(12, 16, 20),
+  deepSplit = c(1, 2, 3),
+  mergeCutHeight = c(0.10, 0.15, 0.20, 0.25),
+  minModuleSize = c(20, 30)
+)
+```
+
+Sweep scoring first emphasized:
+
+- lower grey burden,
+- enough non-grey modules,
+- reasonable module size.
+
+Full evaluation then added preservation, bootstrap, concordance, and core balance.
+
+## Full Candidate Evaluation
+
+From `networkQC/results/full_eval/FULL_EVAL_REPORT.md`:
+
+| rank | setting | params | grey % | boot Jaccard | strong preserved | Pearson | balanced Jaccard |
+|---:|---|---|---:|---:|---:|---:|---:|
+| 1 | exp3 | p12 d3 merge0.25 min20 | 28.66 | 0.400 | 6 | 0.857 | 0.517 |
+| 2 | exp4 | p12 d3 merge0.20 min20 | 28.66 | 0.378 | 7 | 0.859 | 0.459 |
+| 3 | opt5 | p12 d1 merge0.20 min20 | 34.06 | 0.395 | 5 | 0.714 | 0.456 |
+| 10 | baseline | p20 d2 merge0.15 min20 | 66.56 | 0.351 | 4 | 0.847 | 0.349 |
+
+## Full Eval Heatmaps
+
+::: {.columns}
+::: {.column width="50%"}
+![](../networkQC/results/figures/full_eval_setting_metric_heatmap.png)
+:::
+::: {.column width="50%"}
+![](../networkQC/results/figures/full_eval_module_metric_heatmap.png)
+:::
+:::
+
+## kME and Topology Checks
+
+`networkQC/scripts/10_kme_topology_review.R`
+
+```r
+# lines 85-87
+mes <- orderMEs(moduleEigengenes(expr, colors = colors)$eigengenes)
+kme <- cor(expr, mes, use = "pairwise.complete.obs", method = "pearson")
+```
+
+```r
+# lines 156-160
+adj <- adjacency(train_expr, power = power, type = "signed")
+tom <- TOMsimilarity(adj, TOMType = "signed")
+diag(tom) <- 0
+```
+
+kME checks membership quality. TOM checks whether modules align with network topology.
+
+## Integrated QC Ranking
+
+From `networkQC/results/KME_TOPOLOGY_QC_REPORT.md`:
+
+| rank | setting | full eval | kME | topology | integrated | grey % | median kME | TOM separation | flags |
+|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | exp3 | 0.926 | 0.476 | 0.418 | 0.753 | 28.66 | 0.703 | 3.532 | 0 |
+| 2 | exp4 | 0.868 | 0.309 | 0.034 | 0.588 | 28.66 | 0.710 | 3.037 | 0 |
+| 3 | opt5 | 0.546 | 0.408 | 0.000 | 0.353 | 34.06 | 0.689 | 2.487 | 0 |
+| 4 | baseline | 0.227 | 0.714 | 0.703 | 0.319 | 66.56 | 0.783 | 48.011 | 1 |
+
+::: {.ok}
+Decision: keep `exp3` as the best current setting; use `opt5` as conservative fallback.
+:::
+
+## Graph Layout Diagnostics
+
+::: {.columns}
+::: {.column width="50%"}
+![](../networkQC/results/figures/layout_diagnostics/opt5_nongrey_nonisolates_fr.png)
+:::
+::: {.column width="50%"}
+![](../networkQC/results/figures/kme_topology_setting_heatmap.png)
+:::
+:::
+
+::: {.caption}
+Graph plots are visualization filters on TOM edges; they are not how WGCNA modules are constructed.
+:::
+
+## HMM State Discovery
+
+`scripts/03_hmm_states.R`
+
+```r
+# lines 4-10
+1. residualise eigengenes within core
+2. PCA on training cores; project validation/all samples
+3. fit K = 2..5 HMMs
+4. score held-out validation core
+5. select K using BIC + held-out likelihood/stability
+```
+
+Hybrid logic:
+
+- train BIC narrows plausible K,
+- held-out log likelihood picks predictive K,
+- transition stability penalizes noisy state switching.
+
+## Current ST8 Removal Sensitivity
+
+`InputQC/scripts/03_st8_low_taxa_network_sensitivity.R`
+
+Current status at deck creation:
+
+| setting | status |
+|---|---|
+| exp3 | complete |
+| exp4 | preservation complete; bootstrap running |
+| opt5 | not yet started |
+
+::: {.warn}
+The run is intentionally contained in `InputQC/` and does not alter the main pipeline. It tests whether removing 27 ST8 low-taxa samples changes the exp3/exp4/opt5 decision.
+:::
+
+## What We Trust Now
+
+1. The input has a real detection/depth axis.
+2. The low-detection samples are not random noise.
+3. Rarefaction does not show broad undersequencing in the processed matrix.
+4. ST8 has a specific 90-110 kya low-detection issue.
+5. WGCNA parameter choice improved substantially over baseline.
+6. `exp3` is the current best network setting.
+
+## How to Recognize Bad Analysis Signatures
+
+::: {.danger}
+Warning signs:
+:::
+
+- PC1 almost perfectly tracks read depth or detected taxa.
+- Grey module is huge and biologically tempting.
+- Module stability depends on a single core or age interval.
+- Rarefaction/Chao1 are interpreted after singleton-removing filters without caution.
+- Network plots are treated as module construction evidence.
+
+## Practical Output Checklist
+
+| Folder | Key outputs |
+|---|---|
+| `InputQC/results/figures/` | PC-depth heatmaps and ordinations |
+| `InputQC/rarefaction_depth_qc/` | rarefaction classes and depth/richness figures |
+| `InputQC/core_age_imbalance/` | age/core imbalance and sample winnowing |
+| `InputQC/st8_low_taxa_review/` | low-taxa ST8 read/taxon diagnostics |
+| `networkQC/results/full_eval/` | ranked WGCNA settings |
+| `networkQC/results/tables/` | kME, topology, final integrated ranking |
+
+## Final Recommendation
+
+::: {.ok}
+Use `exp3`: `power=12`, `deepSplit=3`, `mergeCutHeight=0.25`, `minModuleSize=20`.
+:::
+
+Rationale:
+
+- lowest grey burden among top candidates,
+- best integrated full-eval / kME / topology score,
+- best core-balance Jaccard among top candidates,
+- no kME/topology warning flags.
+
+Continue treating input depth as a standing caveat until the ST8 removal sensitivity finishes.

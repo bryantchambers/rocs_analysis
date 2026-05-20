@@ -1,0 +1,9 @@
+note_key	note_value
+scope	04b extends 04a with descriptive TEA variability/specialization, temporal summaries, and non-damaged profile comparisons in main-window samples (<=150 ka).
+nondamaged_taxa_scope	Used full set of taxa with is_dmg == Non-damaged in main samples; no reuse of damaged-only taxa_after_filter.
+nondamaged_filter	No additional light filter applied in this run (conservative full-set handling).
+transformations	No CLR or additional compositional transformation used for non-damaged TEA comparisons.
+comparison_interpretation	Non-damaged vs damaged-module comparisons are descriptive TEA phenotype/profile comparisons, not network membership inference.
+dominance_logic	Dominance/suppression calls are relative within-index robust-z descriptive calls; not formal hypothesis tests of biological activity.
+temporal_logic	Temporal analysis uses conservative descriptive summaries and Spearman age association by core/state; no complex time-series modeling.
+interpretation	TEA indices are annotation-weighted genomic potential proxies, not direct measured in situ activity.

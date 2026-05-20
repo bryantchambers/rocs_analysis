@@ -1,0 +1,11 @@
+metric	value
+excluded_taxa_n_manifest	472
+excluded_manifest_rows	472
+excluded_taxa_n_data_prep_summary	425
+excluded_taxa_prevalent_main_window_n	200
+deep_sediment_filter_enabled	1
+extra_excluded_phyla_count	3
+extra_excluded_phyla_values	p__Aerophobota;p__Atribacterota;p__Asgardarchaeota
+extra_phylum_candidates_total	47
+extra_phylum_excluded_selected_samples	47
+extra_phylum_excluded_prevalent_main_window	38

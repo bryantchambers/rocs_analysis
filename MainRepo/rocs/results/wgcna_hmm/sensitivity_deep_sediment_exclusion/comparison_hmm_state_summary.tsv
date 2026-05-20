@@ -1,0 +1,5 @@
+metric	value
+samples_compared	214
+exact_state_label_match_pct	0.46728971962616817
+pairwise_partition_agreement_pct	97.53411434338116
+note	State IDs may be permuted across runs; partition agreement is label-invariant.

@@ -1,0 +1,5 @@
+core	n_samples	n_states	min_age_kyr	max_age_kyr
+ST8	115	5	1.5215	107.683
+ST13	48	5	5.659	148.086
+GeoB25202_R1	26	5	0.692	147.206
+GeoB25202_R2	25	5	0.692	147.206

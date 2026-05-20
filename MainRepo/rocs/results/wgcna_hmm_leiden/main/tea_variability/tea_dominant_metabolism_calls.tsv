@@ -1,0 +1,73 @@
+call_scope	module	state	state_label	index	n	reference_median	robust_z	dominance_call
+module	grey			OAP	188	43.7119833326667	0	intermediate
+module	leiden1			OAP	209	72.4866596328282	1	relatively_dominant
+module	leiden2			OAP	213	115.092331228903	2.48066553908847	relatively_dominant
+module	leiden3			OAP	214	20.8434156129215	-0.794746306828716	relatively_suppressed
+module	leiden4			OAP	214	-67.6172058125983	-3.86899883716989	relatively_suppressed
+module	leiden5			OAP	208	-179.797872720618	-7.76758889385073	relatively_suppressed
+module	leiden6			OAP	155	45.2570047309782	0.0536937890176326	intermediate
+module	grey			MGI	191	0		intermediate
+module	leiden1			MGI	209	0		intermediate
+module	leiden2			MGI	213	0		intermediate
+module	leiden3			MGI	214	0		intermediate
+module	leiden4			MGI	214	0		intermediate
+module	leiden5			MGI	208	0		intermediate
+module	leiden6			MGI	160	0		intermediate
+module	grey			MFI	191	0		intermediate
+module	leiden1			MFI	209	0		intermediate
+module	leiden2			MFI	213	0		intermediate
+module	leiden3			MFI	214	0		intermediate
+module	leiden4			MFI	214	0		intermediate
+module	leiden5			MFI	208	0		intermediate
+module	leiden6			MFI	160	0		intermediate
+module	grey			DCI	191	1.36536380401665	0.660199292339	intermediate
+module	leiden1			DCI	209	1.13455040539809	0	intermediate
+module	leiden2			DCI	213	2.47761657235267	3.84159385154771	relatively_dominant
+module	leiden3			DCI	214	1.54708207513617	1.17997099847138	relatively_dominant
+module	leiden4			DCI	214	1.0591417033554	-0.215692728510359	intermediate
+module	leiden5			DCI	208	-2.33724858822315	-9.93044274054441	relatively_suppressed
+module	leiden6			DCI	160	0.784938702845652	-1	relatively_suppressed
+module	grey			MII	191	0.533722631570443	1	relatively_dominant
+module	leiden1			MII	209	0.394677006434841	0.337622360449868	intermediate
+module	leiden2			MII	213	-0.171449220964115	-2.35925755811096	relatively_suppressed
+module	leiden3			MII	214	0.323803671700303	0	intermediate
+module	leiden4			MII	214	-0.37539607633962	-3.33080798643659	relatively_suppressed
+module	leiden5			MII	208	0.229629788470781	-0.448620187941958	intermediate
+module	leiden6			MII	160	1.1566596859693	3.96751210459605	relatively_dominant
+module	grey			SRPI	191	0.269931630708907	0.354917252716343	intermediate
+module	leiden1			SRPI	209	0.221180027276848	0	intermediate
+module	leiden2			SRPI	213	0.0838195494219662	-1	relatively_suppressed
+module	leiden3			SRPI	214	0.696172639578505	3.45800058153171	relatively_dominant
+module	leiden4			SRPI	214	0.188231807018291	-0.239866814480406	intermediate
+module	leiden5			SRPI	208	0.90300494465397	4.96376343490486	relatively_dominant
+module	leiden6			SRPI	160	-0.893522986353216	-8.1151655195006	relatively_suppressed
+state		3	IG-A	OAP	32	427.793468797749	0	intermediate
+state		1	IG-D	OAP	60	383.842302492555	-2.51910972345956	relatively_low
+state		2	IG-E	OAP	39	253.289484959074	-10.0018889013756	relatively_low
+state		5	G-A	OAP	35	445.240571595969	1	relatively_high
+state		4	IG-B	OAP	48	436.110426081094	0.476695608407462	intermediate
+state		3	IG-A	MGI	32	-5.23282246281576		intermediate
+state		1	IG-D	MGI	60	-13.8155105579643		intermediate
+state		2	IG-E	MGI	39	-13.8155105579643		intermediate
+state		5	G-A	MGI	35	-13.8155105579643		intermediate
+state		4	IG-B	MGI	48	-13.8155105579643		intermediate
+state		3	IG-A	MFI	32	-2.7557970451318		intermediate
+state		1	IG-D	MFI	60	0		intermediate
+state		2	IG-E	MFI	39	0		intermediate
+state		5	G-A	MFI	35	0		intermediate
+state		4	IG-B	MFI	48	0		intermediate
+state		3	IG-A	DCI	32	-1.67291244291459	0.493598321124535	intermediate
+state		1	IG-D	DCI	60	-1.57840238509817	1.54309271225284	relatively_high
+state		2	IG-E	DCI	39	-1.89950456188119	-2.02261173549451	relatively_low
+state		5	G-A	DCI	35	-1.80741536630061	-1	relatively_low
+state		4	IG-B	DCI	48	-1.71736242403113	0	intermediate
+state		3	IG-A	MII	32	-2.47135989152957	0	intermediate
+state		1	IG-D	MII	60	-2.64518944951203	-2.27760963617531	relatively_low
+state		2	IG-E	MII	39	-2.39503884194253	1	relatively_high
+state		5	G-A	MII	35	-2.4098622818825	0.805775208541063	relatively_high
+state		4	IG-B	MII	48	-2.64421060270536	-2.26478425167173	relatively_low
+state		3	IG-A	SRPI	32	-0.758516108555186	0	intermediate
+state		1	IG-D	SRPI	60	-0.631950774960546	2.65618244924647	relatively_high
+state		2	IG-E	SRPI	39	-0.512010135646267	5.17333475351282	relatively_high
+state		5	G-A	SRPI	35	-0.806165445907951	-1	relatively_low
+state		4	IG-B	SRPI	48	-0.804193503078277	-0.958615524596386	relatively_low

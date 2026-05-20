@@ -1,0 +1,21 @@
+core	feature	mu	sd	source	n_reference_samples	fallback_used	variant	harmonization_mode
+ST8	MEbrown	-0.00454400374809615	0.0684368520860759	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST8	MEgreen	-0.0151214045251517	0.0672973955259597	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST8	MEblue	-0.0071957569196373	0.0651222634504701	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST8	MEturquoise	-0.0143923899849227	0.0746301376153035	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST8	MEyellow	-0.0105754828952863	0.0741252650841377	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST13	MEbrown	0.0115094838704467	0.0829375870586688	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST13	MEgreen	0.0318404549360755	0.0753901527684572	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST13	MEblue	0.0241720573890826	0.0902729231008385	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST13	MEturquoise	0.0322752343244067	0.0611247812900311	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+ST13	MEyellow	0.0339362066252155	0.059418373991079	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R2	MEbrown	-0.289649111518983	6.80721590879264	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R2	MEgreen	1.15825859042334	6.44251598202558	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R2	MEblue	-1.35893736020714	7.97085795250444	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R2	MEturquoise	2.13925534802109	9.19232208208898	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R2	MEyellow	-1.06695383630009	5.93324924834441	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R1	MEbrown	-0.00114979979809202	0.0732135747292015	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R1	MEgreen	0.0081007570561853	0.0748073133116604	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R1	MEblue	-0.0127979503429874	0.0617300667869118	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R1	MEturquoise	0.00407360002671471	0.0678828449878042	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z
+GeoB25202_R1	MEyellow	-0.0158752840404777	0.0729358345086778	imported_main_params		FALSE	corewise_z_main_params_imported	corewise_z

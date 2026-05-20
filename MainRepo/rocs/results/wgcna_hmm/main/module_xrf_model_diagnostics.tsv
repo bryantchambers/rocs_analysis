@@ -1,0 +1,26 @@
+module	proxy	n	lm_ok	gls_ok	lm_error	gls_error
+MEbrown	ba_ti_z	188	TRUE	TRUE		
+MEbrown	ca_ti_z	188	TRUE	TRUE		
+MEbrown	zr_rb_z	189	TRUE	TRUE		
+MEbrown	ti_al_z	188	TRUE	TRUE		
+MEbrown	mn_fe_z	188	TRUE	TRUE		
+MEgreen	ba_ti_z	188	TRUE	TRUE		
+MEgreen	ca_ti_z	188	TRUE	TRUE		
+MEgreen	zr_rb_z	189	TRUE	TRUE		
+MEgreen	ti_al_z	188	TRUE	TRUE		
+MEgreen	mn_fe_z	188	TRUE	TRUE		
+MEblue	ba_ti_z	188	TRUE	TRUE		
+MEblue	ca_ti_z	188	TRUE	TRUE		
+MEblue	zr_rb_z	189	TRUE	TRUE		
+MEblue	ti_al_z	188	TRUE	TRUE		
+MEblue	mn_fe_z	188	TRUE	TRUE		
+MEturquoise	ba_ti_z	188	TRUE	TRUE		
+MEturquoise	ca_ti_z	188	TRUE	TRUE		
+MEturquoise	zr_rb_z	189	TRUE	TRUE		
+MEturquoise	ti_al_z	188	TRUE	TRUE		
+MEturquoise	mn_fe_z	188	TRUE	TRUE		
+MEyellow	ba_ti_z	188	TRUE	TRUE		
+MEyellow	ca_ti_z	188	TRUE	TRUE		
+MEyellow	zr_rb_z	189	TRUE	TRUE		
+MEyellow	ti_al_z	188	TRUE	TRUE		
+MEyellow	mn_fe_z	188	TRUE	TRUE		

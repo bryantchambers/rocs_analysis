@@ -1,0 +1,13 @@
+metric	value
+n_samples_main	214
+n_retained_taxa	1797
+n_taxa_with_module_assignment	1797
+n_taxa_with_any_comp	1638
+n_taxa_with_any_ko	1518
+n_taxa_with_any_oap	1380
+median_sample_weight_supported_comp	0.990987461341343
+median_sample_weight_supported_ko	0.937077645413724
+median_sample_weight_supported_oap	0.85905633203612
+median_module_weight_supported_comp	0.999145475071763
+median_module_weight_supported_ko	0.947953855160379
+median_module_weight_supported_oap	0.834635622555327

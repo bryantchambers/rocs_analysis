@@ -1,0 +1,32 @@
+R version 4.5.3 (2026-03-11)
+Platform: x86_64-conda-linux-gnu
+Running under: Red Hat Enterprise Linux 8.10 (Ootpa)
+
+Matrix products: default
+BLAS/LAPACK: /home/ngm902/miniconda3/envs/my_env/lib/libopenblasp-r0.3.28.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Europe/Copenhagen
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] depmixS4_1.5-1    nlme_3.1-169      Rsolnp_2.0.1      MASS_7.3-65      
+[5] nnet_7.3-20       data.table_1.17.8
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.39       numDeriv_2016.8-1.1 codetools_0.2-20   
+ [4] lattice_0.22-9      truncnorm_1.0-9     parallel_4.5.3     
+ [7] stats4_4.5.3        parallelly_1.47.0   grid_4.5.3         
+[10] future_1.70.0       compiler_4.5.3      globals_0.19.1     
+[13] tools_4.5.3         future.apply_1.20.2 listenv_0.10.1     
+[16] Rcpp_1.1.1         

@@ -1,0 +1,2 @@
+timestamp	script	repo_root	seed	training_cores	validation_core	soft_power	min_module_size
+2026-05-06 09:39:25	02_wgcna_main.R	/maps/projects/caeg/people/ngm902/apps/repos/rocs	42	ST8;ST13;GeoB25202_R1	GeoB25202_R2	20	20

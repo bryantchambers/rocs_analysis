@@ -1,0 +1,8 @@
+module	eigengene	n_taxa	pc1_variance_explained	train_pc1_vs_ME_cor.V1	sign_flipped
+grey	MEgrey	148	0.21613	1	FALSE
+leiden1	MEleiden1	425	0.35777	1	FALSE
+leiden2	MEleiden2	298	0.38219	-1	TRUE
+leiden3	MEleiden3	342	0.31593	1	FALSE
+leiden4	MEleiden4	361	0.41662	-1	TRUE
+leiden5	MEleiden5	141	0.46279	1	FALSE
+leiden6	MEleiden6	82	0.34749	1	FALSE

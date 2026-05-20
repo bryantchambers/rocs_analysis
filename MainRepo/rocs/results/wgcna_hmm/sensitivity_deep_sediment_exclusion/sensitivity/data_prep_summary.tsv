@@ -1,0 +1,11 @@
+metric	value
+n_samples_main	214
+n_samples_extended	415
+n_taxa_after_prevalence	1597
+deep_sediment_filter_enabled	1
+deep_sediment_candidates_total	425
+deep_sediment_excluded_selected_samples	425
+deep_sediment_excluded_prevalent_main_window	200
+main_max_age_kyr	150
+st13_max_age_kyr_extended	300
+geob_max_age_kyr_extended	600

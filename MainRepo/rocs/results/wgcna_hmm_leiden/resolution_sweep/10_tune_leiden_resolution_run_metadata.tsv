@@ -1,0 +1,2 @@
+timestamp	script	repo_root	seed	results_root	soft_power	leiden_graph_k_neighbors	leiden_graph_symmetrization	leiden_consensus_matrix_interpretation	resolutions_tested	selected_resolution	selection_status	previous_requested_resolution	previous_used_resolution
+2026-05-06 21:34:58	10_tune_leiden_resolution.R	/maps/projects/caeg/people/ngm902/apps/repos/rocs	42	/maps/projects/caeg/people/ngm902/apps/repos/rocs/results/wgcna_hmm_leiden	20	25	union	dissimilarity	0.4;0.6;0.8;1;1.2;1.5;2	1	selected_from_feasible	1.6	1.6

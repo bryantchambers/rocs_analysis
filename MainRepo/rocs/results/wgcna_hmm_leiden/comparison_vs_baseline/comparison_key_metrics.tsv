@@ -1,0 +1,8 @@
+metric	baseline	leiden	baseline_num	leiden_num	delta_leiden_minus_baseline
+hmm_states_main	5	5	5	5	0
+loco_stable_n	10	11	10	11	1
+n_modules_non_grey	5	6	5	6	1
+n_taxa_main	1797	1797	1797	1797	0
+r1_r2_state_pct_match	92.3076923076923	84.6153846153846	92.3076923076923	84.6153846153846	-7.69230769230771
+tea_module_enrichment_calls_n	24	23	24	23	-1
+xrf_significant_n	18	24	18	24	6

@@ -1,0 +1,5 @@
+core	harmonization_mode	n_features	n_features_imported	n_features_core_fallback	n_features_global_fallback	fallback_used	min_reference_samples_fallback	max_reference_samples_fallback
+ST8	corewise_z	5	5	0	0	FALSE		
+ST13	corewise_z	5	5	0	0	FALSE		
+GeoB25202_R1	corewise_z	5	5	0	0	FALSE		
+GeoB25202_R2	corewise_z	5	5	0	0	FALSE		

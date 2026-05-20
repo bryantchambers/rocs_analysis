@@ -1,0 +1,5 @@
+core	harmonization_mode	n_features	n_reference_samples	source	fallback_used
+ST8	corewise_z	5	115	core_main_window	FALSE
+ST13	corewise_z	5	48	core_main_window	FALSE
+GeoB25202_R1	corewise_z	5	26	core_main_window	FALSE
+GeoB25202_R2	corewise_z	5	25	core_main_window	FALSE

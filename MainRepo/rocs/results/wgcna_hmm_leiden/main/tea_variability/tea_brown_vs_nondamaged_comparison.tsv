@@ -1,0 +1,8 @@
+comparison_scope	index	nondmg_mean	nondmg_median	brown_mean	brown_median	diff_mean_brown_minus_nondmg	abs_diff_mean	rank_abs_diff_among_modules	n_samples	mean_diff_brown_minus_nondmg	median_diff_brown_minus_nondmg	rmse	pearson	spearman	n_indices	euclidean	manhattan	cosine_similarity
+sample_matched	OAP								0									
+sample_matched	MGI								0									
+sample_matched	MFI								0									
+sample_matched	DCI								0									
+sample_matched	MII								0									
+sample_matched	SRPI								0									
+aggregate_vector															0			

@@ -1,0 +1,8 @@
+note_key	note_value
+scope	Main-window only (<=150 ka), using existing clean workflow outputs for retained taxa/modules/HMM states.
+abundance_weighting	Damaged-read relative abundance computed across retained taxa per sample; module-level TEA uses within-sample, within-module normalized weights.
+tea_mode	KO-first TEA logic retained; module-completeness fallback used when KO evidence unavailable.
+grey_policy	Primary module centering and enrichment tests include grey; exclude-grey sensitivity outputs are also exported.
+interpretation	TEA indices represent annotation-weighted genomic potential, not direct in situ activity.
+state_reuse	HMM states are reused from 03_hmm_main outputs; states are not refit in this TEA stage.
+taxon_trait_scope	Taxon-level OAP and metabolic calls are annotation-derived trait proxies (genomic potential), not measured metabolic activity.

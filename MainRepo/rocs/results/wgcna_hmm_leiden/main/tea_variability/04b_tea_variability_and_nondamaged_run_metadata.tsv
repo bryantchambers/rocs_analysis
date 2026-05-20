@@ -1,0 +1,2 @@
+timestamp	script	repo_root	seed	max_age_kyr	n_module_variability_rows	n_state_module_rows	n_temporal_rows	n_nondamaged_taxa	n_nondamaged_samples	nondamaged_light_filter	comparison_focus_module	interpretation_scope
+2026-05-06 21:47:14	04b_tea_variability_and_nondamaged.R	/maps/projects/caeg/people/ngm902/apps/repos/rocs	42	150	42	210	432	6620	214	none	brown	descriptive_teapotential_not_activity

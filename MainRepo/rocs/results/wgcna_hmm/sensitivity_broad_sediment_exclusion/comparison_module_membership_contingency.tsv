@@ -1,0 +1,13 @@
+module_baseline	module_sensitivity	N
+blue	blue	81
+blue	grey	36
+brown	blue	1
+brown	grey	20
+green	grey	23
+green	yellow	38
+grey	blue	1
+grey	grey	1072
+turquoise	grey	5
+turquoise	turquoise	213
+yellow	brown	65
+yellow	turquoise	4

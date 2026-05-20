@@ -1,0 +1,13 @@
+[2026-05-06 21:47:15] Loading TEA inputs for exploratory figure battery...
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
+Warning messages:
+1: No shared levels found between `names(values)` of the manual scale and the
+data's colour values. 
+2: No shared levels found between `names(values)` of the manual scale and the
+data's colour values. 
+[2026-05-06 21:47:44] 08_tea_figures complete.

@@ -1,0 +1,67 @@
+call_scope	module	state	state_label	index	n	reference_median	robust_z	dominance_call
+module	blue		""	OAP	155	153.435729857397	1.18914385374121	relatively_dominant
+module	brown		""	OAP	138	-305.904176338522	-2.7194227481791	relatively_suppressed
+module	green		""	OAP	172	200.524842702073	1.58982955793573	relatively_dominant
+module	grey		""	OAP	214	-64.9670582260191	-0.669266077019345	intermediate
+module	turquoise		""	OAP	214	-81.6069100557837	-0.81085614625879	relatively_suppressed
+module	yellow		""	OAP	210	92.3390073209457	0.669266077019345	intermediate
+module	blue		""	MGI	157	-1.77635683940025e-15		intermediate
+module	brown		""	MGI	138	0		intermediate
+module	green		""	MGI	179	0		intermediate
+module	grey		""	MGI	214	0		intermediate
+module	turquoise		""	MGI	214	0		intermediate
+module	yellow		""	MGI	210	0		intermediate
+module	blue		""	MFI	157	0		intermediate
+module	brown		""	MFI	138	0		intermediate
+module	green		""	MFI	179	0		intermediate
+module	grey		""	MFI	214	0		intermediate
+module	turquoise		""	MFI	214	0		intermediate
+module	yellow		""	MFI	210	0		intermediate
+module	blue		""	DCI	157	2.05036392921132	1.77789315343518	relatively_dominant
+module	brown		""	DCI	138	-0.412654232068706	-2.13873125084144	relatively_suppressed
+module	green		""	DCI	179	0.654980675996809	-0.441007295117991	intermediate
+module	grey		""	DCI	214	0.853427564540233	-0.125442457293975	intermediate
+module	turquoise		""	DCI	214	1.01119967573542	0.125442457293975	intermediate
+module	yellow		""	DCI	210	1.91270564885386	1.55899270488201	relatively_dominant
+module	blue		""	MII	157	-0.62387521694606	-2.05747794524697	relatively_suppressed
+module	brown		""	MII	138	3.23334497385841	0.825337789312981	relatively_dominant
+module	green		""	MII	179	-8.7929583754029	-8.16290110005435	relatively_suppressed
+module	grey		""	MII	214	3.70074259317614	1.17466221068702	relatively_dominant
+module	turquoise		""	MII	214	2.4749563033596	0.258531985112832	intermediate
+module	yellow		""	MII	210	1.78312242650711	-0.258531985112832	intermediate
+module	blue		""	SRPI	157	-0.65584943277114	-2.80805707692168	relatively_suppressed
+module	brown		""	SRPI	138	0.444256202887154	0.548671246720336	intermediate
+module	green		""	SRPI	179	-0.459509176563673	-2.20896833696776	relatively_suppressed
+module	grey		""	SRPI	214	0.74008550877443	1.45132875327966	relatively_dominant
+module	turquoise		""	SRPI	214	0.329146218680963	0.197438663416924	intermediate
+module	yellow		""	SRPI	210	0.199732476858607	-0.197438663416924	intermediate
+state	""	3	IG-A	OAP	32	421.632027882878	0	intermediate
+state	""	5	IG-C	OAP	13	454.440604555781	1	relatively_high
+state	""	2	IG-D	OAP	51	310.611708523415	-3.38388100362659	relatively_low
+state	""	1	G-A	OAP	75	444.052918782162	0.683385052720123	intermediate
+state	""	4	IG-B	OAP	43	384.838540741302	-1.12145941314072	relatively_low
+state	""	3	IG-A	MGI	32	-5.27043588876512		intermediate
+state	""	5	IG-C	MGI	13	-13.8155105579643		intermediate
+state	""	2	IG-D	MGI	51	-13.8155105579643		intermediate
+state	""	1	G-A	MGI	75	-13.8155105579643		intermediate
+state	""	4	IG-B	MGI	43	-13.8155105579643		intermediate
+state	""	3	IG-A	MFI	32	-2.74576021176476		intermediate
+state	""	5	IG-C	MFI	13	0		intermediate
+state	""	2	IG-D	MFI	51	0		intermediate
+state	""	1	G-A	MFI	75	0		intermediate
+state	""	4	IG-B	MFI	43	0		intermediate
+state	""	3	IG-A	DCI	32	-1.67291244291459	1	relatively_high
+state	""	5	IG-C	DCI	13	-1.86146486316911	-1.52433043664214	relatively_low
+state	""	2	IG-D	DCI	51	-1.74760647564405	0	intermediate
+state	""	1	G-A	DCI	75	-1.80741536630061	-0.800718457298813	relatively_low
+state	""	4	IG-B	DCI	43	-1.50894504204895	3.19518741824432	relatively_high
+state	""	3	IG-A	MII	32	-2.47135989152957	0.927857801186361	relatively_high
+state	""	5	IG-C	MII	13	-3.0889314517774	-7.94109467215751	relatively_low
+state	""	2	IG-D	MII	51	-2.46633641548604	1	relatively_high
+state	""	1	G-A	MII	75	-2.53596939210915	0	intermediate
+state	""	4	IG-B	MII	43	-2.66657099235614	-1.87557112420848	relatively_low
+state	""	3	IG-A	SRPI	32	-0.758516108555186	0	intermediate
+state	""	5	IG-C	SRPI	13	-0.834723862103118	-1	relatively_low
+state	""	2	IG-D	SRPI	51	-0.519826704493726	3.132088179339	relatively_high
+state	""	1	G-A	SRPI	75	-0.788814536889874	-0.397576715283067	intermediate
+state	""	4	IG-B	SRPI	43	-0.637459380824394	1.58850933264488	relatively_high

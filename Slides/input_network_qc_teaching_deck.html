@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="input_network_qc_teaching_deck_files/libs/clipboard/clipboard.min.js"></script>
+<script src="input_network_qc_teaching_deck_files/libs/quarto-html/tabby.min.js"></script>
+<script src="input_network_qc_teaching_deck_files/libs/quarto-html/popper.min.js"></script>
+<script src="input_network_qc_teaching_deck_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="input_network_qc_teaching_deck_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="input_network_qc_teaching_deck_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="input_network_qc_teaching_deck_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <meta name="author" content="Project practical">
+  <meta name="dcterms.date" content="2026-05-19">
+  <title>Input and Network QC for Ancient Metagenomic WGCNA</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="input_network_qc_teaching_deck_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="input_network_qc_teaching_deck_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="input_network_qc_teaching_deck_files/libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="input_network_qc_teaching_deck_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="input_network_qc_teaching_deck_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="input_network_qc_teaching_deck_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="input_network_qc_teaching_deck_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="input_network_qc_teaching_deck_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="input_network_qc_teaching_deck_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Input and Network QC for Ancient Metagenomic WGCNA</h1>
+  <p class="subtitle">A grounded walkthrough using current repository outputs</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Project practical 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-05-19</p>
+</section>
+<section id="scientific-question" class="slide level2">
+<h2>Scientific Question</h2>
+<p>Can we build a stable, biologically interpretable microbial network from damaged ancient DNA?</p>
+<p>Key practical challenge:</p>
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The strongest input PC is associated with detected taxa and read depth. We need to separate technical/preservation structure from biological structure before trusting downstream WGCNA modules and HMM states.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="repository-map" class="slide level2">
+<h2>Repository Map</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[data + scripts/01_data_prep.R] --&gt; B[scripts/02_wgcna.R]
+  B --&gt; C[scripts/02b_wgcna_stability.R]
+  C --&gt; D[scripts/03_hmm_states.R]
+  A --&gt; E[InputQC/]
+  B --&gt; F[networkQC/]
+  E --&gt; G[Input transforms, rarefaction, ST8 low-taxa review]
+  F --&gt; H[Parameter sweep, full eval, kME, topology]
+  H --&gt; I[Recommended WGCNA setting: exp3]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="caption">
+<p>The main pipeline remains separate from contained QC analyses. InputQC and networkQC are decision-support folders.</p>
+</div>
+</section>
+<section id="what-each-qc-area-answers" class="slide level2">
+<h2>What Each QC Area Answers</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Area</th>
+<th>Main question</th>
+<th>Current outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>InputQC/</code></td>
+<td>Is input structure dominated by depth/taxa detection?</td>
+<td>PC1 strongly tracks detected taxa/read depth</td>
+</tr>
+<tr class="even">
+<td><code>networkQC/</code></td>
+<td>Which WGCNA parameters produce stable modules?</td>
+<td><code>exp3</code> is the best balanced setting</td>
+</tr>
+<tr class="odd">
+<td><code>scripts/02b_wgcna_stability.R</code></td>
+<td>Do modules recur under resampling?</td>
+<td>Bootstrap Jaccard and preservation summarize confidence</td>
+</tr>
+<tr class="even">
+<td><code>scripts/03_hmm_states.R</code></td>
+<td>How many ecological states are supported?</td>
+<td>Hybrid K selection favors stable held-out states</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="run-order-practical-view" class="slide level2">
+<h2>Run Order: Practical View</h2>
+<ol type="1">
+<li><code>scripts/01_data_prep.R</code>: build count-derived inputs and metadata.</li>
+<li><code>scripts/02_wgcna.R</code>: consensus modules across ST8, ST13, GeoB R1; hold out GeoB R2.</li>
+<li><code>scripts/02b_wgcna_stability.R</code>: bootstrap module assignment stability.</li>
+<li><code>networkQC/</code>: sweep and evaluate WGCNA hyperparameters.</li>
+<li><code>InputQC/</code>: stress-test input artifacts and low-detection samples.</li>
+<li><code>scripts/03_hmm_states.R</code>: HMM state discovery from module eigengenes.</li>
+</ol>
+</section>
+<section id="main-inputqc-finding" class="slide level2">
+<h2>Main InputQC Finding</h2>
+<p>From <code>InputQC/INPUT_QC_DIAGNOSTIC_REPORT.md</code>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variant / PC</th>
+<th>Covariate</th>
+<th style="text-align: right;">Pearson r</th>
+<th style="text-align: right;">Spearman rho</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>current PC1</td>
+<td>detected taxa</td>
+<td style="text-align: right;">-0.987</td>
+<td style="text-align: right;">-0.980</td>
+</tr>
+<tr class="even">
+<td>current PC1</td>
+<td>log total reads</td>
+<td style="text-align: right;">-0.894</td>
+<td style="text-align: right;">-0.906</td>
+</tr>
+<tr class="odd">
+<td>current PC1</td>
+<td>Shannon raw</td>
+<td style="text-align: right;">-0.776</td>
+<td style="text-align: right;">-0.774</td>
+</tr>
+<tr class="even">
+<td>sample CLR PC1</td>
+<td>detected taxa</td>
+<td style="text-align: right;">0.844</td>
+<td style="text-align: right;">0.815</td>
+</tr>
+</tbody>
+</table>
+<div class="warn">
+<p>Changing the transform alone did not remove the detection/depth axis. CLR normalizes observed composition; it cannot recover taxa that were never observed.</p>
+</div>
+</section>
+<section id="input-ordination-depth-axis" class="slide level2">
+<h2>Input Ordination: Depth Axis</h2>
+<div class="columns">
+<div class="column" style="width:58%;">
+<p><img data-src="../InputQC/results/figures/ordination_current_by_depth.png"></p>
+</div><div class="column" style="width:42%;">
+<p>What to notice:</p>
+<ul>
+<li>Low-read samples cluster together.</li>
+<li>PC1 is almost a detected-taxa axis.</li>
+<li>This is diagnostic, not an exclusion rule.</li>
+<li>Filtering by PC position would risk circular reasoning.</li>
+</ul>
+</div></div>
+</section>
+<section id="low-detection-structure" class="slide level2">
+<h2>Low-Detection Structure</h2>
+<p>From <code>InputQC/LOW_DETECTION_STRUCTURE_REPORT.md</code>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ST8</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td>ST13</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td>GeoB25202_R1</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td>GeoB25202_R2</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Primary rule: <code>total_reads &lt; 100000 OR detected_taxa &lt; 250</code>.</p>
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>The low-detection group spans 4.75-133.78 kyr. It is ST8-enriched but not ST8-exclusive, so it may mix technical weakness, preservation, and real paleoenvironmental signal.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="reads-taxa-and-shannon-through-time" class="slide level2">
+<h2>Reads, Taxa, and Shannon Through Time</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../InputQC/results/figures/reads_by_age_core.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../InputQC/results/figures/shannon_by_age_core.png"></p>
+</div></div>
+<div class="caption">
+<p>The same ST8 intervals that have low reads also tend to have low diversity.</p>
+</div>
+</section>
+<section id="rarefaction-depth-qc" class="slide level2">
+<h2>Rarefaction / Depth QC</h2>
+<p>From <code>InputQC/rarefaction_depth_qc/RAREFACTION_DEPTH_QC_REPORT.md</code>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>QC class</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">pct</th>
+<th style="text-align: right;">median reads</th>
+<th style="text-align: right;">median observed taxa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>adequate depth</td>
+<td style="text-align: right;">177</td>
+<td style="text-align: right;">82.7</td>
+<td style="text-align: right;">511586</td>
+<td style="text-align: right;">541</td>
+</tr>
+<tr class="even">
+<td>low diversity but saturated</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">15.9</td>
+<td style="text-align: right;">41495</td>
+<td style="text-align: right;">108.5</td>
+</tr>
+<tr class="odd">
+<td>insufficient for call</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">6403</td>
+<td style="text-align: right;">20</td>
+</tr>
+</tbody>
+</table>
+<div class="ok">
+<p>Most low-read / low-taxa samples do not look like classic still-rising rarefaction failures in the processed matrix.</p>
+</div>
+</section>
+<section id="rarefaction-caveat" class="slide level2">
+<h2>Rarefaction Caveat</h2>
+<div class="columns">
+<div class="column" style="width:56%;">
+<p><img data-src="../InputQC/rarefaction_depth_qc/results/figures/depth_richness_qc_classes.png"></p>
+</div><div class="column" style="width:44%;">
+<p>Important warning:</p>
+<ul>
+<li><code>phyloseq</code>/<code>vegan</code> reported no singletons.</li>
+<li>Chao1 is weak when singleton information is absent.</li>
+<li>We therefore interpret rarefaction slope and observed richness more than Chao1.</li>
+</ul>
+</div></div>
+</section>
+<section id="core-age-imbalance" class="slide level2">
+<h2>Core / Age Imbalance</h2>
+<p>From <code>InputQC/core_age_imbalance/CORE_AGE_IMBALANCE_REPORT.md</code>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Core</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">age span kyr</th>
+<th style="text-align: right;">samples / 10 kyr</th>
+<th style="text-align: right;">low-detection %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GeoB25202_R1</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">146.51</td>
+<td style="text-align: right;">1.77</td>
+<td style="text-align: right;">15.4</td>
+</tr>
+<tr class="even">
+<td>GeoB25202_R2</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">146.51</td>
+<td style="text-align: right;">1.77</td>
+<td style="text-align: right;">7.7</td>
+</tr>
+<tr class="odd">
+<td>ST13</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">142.43</td>
+<td style="text-align: right;">3.37</td>
+<td style="text-align: right;">8.3</td>
+</tr>
+<tr class="even">
+<td>ST8</td>
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">106.16</td>
+<td style="text-align: right;">11.12</td>
+<td style="text-align: right;">22.9</td>
+</tr>
+</tbody>
+</table>
+<p>ST8 is much more densely sampled, so age-window fairness matters.</p>
+</section>
+<section id="age-bin-imbalance-90-110-kya" class="slide level2">
+<h2>Age-Bin Imbalance: 90-110 kya</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Age band</th>
+<th>Core</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">median reads</th>
+<th style="text-align: right;">median taxa</th>
+<th style="text-align: right;">low-detection %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>90-110 kya</td>
+<td>GeoB R1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">580310</td>
+<td style="text-align: right;">593</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td>90-110 kya</td>
+<td>GeoB R2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">730409</td>
+<td style="text-align: right;">600</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td>90-110 kya</td>
+<td>ST13</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">832988</td>
+<td style="text-align: right;">710</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td>90-110 kya</td>
+<td>ST8</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">42592</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">93.8</td>
+</tr>
+</tbody>
+</table>
+<div class="danger">
+<p>The strongest concern is not generic ST8 sampling density; it is a specific ST8 interval where low detection is enriched beyond the other cores.</p>
+</div>
+</section>
+<section id="imbalance-figures" class="slide level2">
+<h2>Imbalance Figures</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../InputQC/core_age_imbalance/results/figures/core_age_coverage_heatmap.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../InputQC/core_age_imbalance/results/figures/low_detection_fraction_heatmap.png"></p>
+</div></div>
+</section>
+<section id="st8-low-taxa-review" class="slide level2">
+<h2>ST8 Low-Taxa Review</h2>
+<p>Definition: ST8 samples with <code>detected_taxa &lt; 250</code>.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">median library conc.</th>
+<th style="text-align: right;">median reads</th>
+<th style="text-align: right;">median taxa</th>
+<th style="text-align: right;">median Shannon</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ST8 low taxa</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">36.23</td>
+<td style="text-align: right;">39371</td>
+<td style="text-align: right;">109</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td>ST8 not low taxa</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">99.94</td>
+<td style="text-align: right;">361920</td>
+<td style="text-align: right;">508</td>
+<td style="text-align: right;">5.39</td>
+</tr>
+<tr class="odd">
+<td>non-ST8</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">93.77</td>
+<td style="text-align: right;">619230</td>
+<td style="text-align: right;">558</td>
+<td style="text-align: right;">5.05</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Library concentration contributes strongly, but it does not explain every low-taxa ST8 sample.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="are-reads-collapsed-into-few-taxa" class="slide level2">
+<h2>Are Reads Collapsed Into Few Taxa?</h2>
+<p>From <code>InputQC/st8_low_taxa_review/ST8_LOW_TAXA_REVIEW.md</code>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th style="text-align: right;">Median</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>top taxon read share</td>
+<td style="text-align: right;">11.7%</td>
+</tr>
+<tr class="even">
+<td>top 5 taxa read share</td>
+<td style="text-align: right;">36.0%</td>
+</tr>
+<tr class="odd">
+<td>top 10 taxa read share</td>
+<td style="text-align: right;">49.7%</td>
+</tr>
+<tr class="even">
+<td>taxa needed for 80% reads</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="odd">
+<td>Pielou evenness</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+</tbody>
+</table>
+<p>Most samples are not single-taxon collapses, but the sparsest ~100-103 kya samples are concentrated.</p>
+</section>
+<section id="st8-low-taxa-figures" class="slide level2">
+<h2>ST8 Low-Taxa Figures</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../InputQC/st8_low_taxa_review/results/figures/st8_low_taxa_read_concentration_by_age.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../InputQC/st8_low_taxa_review/results/figures/st8_low_taxa_top_taxa_heatmap.png"></p>
+</div></div>
+</section>
+<section id="wgcna-main-construction-logic" class="slide level2">
+<h2>WGCNA: Main Construction Logic</h2>
+<p><code>scripts/02_wgcna.R</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># lines 4-6</span></span>
+<span id="cb1-2"><a href=""></a><span class="co"># Consensus across ST8, ST13, GeoB25202_R1.</span></span>
+<span id="cb1-3"><a href=""></a><span class="co"># GeoB25202_R2 held out for preservation testing.</span></span>
+<span id="cb1-4"><a href=""></a><span class="co"># Soft power selected by signed R² (negative slope required).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># lines 119-130</span></span>
+<span id="cb2-2"><a href=""></a><span class="fu">blockwiseConsensusModules</span>(</span>
+<span id="cb2-3"><a href=""></a>  <span class="at">multiExpr =</span> multiExpr, <span class="at">power =</span> soft_power,</span>
+<span id="cb2-4"><a href=""></a>  <span class="at">networkType =</span> <span class="st">"signed"</span>, <span class="at">corType =</span> <span class="st">"pearson"</span>,</span>
+<span id="cb2-5"><a href=""></a>  <span class="at">minModuleSize =</span> PARAMS<span class="sc">$</span>wgcna_min_module_size,</span>
+<span id="cb2-6"><a href=""></a>  <span class="at">deepSplit =</span> PARAMS<span class="sc">$</span>wgcna_deep_split,</span>
+<span id="cb2-7"><a href=""></a>  <span class="at">mergeCutHeight =</span> PARAMS<span class="sc">$</span>wgcna_merge_cut_height</span>
+<span id="cb2-8"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="wgcna-concepts-students-need" class="slide level2">
+<h2>WGCNA Concepts Students Need</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Object</th>
+<th>Plain meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>correlation matrix</td>
+<td>taxa that rise/fall together</td>
+</tr>
+<tr class="even">
+<td>adjacency</td>
+<td>correlation transformed by soft power</td>
+</tr>
+<tr class="odd">
+<td>TOM</td>
+<td>shared-neighbor similarity; more stable than raw edges</td>
+</tr>
+<tr class="even">
+<td>dynamic tree cut</td>
+<td>finds modules from TOM dissimilarity</td>
+</tr>
+<tr class="odd">
+<td>eigengene</td>
+<td>first PC summarizing each module</td>
+</tr>
+<tr class="even">
+<td>grey</td>
+<td>unassigned/technical catch-all, not automatically biological</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="preservation-and-age-aligned-concordance" class="slide level2">
+<h2>Preservation and Age-Aligned Concordance</h2>
+<p><code>scripts/02_wgcna.R</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># lines 183-193: R1 -&gt; R2 preservation</span></span>
+<span id="cb3-2"><a href=""></a><span class="fu">modulePreservation</span>(</span>
+<span id="cb3-3"><a href=""></a>  <span class="at">multiData =</span> <span class="fu">list</span>(<span class="at">GeoB_R1 =</span> ..., <span class="at">GeoB_R2 =</span> ...),</span>
+<span id="cb3-4"><a href=""></a>  <span class="at">multiColor =</span> <span class="fu">list</span>(<span class="at">GeoB_R1 =</span> module_colors[good]),</span>
+<span id="cb3-5"><a href=""></a>  <span class="at">nPermutations =</span> preservation_perms,</span>
+<span id="cb3-6"><a href=""></a>  <span class="at">randomSeed =</span> PARAMS<span class="sc">$</span>seed</span>
+<span id="cb3-7"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># lines 257-264: common age grid</span></span>
+<span id="cb4-2"><a href=""></a>xout <span class="ot">&lt;-</span> <span class="fu">seq</span>(age_min, age_max, <span class="at">length.out =</span> PARAMS<span class="sc">$</span>wgcna_stability_age_grid_points)</span>
+<span id="cb4-3"><a href=""></a>y1 <span class="ot">&lt;-</span> <span class="fu">approx</span>(d1<span class="sc">$</span>age_kyr, d1<span class="sc">$</span>value, <span class="at">xout =</span> xout)<span class="sc">$</span>y</span>
+<span id="cb4-4"><a href=""></a>y2 <span class="ot">&lt;-</span> <span class="fu">approx</span>(d2<span class="sc">$</span>age_kyr, d2<span class="sc">$</span>value, <span class="at">xout =</span> xout)<span class="sc">$</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="bootstrap-stability" class="slide level2">
+<h2>Bootstrap Stability</h2>
+<p><code>scripts/02b_wgcna_stability.R</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># lines 82-88: resample samples within each training core</span></span>
+<span id="cb5-2"><a href=""></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(dat)), <span class="at">size =</span> <span class="fu">nrow</span>(dat), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href=""></a>dat[idx, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># lines 143-154: match each original module to best bootstrap module</span></span>
+<span id="cb6-2"><a href=""></a>jaccard <span class="ot">=</span> <span class="fu">intersection</span>(original, bootstrap) <span class="sc">/</span> <span class="fu">union</span>(original, bootstrap)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Bootstrap stability asks whether module membership survives sample perturbation, not whether a module is biologically important.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="original-wgcna-stability-output" class="slide level2">
+<h2>Original WGCNA Stability Output</h2>
+<p>From <code>results/wgcna_stability/WGCNA_STABILITY_REPORT.md</code>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>module</th>
+<th style="text-align: right;">median Jaccard</th>
+<th style="text-align: right;">p05</th>
+<th style="text-align: right;">p95</th>
+<th style="text-align: right;">baseline size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>brown</td>
+<td style="text-align: right;">0.554</td>
+<td style="text-align: right;">0.269</td>
+<td style="text-align: right;">0.819</td>
+<td style="text-align: right;">85</td>
+</tr>
+<tr class="even">
+<td>turquoise</td>
+<td style="text-align: right;">0.475</td>
+<td style="text-align: right;">0.281</td>
+<td style="text-align: right;">0.729</td>
+<td style="text-align: right;">237</td>
+</tr>
+<tr class="odd">
+<td>blue</td>
+<td style="text-align: right;">0.373</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.617</td>
+<td style="text-align: right;">138</td>
+</tr>
+<tr class="even">
+<td>yellow</td>
+<td style="text-align: right;">0.314</td>
+<td style="text-align: right;">0.149</td>
+<td style="text-align: right;">0.515</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="odd">
+<td>green</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.566</td>
+<td style="text-align: right;">65</td>
+</tr>
+</tbody>
+</table>
+<p>This motivated the deeper <code>networkQC/</code> parameter sweep.</p>
+</section>
+<section id="networkqc-parameter-sweep" class="slide level2">
+<h2>networkQC: Parameter Sweep</h2>
+<p><code>networkQC/scripts/02_wgcna_parameter_sweep.R</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># lines 30-35</span></span>
+<span id="cb7-2"><a href=""></a>grid <span class="ot">&lt;-</span> <span class="fu">CJ</span>(</span>
+<span id="cb7-3"><a href=""></a>  <span class="at">power =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">16</span>, <span class="dv">20</span>),</span>
+<span id="cb7-4"><a href=""></a>  <span class="at">deepSplit =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb7-5"><a href=""></a>  <span class="at">mergeCutHeight =</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.15</span>, <span class="fl">0.20</span>, <span class="fl">0.25</span>),</span>
+<span id="cb7-6"><a href=""></a>  <span class="at">minModuleSize =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)</span>
+<span id="cb7-7"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sweep scoring first emphasized:</p>
+<ul>
+<li>lower grey burden,</li>
+<li>enough non-grey modules,</li>
+<li>reasonable module size.</li>
+</ul>
+<p>Full evaluation then added preservation, bootstrap, concordance, and core balance.</p>
+</section>
+<section id="full-candidate-evaluation" class="slide level2">
+<h2>Full Candidate Evaluation</h2>
+<p>From <code>networkQC/results/full_eval/FULL_EVAL_REPORT.md</code>:</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">rank</th>
+<th>setting</th>
+<th>params</th>
+<th style="text-align: right;">grey %</th>
+<th style="text-align: right;">boot Jaccard</th>
+<th style="text-align: right;">strong preserved</th>
+<th style="text-align: right;">Pearson</th>
+<th style="text-align: right;">balanced Jaccard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td>exp3</td>
+<td>p12 d3 merge0.25 min20</td>
+<td style="text-align: right;">28.66</td>
+<td style="text-align: right;">0.400</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.857</td>
+<td style="text-align: right;">0.517</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td>exp4</td>
+<td>p12 d3 merge0.20 min20</td>
+<td style="text-align: right;">28.66</td>
+<td style="text-align: right;">0.378</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.859</td>
+<td style="text-align: right;">0.459</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td>opt5</td>
+<td>p12 d1 merge0.20 min20</td>
+<td style="text-align: right;">34.06</td>
+<td style="text-align: right;">0.395</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.714</td>
+<td style="text-align: right;">0.456</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td>baseline</td>
+<td>p20 d2 merge0.15 min20</td>
+<td style="text-align: right;">66.56</td>
+<td style="text-align: right;">0.351</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.847</td>
+<td style="text-align: right;">0.349</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="full-eval-heatmaps" class="slide level2">
+<h2>Full Eval Heatmaps</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../networkQC/results/figures/full_eval_setting_metric_heatmap.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../networkQC/results/figures/full_eval_module_metric_heatmap.png"></p>
+</div></div>
+</section>
+<section id="kme-and-topology-checks" class="slide level2">
+<h2>kME and Topology Checks</h2>
+<p><code>networkQC/scripts/10_kme_topology_review.R</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># lines 85-87</span></span>
+<span id="cb8-2"><a href=""></a>mes <span class="ot">&lt;-</span> <span class="fu">orderMEs</span>(<span class="fu">moduleEigengenes</span>(expr, <span class="at">colors =</span> colors)<span class="sc">$</span>eigengenes)</span>
+<span id="cb8-3"><a href=""></a>kme <span class="ot">&lt;-</span> <span class="fu">cor</span>(expr, mes, <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># lines 156-160</span></span>
+<span id="cb9-2"><a href=""></a>adj <span class="ot">&lt;-</span> <span class="fu">adjacency</span>(train_expr, <span class="at">power =</span> power, <span class="at">type =</span> <span class="st">"signed"</span>)</span>
+<span id="cb9-3"><a href=""></a>tom <span class="ot">&lt;-</span> <span class="fu">TOMsimilarity</span>(adj, <span class="at">TOMType =</span> <span class="st">"signed"</span>)</span>
+<span id="cb9-4"><a href=""></a><span class="fu">diag</span>(tom) <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>kME checks membership quality. TOM checks whether modules align with network topology.</p>
+</section>
+<section id="integrated-qc-ranking" class="slide level2">
+<h2>Integrated QC Ranking</h2>
+<p>From <code>networkQC/results/KME_TOPOLOGY_QC_REPORT.md</code>:</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">rank</th>
+<th>setting</th>
+<th style="text-align: right;">full eval</th>
+<th style="text-align: right;">kME</th>
+<th style="text-align: right;">topology</th>
+<th style="text-align: right;">integrated</th>
+<th style="text-align: right;">grey %</th>
+<th style="text-align: right;">median kME</th>
+<th style="text-align: right;">TOM separation</th>
+<th style="text-align: right;">flags</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td>exp3</td>
+<td style="text-align: right;">0.926</td>
+<td style="text-align: right;">0.476</td>
+<td style="text-align: right;">0.418</td>
+<td style="text-align: right;">0.753</td>
+<td style="text-align: right;">28.66</td>
+<td style="text-align: right;">0.703</td>
+<td style="text-align: right;">3.532</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td>exp4</td>
+<td style="text-align: right;">0.868</td>
+<td style="text-align: right;">0.309</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: right;">0.588</td>
+<td style="text-align: right;">28.66</td>
+<td style="text-align: right;">0.710</td>
+<td style="text-align: right;">3.037</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td>opt5</td>
+<td style="text-align: right;">0.546</td>
+<td style="text-align: right;">0.408</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.353</td>
+<td style="text-align: right;">34.06</td>
+<td style="text-align: right;">0.689</td>
+<td style="text-align: right;">2.487</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td>baseline</td>
+<td style="text-align: right;">0.227</td>
+<td style="text-align: right;">0.714</td>
+<td style="text-align: right;">0.703</td>
+<td style="text-align: right;">0.319</td>
+<td style="text-align: right;">66.56</td>
+<td style="text-align: right;">0.783</td>
+<td style="text-align: right;">48.011</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<div class="ok">
+<p>Decision: keep <code>exp3</code> as the best current setting; use <code>opt5</code> as conservative fallback.</p>
+</div>
+</section>
+<section id="graph-layout-diagnostics" class="slide level2">
+<h2>Graph Layout Diagnostics</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="../networkQC/results/figures/layout_diagnostics/opt5_nongrey_nonisolates_fr.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../networkQC/results/figures/kme_topology_setting_heatmap.png"></p>
+</div></div>
+<div class="caption">
+<p>Graph plots are visualization filters on TOM edges; they are not how WGCNA modules are constructed.</p>
+</div>
+</section>
+<section id="hmm-state-discovery" class="slide level2">
+<h2>HMM State Discovery</h2>
+<p><code>scripts/03_hmm_states.R</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># lines 4-10</span></span>
+<span id="cb10-2"><a href=""></a><span class="fl">1.</span> residualise eigengenes within core</span>
+<span id="cb10-3"><a href=""></a><span class="fl">2.</span> PCA on training cores; project validation<span class="sc">/</span>all samples</span>
+<span id="cb10-4"><a href=""></a><span class="fl">3.</span> fit K <span class="ot">=</span> <span class="dv">2</span>..<span class="dv">5</span> HMMs</span>
+<span id="cb10-5"><a href=""></a><span class="fl">4.</span> score held<span class="sc">-</span>out validation core</span>
+<span id="cb10-6"><a href=""></a><span class="fl">5.</span> select K using BIC <span class="sc">+</span> held<span class="sc">-</span>out likelihood<span class="sc">/</span>stability</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Hybrid logic:</p>
+<ul>
+<li>train BIC narrows plausible K,</li>
+<li>held-out log likelihood picks predictive K,</li>
+<li>transition stability penalizes noisy state switching.</li>
+</ul>
+</section>
+<section id="current-st8-removal-sensitivity" class="slide level2">
+<h2>Current ST8 Removal Sensitivity</h2>
+<p><code>InputQC/scripts/03_st8_low_taxa_network_sensitivity.R</code></p>
+<p>Current status at deck creation:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>setting</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>exp3</td>
+<td>complete</td>
+</tr>
+<tr class="even">
+<td>exp4</td>
+<td>preservation complete; bootstrap running</td>
+</tr>
+<tr class="odd">
+<td>opt5</td>
+<td>not yet started</td>
+</tr>
+</tbody>
+</table>
+<div class="warn">
+<p>The run is intentionally contained in <code>InputQC/</code> and does not alter the main pipeline. It tests whether removing 27 ST8 low-taxa samples changes the exp3/exp4/opt5 decision.</p>
+</div>
+</section>
+<section id="what-we-trust-now" class="slide level2">
+<h2>What We Trust Now</h2>
+<ol type="1">
+<li>The input has a real detection/depth axis.</li>
+<li>The low-detection samples are not random noise.</li>
+<li>Rarefaction does not show broad undersequencing in the processed matrix.</li>
+<li>ST8 has a specific 90-110 kya low-detection issue.</li>
+<li>WGCNA parameter choice improved substantially over baseline.</li>
+<li><code>exp3</code> is the current best network setting.</li>
+</ol>
+</section>
+<section id="how-to-recognize-bad-analysis-signatures" class="slide level2">
+<h2>How to Recognize Bad Analysis Signatures</h2>
+<div class="danger">
+<p>Warning signs:</p>
+</div>
+<ul>
+<li>PC1 almost perfectly tracks read depth or detected taxa.</li>
+<li>Grey module is huge and biologically tempting.</li>
+<li>Module stability depends on a single core or age interval.</li>
+<li>Rarefaction/Chao1 are interpreted after singleton-removing filters without caution.</li>
+<li>Network plots are treated as module construction evidence.</li>
+</ul>
+</section>
+<section id="practical-output-checklist" class="slide level2">
+<h2>Practical Output Checklist</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Folder</th>
+<th>Key outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>InputQC/results/figures/</code></td>
+<td>PC-depth heatmaps and ordinations</td>
+</tr>
+<tr class="even">
+<td><code>InputQC/rarefaction_depth_qc/</code></td>
+<td>rarefaction classes and depth/richness figures</td>
+</tr>
+<tr class="odd">
+<td><code>InputQC/core_age_imbalance/</code></td>
+<td>age/core imbalance and sample winnowing</td>
+</tr>
+<tr class="even">
+<td><code>InputQC/st8_low_taxa_review/</code></td>
+<td>low-taxa ST8 read/taxon diagnostics</td>
+</tr>
+<tr class="odd">
+<td><code>networkQC/results/full_eval/</code></td>
+<td>ranked WGCNA settings</td>
+</tr>
+<tr class="even">
+<td><code>networkQC/results/tables/</code></td>
+<td>kME, topology, final integrated ranking</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="final-recommendation" class="slide level2">
+<h2>Final Recommendation</h2>
+<div class="ok">
+<p>Use <code>exp3</code>: <code>power=12</code>, <code>deepSplit=3</code>, <code>mergeCutHeight=0.25</code>, <code>minModuleSize=20</code>.</p>
+</div>
+<p>Rationale:</p>
+<ul>
+<li>lowest grey burden among top candidates,</li>
+<li>best integrated full-eval / kME / topology score,</li>
+<li>best core-balance Jaccard among top candidates,</li>
+<li>no kME/topology warning flags.</li>
+</ul>
+<p>Continue treating input depth as a standing caveat until the ST8 removal sensitivity finishes.</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="input_network_qc_teaching_deck_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

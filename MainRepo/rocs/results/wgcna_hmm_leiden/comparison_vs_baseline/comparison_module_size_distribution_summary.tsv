@@ -1,0 +1,3 @@
+run	n_modules_non_grey	min_non_grey	q25_non_grey	median_non_grey	q75_non_grey	max_non_grey
+baseline	5	65	76	85	138	237
+leiden	6	82	180.25	320	356.25	425

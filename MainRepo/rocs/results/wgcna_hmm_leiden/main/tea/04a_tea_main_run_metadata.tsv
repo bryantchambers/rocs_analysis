@@ -1,0 +1,2 @@
+timestamp	script	repo_root	seed	sample_scope	max_age_kyr	n_samples	n_sample_module_rows	n_taxa_annotation_rows	n_taxa_with_oap	oap_threshold	module_test_min_n	state_module_test_min_n	state_effect_min_n_per_state	include_grey_primary	exclude_grey_sensitivity	interpretation_scope
+2026-05-06 21:46:49	04a_tea_main.R	/maps/projects/caeg/people/ngm902/apps/repos/rocs	42	main_window_training_plus_validation	150	214	1416	1797	1380	0.3	20	8	5	TRUE	TRUE	genomic_potential_not_direct_activity

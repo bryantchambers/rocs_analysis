@@ -1,0 +1,7 @@
+module	eigengene	n_taxa	pc1_variance_explained	train_pc1_vs_ME_cor.V1	sign_flipped
+blue	MEblue	138	0.57868	1	FALSE
+brown	MEbrown	85	0.65883	1	FALSE
+green	MEgreen	65	0.61391	-1	TRUE
+grey	MEgrey	1196	0.16727	1	FALSE
+turquoise	MEturquoise	237	0.60314	1	FALSE
+yellow	MEyellow	76	0.66018	-1	TRUE

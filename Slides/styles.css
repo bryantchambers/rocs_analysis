@@ -1,0 +1,98 @@
+.reveal {
+  font-size: 30px;
+  color: #1f2933;
+}
+
+.reveal h1 {
+  font-size: 1.9em;
+  letter-spacing: 0;
+}
+
+.reveal h2 {
+  font-size: 1.45em;
+  letter-spacing: 0;
+  color: #102a43;
+}
+
+.reveal h3 {
+  font-size: 1.1em;
+  letter-spacing: 0;
+}
+
+.reveal p,
+.reveal li {
+  line-height: 1.22;
+}
+
+.reveal pre code {
+  font-size: 0.55em;
+  line-height: 1.15;
+  max-height: 420px;
+}
+
+.reveal table {
+  font-size: 0.62em;
+  line-height: 1.12;
+}
+
+.reveal table th {
+  color: #102a43;
+}
+
+.reveal img {
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.small {
+  font-size: 0.78em;
+}
+
+.smaller {
+  font-size: 0.66em;
+}
+
+.caption {
+  font-size: 0.58em;
+  color: #52616b;
+  margin-top: 0.2em;
+}
+
+.callout,
+.warn,
+.danger,
+.ok {
+  border-left: 6px solid #52616b;
+  padding: 0.45em 0.7em;
+  margin: 0.45em 0;
+  font-size: 0.82em;
+  background: #f7f9fb;
+}
+
+.callout {
+  border-left-color: #486581;
+}
+
+.warn {
+  border-left-color: #b7791f;
+  background: #fffaf0;
+}
+
+.danger {
+  border-left-color: #c53030;
+  background: #fff5f5;
+}
+
+.ok {
+  border-left-color: #2f855a;
+  background: #f0fff4;
+}
+
+.columns {
+  gap: 1.2em;
+}
+
+.reveal .slide-number {
+  font-size: 0.55em;
+}
+

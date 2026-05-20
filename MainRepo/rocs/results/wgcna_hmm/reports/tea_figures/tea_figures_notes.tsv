@@ -1,0 +1,11 @@
+note_key	note_value
+analysis_scope	Exploratory TEA figure battery using already-generated clean main-window outputs.
+index_set	OAP, MGI, MFI, DCI, MII, SRPI
+module_time_view	Module-through-time plot uses within-sample centered TEA (analysis_set = include_grey) to emphasize specialization.
+module_plus_nondamaged_time_view	Additional module/non_damaged time plot uses raw TEA values; non_damaged is a pseudo-module row used only for visual comparison.
+state_labels	State labels follow 07_figures.R logic: states ordered by GeoB25202_R1 mean SST and relabeled state_01..state_05.
+interpretation_guardrail	TEA reflects annotation-weighted metabolic potential, not direct measured activity.
+scaled_heatmap_interpretation_guardrail	Scaled-by-index heatmaps use within-index z-scores computed across displayed rows (modules/states/profile rows). They indicate relative enrichment/depletion within each index and are not comparable as absolute TEA magnitude across indices.
+median_vs_mean_scaled_heatmaps	Median-scaled heatmaps emphasize robust central tendency and resist outliers; mean-scaled heatmaps are added as complementary exploratory views.
+mean_scaled_heatmap_interpretation_guardrail	Mean-scaled heatmaps are more sensitive to small tail differences and partial unsaturation (e.g., MGI/MFI) and should be interpreted as supportive/exploratory rather than standalone evidence.
+assumption_age_axis	All time panels use age_kyr as provided in workflow outputs; x-axis reversed for paleotime readability.

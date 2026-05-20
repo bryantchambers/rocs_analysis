@@ -1,0 +1,2 @@
+timestamp	script	repo_root	seed	n_figures	output_dir	n_samples	n_sample_module_rows	n_centered_rows	interpretation_scope
+2026-05-06 11:54:16	08_tea_figures.R	/maps/projects/caeg/people/ngm902/apps/repos/rocs	42	18	/maps/projects/caeg/people/ngm902/apps/repos/rocs/results/wgcna_hmm/reports/tea_figures	214	1112	6663	exploratory_tea_potential_not_activity

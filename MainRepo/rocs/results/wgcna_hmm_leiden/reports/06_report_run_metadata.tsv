@@ -1,0 +1,2 @@
+timestamp	script	repo_root	seed	q_threshold	operational_harmonization	selected_extended_mode	overlap_state_policy	overlap_lock_threshold_kyr	overlap_diagnostics_file	state_origin_summary_file
+2026-05-06 21:47:54	06_report.R	/maps/projects/caeg/people/ngm902/apps/repos/rocs	42	0.1	corewise_z	corewise_z	lock_main_window_states_to_main_analysis	150	extended_locked_overlap_diagnostics.tsv	extended_state_origin_summary.tsv

@@ -1,0 +1,2 @@
+resolution	n_taxa	n_communities_raw	n_modules_non_grey	n_modules_surviving_min_size	non_grey_taxa	grey_size	grey_fraction	min_non_grey_size	median_non_grey_size	max_non_grey_size	largest_non_grey_fraction	modularity	eigengenes_proxy_n	hmm_runnable_proxy	feasible
+1	1797	153	6	6	1649	148	0.0823594880356149	82	319.5	426	0.237061769616027	0.57013703987335	7	TRUE	TRUE
