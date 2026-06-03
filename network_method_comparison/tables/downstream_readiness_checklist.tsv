@@ -1,0 +1,10 @@
+artifact	path	current_scope	exists	balanced_equivalent_exists	review_note
+module assignments	/src/results/stage1/wgcna/module_assignments.tsv	original_current_pipeline	TRUE	TRUE	available
+module eigengenes	/src/results/stage1/wgcna/module_eigengenes.tsv	original_current_pipeline	TRUE	TRUE	available
+HMM states	/src/results/hmm/hmm_states.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only
+HMM validation	/src/results/hmm/hmm_validation_metrics.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only
+state fingerprints	/src/results/hmm/state_fingerprints.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only
+state importance	/src/results/importance/state_importance_scores.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only
+driver integration	/src/results/importance/integrated_driver_summary.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only
+network state stats	/src/results/network_stats/state_network_stats.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only
+functional enrichment	/src/results/importance/state_functional_enrichment.tsv	original_current_pipeline	TRUE	FALSE	downstream biology currently represents original/current pipeline only

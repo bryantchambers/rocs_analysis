@@ -1,0 +1,4 @@
+qc_depth_class	n	pct	median_reads	median_observed_taxa	median_shannon	median_chao1_gap	median_slope_per_10k
+adequate_depth	177	82.7102803738318	511586	541	5.31623130687781	0	0
+low_diversity_but_saturated	34	15.8878504672897	41495	108.5	3.97170483374569	0	0
+insufficient_for_call	3	1.4018691588785	6403	20	2.6459841973781	0	0

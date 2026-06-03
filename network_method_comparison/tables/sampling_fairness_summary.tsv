@@ -1,0 +1,3 @@
+source	train_samples	min_core_n	max_core_n	st8_n	st8_fraction	core_n_cv	age_bin_count_cv_mean	age_bin_count_cv_median	n_age_bins
+original	189	26	115	115	0.608465608465609	0.735830284857096	0.919624710082335	0.866025403784439	15
+balanced	57	19	19	19	0.333333333333333	0	0	0	11

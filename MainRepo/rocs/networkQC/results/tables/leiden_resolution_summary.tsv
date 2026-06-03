@@ -1,0 +1,5 @@
+resolution	n_modules	module_size_median	largest_module
+0.05	267	1	929
+0.1	269	1	742
+0.2	269	1	726
+0.4	270	1	707

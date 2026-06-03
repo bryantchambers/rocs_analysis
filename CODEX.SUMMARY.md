@@ -2,6 +2,22 @@
 
 Snapshot date: 2026-05-04
 
+## Canonical Status (Updated 2026-05-28)
+
+Primary authoritative reference is now:
+
+- `/src/SINGLE_SOURCE_OF_TRUTH.md`
+
+Use this priority order for current decisions and claims:
+
+1. `/src/SINGLE_SOURCE_OF_TRUTH.md`
+2. `/src/DATA_SUMMARY.md`
+3. Latest dated reports in `/src/networkQC/results/` and `/src/InputQC/`
+4. Current result tables in `/src/results/`, `/src/networkQC/results/tables/`, and `/src/InputQC/**/results/tables/`
+5. This file (`CODEX.SUMMARY.md`) as historical snapshot context
+
+This file remains useful but contains run-era details from 2026-05-04 that may not reflect current accepted settings.
+
 ## What I Read
 
 - Project docs: `README.md`, `CODEX.md`, `GEMINI.md`, `WORKFLOW_DOCUMENTATION.md`, `DATA_SUMMARY.md`, `BryantsNotes.md`.

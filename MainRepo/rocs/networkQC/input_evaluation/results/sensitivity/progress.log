@@ -1,0 +1,14 @@
+[2026-05-13 10:35:19] Input sensitivity settings: n_perm=100 
+[2026-05-13 10:35:19] Evaluating current_taxon_centered_log / exp3 
+[2026-05-13 10:39:26] Evaluating current_taxon_centered_log / exp4 
+[2026-05-13 10:43:50] Evaluating current_taxon_centered_log / opt5 
+[2026-05-13 10:47:28] Evaluating sample_clr_raw / exp3 
+[2026-05-13 10:52:04] Evaluating sample_clr_raw / exp4 
+[2026-05-13 10:56:38] Evaluating sample_clr_raw / opt5 
+[2026-05-13 11:01:14] Evaluating deseq_length_log / exp3 
+[2026-05-13 11:05:28] Evaluating deseq_length_log / exp4 
+[2026-05-13 11:09:27] Evaluating deseq_length_log / opt5 
+[2026-05-13 11:13:48] Evaluating log_depth_residualized / exp3 
+[2026-05-13 11:18:27] Evaluating log_depth_residualized / exp4 
+[2026-05-13 11:22:54] Evaluating log_depth_residualized / opt5 
+[2026-05-13 11:27:26] Input sensitivity complete. Report: /src/networkQC/input_evaluation/INPUT_EVALUATION_REBUILD_REPORT.md 

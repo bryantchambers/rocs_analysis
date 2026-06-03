@@ -1,8 +1,14 @@
 *
 !code/
 !code/**
+!InputQC/
+!InputQC/**
+!networkQC/
+!networkQC/**
 !.gitignore
 !README.md
+!MERGE_AUDIT.md
+!run_bryant_merge_final_overnight.sh
 !data/
 !data/functional/
 !data/metadata_v5.tsv

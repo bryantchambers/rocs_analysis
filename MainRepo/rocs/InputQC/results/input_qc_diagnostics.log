@@ -1,0 +1,11 @@
+[2026-05-15 09:34:51] Loading metadata and depth summaries 
+[2026-05-15 09:34:51] Computing covariate correlation table 
+[2026-05-15 09:34:51] Computing PCA diagnostics for candidate inputs 
+[2026-05-15 09:34:51] PCA diagnostics: current_taxon_centered_log 
+[2026-05-15 09:34:56] PCA diagnostics: deseq_length_log 
+[2026-05-15 09:35:00] PCA diagnostics: sample_clr_raw 
+[2026-05-15 09:35:04] PCA diagnostics: log_depth_residualized 
+[2026-05-15 09:35:09] Writing figures 
+[2026-05-15 09:35:11] Writing diagnostic report 
+[2026-05-15 09:35:11] Report written: /src/InputQC/INPUT_QC_DIAGNOSTIC_REPORT.md 
+[2026-05-15 09:35:11] Complete 

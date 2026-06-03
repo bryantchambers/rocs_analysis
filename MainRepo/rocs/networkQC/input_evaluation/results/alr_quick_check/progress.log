@@ -1,0 +1,10 @@
+[2026-05-13 12:11:34] Selecting ALR reference candidates... 
+[2026-05-13 12:12:15] Single ALR reference: S__GCA_003331785.1 
+[2026-05-13 12:12:15] Panel ALR reference taxa: 20 
+[2026-05-13 12:12:30] Evaluating alr_single_reference / exp3 
+[2026-05-13 12:14:35] Evaluating alr_single_reference / exp4 
+[2026-05-13 12:16:31] Evaluating alr_single_reference / opt5 
+[2026-05-13 12:18:15] Evaluating alr_panel_reference / exp3 
+[2026-05-13 12:20:59] Evaluating alr_panel_reference / exp4 
+[2026-05-13 12:23:53] Evaluating alr_panel_reference / opt5 
+[2026-05-13 12:26:26] ALR quick check complete. Report: /src/networkQC/input_evaluation/ALR_QUICK_CHECK_REPORT.md 

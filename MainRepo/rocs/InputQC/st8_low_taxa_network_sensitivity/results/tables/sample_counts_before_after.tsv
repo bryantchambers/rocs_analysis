@@ -1,0 +1,9 @@
+core	n	dataset
+GeoB25202_R1	26	original
+GeoB25202_R2	26	original
+ST8	118	original
+ST13	48	original
+GeoB25202_R1	26	filtered
+GeoB25202_R2	25	filtered
+ST8	88	filtered
+ST13	48	filtered

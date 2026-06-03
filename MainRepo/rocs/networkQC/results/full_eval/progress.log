@@ -1,0 +1,80 @@
+[2026-05-12 13:34:09] full_eval settings: n_boot=120, n_perm=700, top_n=5, force=FALSE, include_expansion=TRUE 
+[2026-05-12 13:34:09] Added 5 expansion candidate settings 
+[2026-05-12 13:34:09] Settings queued: baseline, opt1, opt2, opt3, opt4, opt5, exp1, exp2, exp3, exp4, exp5 
+[2026-05-12 13:34:10] Reusing completed baseline 
+[2026-05-12 13:34:10] Reusing completed opt1 
+[2026-05-12 13:34:10] Reusing completed opt2 
+[2026-05-12 13:34:10] Reusing completed opt3 
+[2026-05-12 13:34:10] Reusing completed opt4 
+[2026-05-12 13:34:10] Reusing completed opt5 
+[2026-05-12 13:34:10] Evaluating exp1 
+[2026-05-12 14:25:50] [exp1] bootstrap replicate 1/120 
+[2026-05-12 14:31:00] [exp1] bootstrap replicate 10/120 
+[2026-05-12 14:37:45] [exp1] bootstrap replicate 20/120 
+[2026-05-12 14:42:49] [exp1] bootstrap replicate 30/120 
+[2026-05-12 14:48:59] [exp1] bootstrap replicate 40/120 
+[2026-05-12 14:56:03] [exp1] bootstrap replicate 50/120 
+[2026-05-12 15:03:41] [exp1] bootstrap replicate 60/120 
+[2026-05-12 15:14:37] [exp1] bootstrap replicate 70/120 
+[2026-05-12 15:24:48] [exp1] bootstrap replicate 80/120 
+[2026-05-12 15:34:35] [exp1] bootstrap replicate 90/120 
+[2026-05-12 15:43:52] [exp1] bootstrap replicate 100/120 
+[2026-05-12 15:50:22] [exp1] bootstrap replicate 110/120 
+[2026-05-12 15:56:59] [exp1] bootstrap replicate 120/120 
+[2026-05-12 15:57:41] Evaluating exp2 
+[2026-05-12 16:33:24] [exp2] bootstrap replicate 1/120 
+[2026-05-12 16:43:13] [exp2] bootstrap replicate 10/120 
+[2026-05-12 16:52:43] [exp2] bootstrap replicate 20/120 
+[2026-05-12 16:58:41] [exp2] bootstrap replicate 30/120 
+[2026-05-12 17:05:22] [exp2] bootstrap replicate 40/120 
+[2026-05-12 17:11:49] [exp2] bootstrap replicate 50/120 
+[2026-05-12 17:17:11] [exp2] bootstrap replicate 60/120 
+[2026-05-12 17:27:00] [exp2] bootstrap replicate 70/120 
+[2026-05-12 17:36:10] [exp2] bootstrap replicate 80/120 
+[2026-05-12 17:42:49] [exp2] bootstrap replicate 90/120 
+[2026-05-12 17:49:20] [exp2] bootstrap replicate 100/120 
+[2026-05-12 17:55:48] [exp2] bootstrap replicate 110/120 
+[2026-05-12 18:02:45] [exp2] bootstrap replicate 120/120 
+[2026-05-12 18:03:20] Evaluating exp3 
+[2026-05-12 18:34:01] [exp3] bootstrap replicate 1/120 
+[2026-05-12 18:39:59] [exp3] bootstrap replicate 10/120 
+[2026-05-12 18:46:38] [exp3] bootstrap replicate 20/120 
+[2026-05-12 18:52:43] [exp3] bootstrap replicate 30/120 
+[2026-05-12 19:00:25] [exp3] bootstrap replicate 40/120 
+[2026-05-12 19:07:26] [exp3] bootstrap replicate 50/120 
+[2026-05-12 19:14:16] [exp3] bootstrap replicate 60/120 
+[2026-05-12 19:21:53] [exp3] bootstrap replicate 70/120 
+[2026-05-12 19:28:47] [exp3] bootstrap replicate 80/120 
+[2026-05-12 19:35:46] [exp3] bootstrap replicate 90/120 
+[2026-05-12 19:42:23] [exp3] bootstrap replicate 100/120 
+[2026-05-12 19:50:21] [exp3] bootstrap replicate 110/120 
+[2026-05-12 19:57:15] [exp3] bootstrap replicate 120/120 
+[2026-05-12 19:58:03] Evaluating exp4 
+[2026-05-12 20:25:18] [exp4] bootstrap replicate 1/120 
+[2026-05-12 20:31:06] [exp4] bootstrap replicate 10/120 
+[2026-05-12 20:36:51] [exp4] bootstrap replicate 20/120 
+[2026-05-12 20:42:41] [exp4] bootstrap replicate 30/120 
+[2026-05-12 20:48:48] [exp4] bootstrap replicate 40/120 
+[2026-05-12 20:55:09] [exp4] bootstrap replicate 50/120 
+[2026-05-12 21:01:33] [exp4] bootstrap replicate 60/120 
+[2026-05-12 21:08:12] [exp4] bootstrap replicate 70/120 
+[2026-05-12 21:14:20] [exp4] bootstrap replicate 80/120 
+[2026-05-12 21:20:44] [exp4] bootstrap replicate 90/120 
+[2026-05-12 21:26:47] [exp4] bootstrap replicate 100/120 
+[2026-05-12 21:33:09] [exp4] bootstrap replicate 110/120 
+[2026-05-12 21:39:19] [exp4] bootstrap replicate 120/120 
+[2026-05-12 21:39:57] Evaluating exp5 
+[2026-05-12 22:05:00] [exp5] bootstrap replicate 1/120 
+[2026-05-12 22:08:21] [exp5] bootstrap replicate 10/120 
+[2026-05-12 22:12:24] [exp5] bootstrap replicate 20/120 
+[2026-05-12 22:16:07] [exp5] bootstrap replicate 30/120 
+[2026-05-12 22:20:00] [exp5] bootstrap replicate 40/120 
+[2026-05-12 22:23:51] [exp5] bootstrap replicate 50/120 
+[2026-05-12 22:27:33] [exp5] bootstrap replicate 60/120 
+[2026-05-12 22:31:41] [exp5] bootstrap replicate 70/120 
+[2026-05-12 22:35:33] [exp5] bootstrap replicate 80/120 
+[2026-05-12 22:39:40] [exp5] bootstrap replicate 90/120 
+[2026-05-12 22:43:41] [exp5] bootstrap replicate 100/120 
+[2026-05-12 22:47:53] [exp5] bootstrap replicate 110/120 
+[2026-05-12 22:51:40] [exp5] bootstrap replicate 120/120 
+[2026-05-12 22:52:17] Full eval complete 

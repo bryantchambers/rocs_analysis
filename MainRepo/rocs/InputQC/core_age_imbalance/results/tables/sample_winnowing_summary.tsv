@@ -1,0 +1,10 @@
+step	n	pct_of_total
+All raw-count samples	218	100
+Has age/core metadata	218	100
+Pass reads >= 50k	188	86.2385321100918
+Pass reads >= 100k	182	83.4862385321101
+Pass taxa >= 150	186	85.3211009174312
+Pass taxa >= 250	177	81.1926605504587
+Pass reads >= 50k and taxa >= 150	185	84.8623853211009
+Not low-detection	181	83.0275229357798
+Not sequencing-attention	215	98.6238532110092

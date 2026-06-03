@@ -1,0 +1,11 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	variant	setting_id
+black	11.3016137763439	15.413242644126	7.18998490856175	strong	biological	sample_clr_raw	opt5
+blue	14.7631374735861	14.870429866961	14.6558450802111	strong	biological	sample_clr_raw	opt5
+brown	34.6593676804313	59.4309799051011	9.88775545576144	strong	biological	sample_clr_raw	opt5
+gold	26.5491464559725	14.8806610024256	38.2176319095194	strong	technical	sample_clr_raw	opt5
+green	18.2908376520174	25.582036953758	10.9996383502769	strong	biological	sample_clr_raw	opt5
+grey	22.6724341375799	9.62072767453079	35.7241406006291	strong	technical	sample_clr_raw	opt5
+pink	6.0512655108575	7.52921697579376	4.57331404592124	moderate	biological	sample_clr_raw	opt5
+red	10.3518856195641	10.6254883123555	10.0782829267728	strong	biological	sample_clr_raw	opt5
+turquoise	10.3868935060043	9.39976241224862	11.3740245997599	strong	biological	sample_clr_raw	opt5
+yellow	8.01926046172681	8.57325417567264	7.46526674778098	moderate	biological	sample_clr_raw	opt5

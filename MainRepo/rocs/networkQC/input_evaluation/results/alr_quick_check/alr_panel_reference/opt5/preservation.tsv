@@ -1,0 +1,7 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	variant	setting_id
+blue	16.9644726656462	10.6697923077911	23.2591530235013	strong	biological	alr_panel_reference	opt5
+brown	11.2765095881027	9.01069452495275	13.5423246512526	strong	biological	alr_panel_reference	opt5
+gold	21.62491471696	4.07334261695946	39.1764868169605	strong	technical	alr_panel_reference	opt5
+grey	11.0304751929322	0.0748122450851971	21.9861381407791	strong	technical	alr_panel_reference	opt5
+turquoise	20.5887159603708	11.675384352131	29.5020475686106	strong	biological	alr_panel_reference	opt5
+yellow	9.26521314502458	4.49934516960376	14.0310811204454	moderate	biological	alr_panel_reference	opt5

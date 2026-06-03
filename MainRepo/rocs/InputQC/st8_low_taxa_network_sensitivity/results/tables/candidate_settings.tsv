@@ -1,0 +1,4 @@
+setting_id	power	deepSplit	mergeCutHeight	minModuleSize
+exp3	12	3	0.25	20
+exp4	12	3	0.2	20
+opt5	12	1	0.2	20

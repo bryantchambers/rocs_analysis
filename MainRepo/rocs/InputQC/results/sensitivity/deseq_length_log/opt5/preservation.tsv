@@ -1,0 +1,10 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	variant	setting_id
+black	10.3039377225679	16.3593802458629	4.24849519927283	strong	biological	deseq_length_log	opt5
+blue	12.1288369972162	10.4549609109659	13.8027130834665	strong	biological	deseq_length_log	opt5
+brown	14.2544926221636	18.2553322256291	10.2536530186982	strong	biological	deseq_length_log	opt5
+gold	16.8870726382594	4.36567967969376	29.4084655968251	strong	technical	deseq_length_log	opt5
+green	15.4258633321911	21.438492459619	9.41323420476326	strong	biological	deseq_length_log	opt5
+grey	20.7912387343796	10.0619261119083	31.5205513568508	strong	technical	deseq_length_log	opt5
+red	7.2035507157007	8.46678027103902	5.94032116036237	moderate	biological	deseq_length_log	opt5
+turquoise	28.8893622401841	40.2384892940497	17.5402351863186	strong	biological	deseq_length_log	opt5
+yellow	14.6919855313295	19.1712672962266	10.2127037664323	strong	biological	deseq_length_log	opt5

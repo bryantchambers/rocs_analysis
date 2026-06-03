@@ -36,7 +36,13 @@ GitHub rejects files larger than 100 MB. These required inputs exceed that limit
 From repo root:
 
 ```bash
-Rscript code/wgcna_hmm/run_workflow.R
+Rscript code/wgcna_hmm/run_workflow.R --mode=build
+```
+
+For final WGCNA preservation/stability settings:
+
+```bash
+Rscript code/wgcna_hmm/run_workflow.R --mode=final
 ```
 
 Leiden alternative workflow:
@@ -44,6 +50,21 @@ Leiden alternative workflow:
 ```bash
 Rscript code/wgcna_hmm/run_workflow_leiden.R
 ```
+
+## Bryant WGCNA/QC merge
+
+This working branch includes Bryant's WGCNA and QC updates through the WGCNA handoff:
+
+- `code/wgcna_hmm/01_data_prep.R` writes a WGCNA training manifest and balanced core-age-bin design tables.
+- `code/wgcna_hmm/02_wgcna_main.R` now defaults to the balanced `top3` WGCNA input/parameter profile.
+- The original networkQC-selected `exp3` method is preserved with `WGCNA_HMM_INPUT_STRATEGY=original`.
+- `code/wgcna_hmm/02b_wgcna_stability.R` adds bootstrap module stability diagnostics before HMM.
+- Top-level `InputQC/` and `networkQC/` contain the supporting QC analyses and reports.
+- M's HMM and downstream scripts remain the default workflow after WGCNA.
+
+Important HMM note: balanced sampling currently controls WGCNA module construction only. Module eigengenes are projected back to all main-window samples before M's HMM stage. HMM input balancing is expected to need review with M before final biological claims.
+
+See `MERGE_AUDIT.md` for the merge boundary, file changes, output contract, and recovery notes.
 
 ## Notes
 

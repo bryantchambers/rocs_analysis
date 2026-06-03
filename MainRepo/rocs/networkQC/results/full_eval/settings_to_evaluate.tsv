@@ -1,0 +1,12 @@
+power	deepSplit	mergeCutHeight	minModuleSize	setting_id
+20	2	0.15	20	baseline
+12	1	0.1	20	opt1
+12	1	0.1	30	opt2
+12	1	0.15	20	opt3
+12	1	0.15	30	opt4
+12	1	0.2	20	opt5
+12	2	0.25	30	exp1
+12	2	0.25	20	exp2
+12	3	0.25	20	exp3
+12	3	0.2	20	exp4
+16	1	0.15	20	exp5

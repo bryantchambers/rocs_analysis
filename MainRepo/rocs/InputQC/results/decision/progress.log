@@ -1,0 +1,6 @@
+[2026-05-13 14:56:06] Computing current exp3 module summaries 
+[2026-05-13 14:56:06] Reviewing variant: current_taxon_centered_log 
+[2026-05-13 14:56:06] Reviewing variant: deseq_length_log 
+[2026-05-13 14:56:06] Reviewing variant: sample_clr_raw 
+[2026-05-13 14:56:06] Reviewing variant: log_depth_residualized 
+[2026-05-13 14:56:07] Input decision review written: /src/networkQC/input_evaluation/INPUT_DECISION_REPORT.md 

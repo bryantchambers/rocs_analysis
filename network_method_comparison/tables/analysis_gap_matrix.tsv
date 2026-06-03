@@ -1,0 +1,7 @@
+gap	why_it_matters	current_status	recommended_next_action
+balanced downstream HMM rerun	tests whether balanced module eigengenes recover the same ecological state sequence	missing; current HMM outputs are original/current pipeline	run HMM using balanced top3 module eigengenes in an isolated output directory
+balanced driver/taxon importance rerun	checks whether key taxa/drivers survive the fair-sampling network	missing; current importance outputs are original/current pipeline	rerun taxon importance and driver integration against balanced HMM/module outputs
+balanced functional enrichment/state breakdown	checks whether functional interpretation is preserved after balancing	missing for balanced; available for original/current pipeline	rerun functional/state summaries after balanced HMM
+matched original-on-balanced-samples run	separates parameter effects from sample-subset effects	not yet run as a dedicated control	fit exp3 parameters on the balanced sample manifest and compare to balanced top3
+module overlap original exp3 vs balanced top3	shows whether balanced modules are merged/split versions of original biology	partly available through balanced_vs_original overlap, needs integrated summary	add per-module best-overlap table with taxon/function annotations
+age-bin/core-stratified downstream validation	tests whether conclusions depend on ST8-heavy age bands	not yet summarized in method comparison	stratify key state/driver claims by age bin and core

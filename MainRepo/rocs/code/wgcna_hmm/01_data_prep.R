@@ -217,6 +217,126 @@ clr_mat <- clr_obj$clr
 meta_main <- meta_main[label %in% rownames(clr_mat)]
 meta_ext <- meta_ext[label %in% rownames(clr_mat)]
 
+write_wgcna_training_design <- function(meta_main, clr_mat) {
+  train_meta <- copy(meta_main[core %in% PARAMS$training_cores & label %in% rownames(clr_mat)])
+  train_meta[, age_kyr := y_bp / 1000]
+  if (nrow(train_meta) == 0) stop("No WGCNA training samples available after filtering.")
+
+  if (identical(PARAMS$wgcna_input_strategy, "original")) {
+    manifest <- train_meta[, .(
+      label,
+      core,
+      y_bp,
+      age_kyr,
+      age_bin = "original_all",
+      source = "original_all_training"
+    )]
+    fwrite(manifest, file.path(DIRS$main, "wgcna_training_samples.tsv"), sep = "\t")
+    fwrite(data.table(), file.path(DIRS$main, "balance_bin_counts_long.tsv"), sep = "\t")
+    fwrite(data.table(), file.path(DIRS$main, "balance_bin_availability.tsv"), sep = "\t")
+    fwrite(data.table(), file.path(DIRS$main, "balance_bin_quotas.tsv"), sep = "\t")
+    fwrite(train_meta[, .(label, core, y_bp, age_kyr, selected_for_wgcna = TRUE, reason = "original_all_training")],
+           file.path(DIRS$main, "balance_excluded_samples.tsv"), sep = "\t")
+    summary_dt <- data.table(
+      metric = c("input_strategy", "bin_width_kyr", "retained_bins", "samples_per_core", "total_training_samples", "hmm_input_balancing_status"),
+      value = c("original", NA, NA, NA, nrow(manifest), PARAMS$hmm_input_balancing_status)
+    )
+    fwrite(summary_dt, file.path(DIRS$main, "balance_design_summary.tsv"), sep = "\t")
+    return(list(manifest = manifest, summary = summary_dt))
+  }
+
+  bin_width_kyr <- PARAMS$wgcna_balance_bin_width_kyr
+  if (!is.finite(bin_width_kyr) || bin_width_kyr <= 0) {
+    stop("WGCNA_HMM_BALANCE_BIN_WIDTH_KYR must be a positive number.")
+  }
+
+  core_range <- train_meta[, .(
+    age_min = min(age_kyr, na.rm = TRUE),
+    age_max = max(age_kyr, na.rm = TRUE),
+    n_available = .N
+  ), by = core]
+  missing_cores <- setdiff(PARAMS$training_cores, core_range$core)
+  if (length(missing_cores) > 0) {
+    stop("Missing WGCNA training cores after filtering: ", paste(missing_cores, collapse = ", "))
+  }
+
+  shared_age_min <- max(core_range$age_min)
+  shared_age_max <- min(core_range$age_max)
+  if (!is.finite(shared_age_min) || !is.finite(shared_age_max) || shared_age_max <= shared_age_min) {
+    stop("Shared age window could not be computed for balanced WGCNA training.")
+  }
+
+  design_pool <- train_meta[age_kyr >= shared_age_min & age_kyr <= shared_age_max]
+  design_pool[, age_bin_lo := floor(age_kyr / bin_width_kyr) * bin_width_kyr]
+  design_pool[, age_bin_hi := age_bin_lo + bin_width_kyr]
+  design_pool[, age_bin := sprintf("%.0f-%.0f", age_bin_lo, age_bin_hi)]
+
+  bin_counts <- design_pool[, .N, by = .(age_bin, age_bin_lo, age_bin_hi, core)]
+  setorder(bin_counts, age_bin_lo, core)
+  bin_wide <- dcast(bin_counts, age_bin + age_bin_lo + age_bin_hi ~ core, value.var = "N", fill = 0)
+  for (core_id in PARAMS$training_cores) {
+    if (!core_id %in% names(bin_wide)) bin_wide[, (core_id) := 0L]
+  }
+  bin_wide[, quota_per_core := do.call(pmin, .SD), .SDcols = PARAMS$training_cores]
+  bin_wide[, retained := quota_per_core > 0]
+  retained_bins <- bin_wide[retained == TRUE]
+  if (nrow(retained_bins) == 0) stop("No balanced age bins with non-zero quota across all training cores.")
+
+  selected <- rbindlist(lapply(seq_len(nrow(retained_bins)), function(i) {
+    b <- retained_bins[i]
+    rbindlist(lapply(PARAMS$training_cores, function(core_id) {
+      pool <- design_pool[core == core_id & age_bin == b$age_bin, .(label, core, y_bp, age_kyr, age_bin)]
+      pool[sample.int(.N, size = b$quota_per_core, replace = FALSE)]
+    }))
+  }))
+  selected[, source := "balanced_age_core_quota"]
+  setorder(selected, age_kyr, core, label)
+
+  selected_counts <- selected[, .N, by = core][order(core)]
+  if (length(unique(selected_counts$N)) != 1L) {
+    stop("Balanced WGCNA selection failed core-count equality.")
+  }
+
+  all_train <- train_meta[, .(label, core, y_bp, age_kyr)]
+  all_train <- merge(all_train, selected[, .(label, selected_for_wgcna = TRUE)], by = "label", all.x = TRUE)
+  all_train[is.na(selected_for_wgcna), selected_for_wgcna := FALSE]
+  all_train[, reason := fifelse(
+    selected_for_wgcna,
+    "selected",
+    fifelse(age_kyr < shared_age_min | age_kyr > shared_age_max, "outside_shared_age_window", "not_selected_due_to_quota")
+  )]
+
+  summary_dt <- data.table(
+    metric = c(
+      "input_strategy", "bin_width_kyr", "shared_age_min_kyr", "shared_age_max_kyr",
+      "retained_bins", "samples_per_core", "total_training_samples", "hmm_input_balancing_status"
+    ),
+    value = c(
+      PARAMS$wgcna_input_strategy,
+      bin_width_kyr,
+      shared_age_min,
+      shared_age_max,
+      nrow(retained_bins),
+      selected_counts$N[1],
+      nrow(selected),
+      PARAMS$hmm_input_balancing_status
+    )
+  )
+
+  fwrite(bin_counts, file.path(DIRS$main, "balance_bin_counts_long.tsv"), sep = "\t")
+  fwrite(bin_wide, file.path(DIRS$main, "balance_bin_availability.tsv"), sep = "\t")
+  fwrite(retained_bins, file.path(DIRS$main, "balance_bin_quotas.tsv"), sep = "\t")
+  fwrite(selected, file.path(DIRS$main, "balanced_baseline_samples.tsv"), sep = "\t")
+  fwrite(selected, file.path(DIRS$main, "wgcna_training_samples.tsv"), sep = "\t")
+  fwrite(all_train[order(core, age_kyr, label)], file.path(DIRS$main, "balance_excluded_samples.tsv"), sep = "\t")
+  fwrite(summary_dt, file.path(DIRS$main, "balance_design_summary.tsv"), sep = "\t")
+  fwrite(core_range, file.path(DIRS$main, "balance_core_age_ranges.tsv"), sep = "\t")
+
+  list(manifest = selected, summary = summary_dt)
+}
+
+wgcna_design <- write_wgcna_training_design(meta_main, clr_mat)
+
 fwrite(meta_main, file.path(DIRS$main, "sample_metadata_main.tsv"), sep = "\t")
 fwrite(meta_ext, file.path(DIRS$extended, "sample_metadata_extended.tsv"), sep = "\t")
 fwrite(
@@ -230,6 +350,7 @@ saveRDS(clr_obj$train_row_means, file.path(DIRS$main, "clr_training_row_means.rd
 summary_dt <- data.table(
   metric = c(
     "n_samples_main", "n_samples_extended", "n_taxa_after_prevalence",
+    "wgcna_input_strategy", "wgcna_profile", "wgcna_training_samples", "hmm_input_balancing_status",
     "deep_sediment_filter_enabled", "deep_sediment_candidates_total",
     "deep_sediment_excluded_selected_samples", "deep_sediment_excluded_prevalent_main_window",
     "extra_excluded_phyla_count", "extra_excluded_phyla_values", "extra_phylum_candidates_total",
@@ -238,6 +359,7 @@ summary_dt <- data.table(
   ),
   value = c(
     nrow(meta_main), nrow(meta_ext), ncol(clr_mat),
+    PARAMS$wgcna_input_strategy, PARAMS$wgcna_profile, nrow(wgcna_design$manifest), PARAMS$hmm_input_balancing_status,
     as.integer(isTRUE(PARAMS$exclude_deep_sediment_taxa)),
     n_deep_sediment_candidates,
     n_deep_sediment_excluded_selected,
@@ -260,6 +382,10 @@ write_run_metadata(
   extra = list(
     training_cores = PARAMS$training_cores,
     validation_core = PARAMS$validation_core,
+    wgcna_input_strategy = PARAMS$wgcna_input_strategy,
+    wgcna_profile = PARAMS$wgcna_profile,
+    wgcna_training_samples = nrow(wgcna_design$manifest),
+    hmm_input_balancing_status = PARAMS$hmm_input_balancing_status,
     main_max_age_kyr = PARAMS$main_max_age_kyr,
     prevalence_min_samples = PARAMS$prevalence_min_samples,
     clr_pseudocount = PARAMS$clr_pseudocount,

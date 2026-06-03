@@ -1,0 +1,5 @@
+[2026-05-18 10:32:04] Loading low-detection, rarefaction, and PC tables 
+[2026-05-18 10:32:04] Computing age/core imbalance diagnostics 
+[2026-05-18 10:32:05] Writing imbalance figures 
+[2026-05-18 10:32:10] Report written: /src/InputQC/core_age_imbalance/CORE_AGE_IMBALANCE_REPORT.md 
+[2026-05-18 10:32:10] Complete 

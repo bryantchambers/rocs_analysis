@@ -1,0 +1,3 @@
+variant	n_samples	n_taxa	cor_PC1_log_total.V1	cor_PC2_log_total.V1	cor_PC3_log_total.V1
+alr_single_reference	214	1796	0.114495877052669	0.81930492301838	0.00581826961747301
+alr_panel_reference	214	1797	0.141947850704682	-0.780730219045645	-0.345916223015634

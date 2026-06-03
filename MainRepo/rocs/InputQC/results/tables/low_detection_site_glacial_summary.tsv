@@ -1,0 +1,151 @@
+group_var	group	site_group	glacial_class	n	pct_within_group
+low_reads_50k	FALSE	ST8	glacial_like	80	42.5531914893617
+low_reads_50k	FALSE	ST8	interglacial_like	16	8.51063829787234
+low_reads_50k		ST8	interglacial_like	1	25
+low_reads_50k	TRUE	ST8	interglacial_like	12	46.1538461538462
+low_reads_50k	TRUE	ST8	glacial_like	7	26.9230769230769
+low_reads_50k		ST8	glacial_like	2	50
+low_reads_50k	FALSE	ST13	interglacial_like	15	7.97872340425532
+low_reads_50k	FALSE	ST13	glacial_like	30	15.9574468085106
+low_reads_50k	TRUE	ST13	glacial_like	1	3.84615384615385
+low_reads_50k	TRUE	ST13	interglacial_like	2	7.69230769230769
+low_reads_50k	FALSE	GeoB25202	glacial_like	30	15.9574468085106
+low_reads_50k	TRUE	GeoB25202	interglacial_like	3	11.5384615384615
+low_reads_50k	FALSE	GeoB25202	interglacial_like	17	9.04255319148936
+low_reads_50k	TRUE	GeoB25202	glacial_like	1	3.84615384615385
+low_reads_50k		GeoB25202	glacial_like	1	25
+low_reads_100k	FALSE	ST8	glacial_like	77	42.3076923076923
+low_reads_100k	FALSE	ST8	interglacial_like	14	7.69230769230769
+low_reads_100k		ST8	interglacial_like	1	25
+low_reads_100k	TRUE	ST8	interglacial_like	14	43.75
+low_reads_100k	TRUE	ST8	glacial_like	10	31.25
+low_reads_100k		ST8	glacial_like	2	50
+low_reads_100k	FALSE	ST13	interglacial_like	15	8.24175824175824
+low_reads_100k	FALSE	ST13	glacial_like	30	16.4835164835165
+low_reads_100k	TRUE	ST13	glacial_like	1	3.125
+low_reads_100k	TRUE	ST13	interglacial_like	2	6.25
+low_reads_100k	FALSE	GeoB25202	glacial_like	29	15.9340659340659
+low_reads_100k	TRUE	GeoB25202	interglacial_like	3	9.375
+low_reads_100k	FALSE	GeoB25202	interglacial_like	17	9.34065934065934
+low_reads_100k	TRUE	GeoB25202	glacial_like	2	6.25
+low_reads_100k		GeoB25202	glacial_like	1	25
+low_reads_q10	FALSE	ST8	glacial_like	81	42.1875
+low_reads_q10	FALSE	ST8	interglacial_like	19	9.89583333333333
+low_reads_q10		ST8	interglacial_like	1	25
+low_reads_q10	TRUE	ST8	interglacial_like	9	40.9090909090909
+low_reads_q10		ST8	glacial_like	2	50
+low_reads_q10	TRUE	ST8	glacial_like	6	27.2727272727273
+low_reads_q10	FALSE	ST13	interglacial_like	15	7.8125
+low_reads_q10	FALSE	ST13	glacial_like	30	15.625
+low_reads_q10	TRUE	ST13	glacial_like	1	4.54545454545455
+low_reads_q10	TRUE	ST13	interglacial_like	2	9.09090909090909
+low_reads_q10	FALSE	GeoB25202	glacial_like	30	15.625
+low_reads_q10	TRUE	GeoB25202	interglacial_like	3	13.6363636363636
+low_reads_q10	FALSE	GeoB25202	interglacial_like	17	8.85416666666667
+low_reads_q10	TRUE	GeoB25202	glacial_like	1	4.54545454545455
+low_reads_q10		GeoB25202	glacial_like	1	25
+low_reads_q20	FALSE	ST8	glacial_like	71	41.5204678362573
+low_reads_q20	FALSE	ST8	interglacial_like	12	7.01754385964912
+low_reads_q20		ST8	interglacial_like	1	25
+low_reads_q20	TRUE	ST8	interglacial_like	16	37.2093023255814
+low_reads_q20	TRUE	ST8	glacial_like	16	37.2093023255814
+low_reads_q20		ST8	glacial_like	2	50
+low_reads_q20	TRUE	ST13	interglacial_like	3	6.97674418604651
+low_reads_q20	FALSE	ST13	glacial_like	30	17.5438596491228
+low_reads_q20	FALSE	ST13	interglacial_like	14	8.18713450292398
+low_reads_q20	TRUE	ST13	glacial_like	1	2.32558139534884
+low_reads_q20	FALSE	GeoB25202	glacial_like	28	16.374269005848
+low_reads_q20	TRUE	GeoB25202	interglacial_like	4	9.30232558139535
+low_reads_q20	FALSE	GeoB25202	interglacial_like	16	9.35672514619883
+low_reads_q20	TRUE	GeoB25202	glacial_like	3	6.97674418604651
+low_reads_q20		GeoB25202	glacial_like	1	25
+low_taxa_150	FALSE	ST8	glacial_like	80	43.010752688172
+low_taxa_150	FALSE	ST8	interglacial_like	14	7.52688172043011
+low_taxa_150		ST8	interglacial_like	1	25
+low_taxa_150	TRUE	ST8	interglacial_like	14	50
+low_taxa_150		ST8	glacial_like	2	50
+low_taxa_150	TRUE	ST8	glacial_like	7	25
+low_taxa_150	FALSE	ST13	interglacial_like	15	8.06451612903226
+low_taxa_150	FALSE	ST13	glacial_like	30	16.1290322580645
+low_taxa_150	TRUE	ST13	glacial_like	1	3.57142857142857
+low_taxa_150	TRUE	ST13	interglacial_like	2	7.14285714285714
+low_taxa_150	FALSE	GeoB25202	glacial_like	30	16.1290322580645
+low_taxa_150	TRUE	GeoB25202	interglacial_like	3	10.7142857142857
+low_taxa_150	FALSE	GeoB25202	interglacial_like	17	9.13978494623656
+low_taxa_150	TRUE	GeoB25202	glacial_like	1	3.57142857142857
+low_taxa_150		GeoB25202	glacial_like	1	25
+low_taxa_250	FALSE	ST8	glacial_like	75	42.3728813559322
+low_taxa_250	FALSE	ST8	interglacial_like	13	7.34463276836158
+low_taxa_250		ST8	interglacial_like	1	25
+low_taxa_250	TRUE	ST8	interglacial_like	15	40.5405405405405
+low_taxa_250	TRUE	ST8	glacial_like	12	32.4324324324324
+low_taxa_250		ST8	glacial_like	2	50
+low_taxa_250	TRUE	ST13	interglacial_like	3	8.10810810810811
+low_taxa_250	FALSE	ST13	glacial_like	30	16.9491525423729
+low_taxa_250	FALSE	ST13	interglacial_like	14	7.90960451977401
+low_taxa_250	TRUE	ST13	glacial_like	1	2.7027027027027
+low_taxa_250	FALSE	GeoB25202	glacial_like	29	16.3841807909605
+low_taxa_250	TRUE	GeoB25202	interglacial_like	4	10.8108108108108
+low_taxa_250	FALSE	GeoB25202	interglacial_like	16	9.03954802259887
+low_taxa_250	TRUE	GeoB25202	glacial_like	2	5.40540540540541
+low_taxa_250		GeoB25202	glacial_like	1	25
+low_taxa_q10	FALSE	ST8	glacial_like	82	42.7083333333333
+low_taxa_q10	FALSE	ST8	interglacial_like	18	9.375
+low_taxa_q10		ST8	interglacial_like	1	25
+low_taxa_q10	TRUE	ST8	interglacial_like	10	45.4545454545455
+low_taxa_q10		ST8	glacial_like	2	50
+low_taxa_q10	TRUE	ST8	glacial_like	5	22.7272727272727
+low_taxa_q10	FALSE	ST13	interglacial_like	15	7.8125
+low_taxa_q10	FALSE	ST13	glacial_like	30	15.625
+low_taxa_q10	TRUE	ST13	glacial_like	1	4.54545454545455
+low_taxa_q10	TRUE	ST13	interglacial_like	2	9.09090909090909
+low_taxa_q10	FALSE	GeoB25202	glacial_like	30	15.625
+low_taxa_q10	TRUE	GeoB25202	interglacial_like	3	13.6363636363636
+low_taxa_q10	FALSE	GeoB25202	interglacial_like	17	8.85416666666667
+low_taxa_q10	TRUE	GeoB25202	glacial_like	1	4.54545454545455
+low_taxa_q10		GeoB25202	glacial_like	1	25
+low_taxa_q20	FALSE	ST8	glacial_like	74	43.2748538011696
+low_taxa_q20	FALSE	ST8	interglacial_like	12	7.01754385964912
+low_taxa_q20		ST8	interglacial_like	1	25
+low_taxa_q20	TRUE	ST8	interglacial_like	16	37.2093023255814
+low_taxa_q20	TRUE	ST8	glacial_like	13	30.2325581395349
+low_taxa_q20		ST8	glacial_like	2	50
+low_taxa_q20	TRUE	ST13	interglacial_like	4	9.30232558139535
+low_taxa_q20	FALSE	ST13	glacial_like	29	16.9590643274854
+low_taxa_q20	TRUE	ST13	glacial_like	2	4.65116279069768
+low_taxa_q20	FALSE	ST13	interglacial_like	13	7.60233918128655
+low_taxa_q20	FALSE	GeoB25202	glacial_like	28	16.374269005848
+low_taxa_q20	TRUE	GeoB25202	interglacial_like	5	11.6279069767442
+low_taxa_q20	FALSE	GeoB25202	interglacial_like	15	8.7719298245614
+low_taxa_q20	TRUE	GeoB25202	glacial_like	3	6.97674418604651
+low_taxa_q20		GeoB25202	glacial_like	1	25
+low_reads_or_taxa	FALSE	ST8	glacial_like	75	42.3728813559322
+low_reads_or_taxa	FALSE	ST8	interglacial_like	13	7.34463276836158
+low_reads_or_taxa		ST8	interglacial_like	1	25
+low_reads_or_taxa	TRUE	ST8	interglacial_like	15	40.5405405405405
+low_reads_or_taxa	TRUE	ST8	glacial_like	12	32.4324324324324
+low_reads_or_taxa		ST8	glacial_like	2	50
+low_reads_or_taxa	TRUE	ST13	interglacial_like	3	8.10810810810811
+low_reads_or_taxa	FALSE	ST13	glacial_like	30	16.9491525423729
+low_reads_or_taxa	FALSE	ST13	interglacial_like	14	7.90960451977401
+low_reads_or_taxa	TRUE	ST13	glacial_like	1	2.7027027027027
+low_reads_or_taxa	FALSE	GeoB25202	glacial_like	29	16.3841807909605
+low_reads_or_taxa	TRUE	GeoB25202	interglacial_like	4	10.8108108108108
+low_reads_or_taxa	FALSE	GeoB25202	interglacial_like	16	9.03954802259887
+low_reads_or_taxa	TRUE	GeoB25202	glacial_like	2	5.40540540540541
+low_reads_or_taxa		GeoB25202	glacial_like	1	25
+low_reads_and_taxa	FALSE	ST8	glacial_like	77	42.3076923076923
+low_reads_and_taxa	FALSE	ST8	interglacial_like	14	7.69230769230769
+low_reads_and_taxa		ST8	interglacial_like	1	25
+low_reads_and_taxa	TRUE	ST8	interglacial_like	14	43.75
+low_reads_and_taxa	TRUE	ST8	glacial_like	10	31.25
+low_reads_and_taxa		ST8	glacial_like	2	50
+low_reads_and_taxa	FALSE	ST13	interglacial_like	15	8.24175824175824
+low_reads_and_taxa	FALSE	ST13	glacial_like	30	16.4835164835165
+low_reads_and_taxa	TRUE	ST13	glacial_like	1	3.125
+low_reads_and_taxa	TRUE	ST13	interglacial_like	2	6.25
+low_reads_and_taxa	FALSE	GeoB25202	glacial_like	29	15.9340659340659
+low_reads_and_taxa	TRUE	GeoB25202	interglacial_like	3	9.375
+low_reads_and_taxa	FALSE	GeoB25202	interglacial_like	17	9.34065934065934
+low_reads_and_taxa	TRUE	GeoB25202	glacial_like	2	6.25
+low_reads_and_taxa		GeoB25202	glacial_like	1	25

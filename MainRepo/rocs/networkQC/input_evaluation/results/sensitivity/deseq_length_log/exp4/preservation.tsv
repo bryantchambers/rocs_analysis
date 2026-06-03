@@ -1,0 +1,17 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	variant	setting_id
+black	15.4282369903183	21.3332500592432	9.52322392139332	strong	biological	deseq_length_log	exp4
+blue	11.6371821665664	10.7392436157636	12.5351207173691	strong	biological	deseq_length_log	exp4
+brown	14.3304126652307	19.2072356656473	9.45358966481403	strong	biological	deseq_length_log	exp4
+cyan	6.15516557367485	10.5700561055135	1.74027504183625	moderate	biological	deseq_length_log	exp4
+gold	16.8870726382594	4.36567967969376	29.4084655968251	strong	technical	deseq_length_log	exp4
+green	14.593941723344	23.3867125584396	5.80117088824836	strong	biological	deseq_length_log	exp4
+greenyellow	5.8848868916599	6.41268609709977	5.35708768622004	moderate	biological	deseq_length_log	exp4
+grey	21.5140776228745	8.26649514200189	34.7616601037472	strong	technical	deseq_length_log	exp4
+magenta	9.75544755681478	14.7452282999041	4.76566681372548	moderate	biological	deseq_length_log	exp4
+pink	11.4712639598814	14.3920895686247	8.55043835113822	strong	biological	deseq_length_log	exp4
+purple	9.32228518362149	14.3789065177035	4.26566384953951	moderate	biological	deseq_length_log	exp4
+red	7.64623114988838	11.4275247417444	3.8649375580324	moderate	biological	deseq_length_log	exp4
+salmon	4.74759185243303	6.57723515768207	2.91794854718399	moderate	biological	deseq_length_log	exp4
+tan	10.659234517183	17.0693233819327	4.24914565243331	strong	biological	deseq_length_log	exp4
+turquoise	24.4928406355479	36.6885113385292	12.2971699325666	strong	biological	deseq_length_log	exp4
+yellow	8.81260837140745	12.4653693469373	5.15984739587759	moderate	biological	deseq_length_log	exp4

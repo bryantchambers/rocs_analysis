@@ -1,0 +1,42 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	variant	setting_id
+gold	13.5567006077231	0.552870844054223	26.5605303713921	strong	technical	alr_single_reference	exp3
+grey				weak	technical	alr_single_reference	exp3
+turquoise	64.8732077799412	101.948204551584	27.7982110082983	strong	biological	alr_single_reference	exp3
+gold	13.5567006077231	0.552870844054223	26.5605303713921	strong	technical	alr_single_reference	exp4
+grey				weak	technical	alr_single_reference	exp4
+turquoise	64.8732077799412	101.948204551584	27.7982110082983	strong	biological	alr_single_reference	exp4
+gold	13.5567006077231	0.552870844054223	26.5605303713921	strong	technical	alr_single_reference	opt5
+grey				weak	technical	alr_single_reference	opt5
+turquoise	64.8732077799412	101.948204551584	27.7982110082983	strong	biological	alr_single_reference	opt5
+black	2.66913282423749	1.80725158329892	3.53101406517605	moderate	biological	alr_panel_reference	exp3
+blue	15.1977822570752	11.3754859564048	19.0200785577456	strong	biological	alr_panel_reference	exp3
+brown	11.2847839328284	10.3812062752893	12.1883615903676	strong	biological	alr_panel_reference	exp3
+gold	21.62491471696	4.07334261695946	39.1764868169605	strong	technical	alr_panel_reference	exp3
+green	8.47663391926715	10.3738665038925	6.57940133464182	moderate	biological	alr_panel_reference	exp3
+grey	8.46248587716104	-1.28278217498516	18.2077539293072	moderate	technical	alr_panel_reference	exp3
+magenta	3.22344620370472	1.30143107991532	5.14546132749412	moderate	biological	alr_panel_reference	exp3
+pink	2.65848610840826	1.67247224958958	3.64449996722694	moderate	biological	alr_panel_reference	exp3
+purple	4.23345337638828	5.24540969305141	3.22149705972515	moderate	biological	alr_panel_reference	exp3
+red	-0.658417420573433	-2.12953681339185	0.812701972244981	weak	biological	alr_panel_reference	exp3
+turquoise	19.4659806996374	12.4500468771378	26.4819145221371	strong	biological	alr_panel_reference	exp3
+yellow	5.82529367349647	4.04562653187043	7.6049608151225	moderate	biological	alr_panel_reference	exp3
+black	8.47663391926715	10.3738665038925	6.57940133464182	moderate	biological	alr_panel_reference	exp4
+blue	13.8863550308647	11.5447957523389	16.2279143093905	strong	biological	alr_panel_reference	exp4
+brown	11.2847839328284	10.3812062752893	12.1883615903676	strong	biological	alr_panel_reference	exp4
+gold	21.62491471696	4.07334261695946	39.1764868169605	strong	technical	alr_panel_reference	exp4
+green	5.03491832026805	4.65093440827152	5.41890223226458	moderate	biological	alr_panel_reference	exp4
+greenyellow	3.22344620370472	1.30143107991532	5.14546132749412	moderate	biological	alr_panel_reference	exp4
+grey	8.46248587716104	-1.28278217498516	18.2077539293072	moderate	technical	alr_panel_reference	exp4
+magenta	2.66913282423749	1.80725158329892	3.53101406517605	moderate	biological	alr_panel_reference	exp4
+pink	-0.658417420573433	-2.12953681339185	0.812701972244981	weak	biological	alr_panel_reference	exp4
+purple	2.65848610840826	1.67247224958958	3.64449996722694	moderate	biological	alr_panel_reference	exp4
+red	5.82529367349647	4.04562653187043	7.6049608151225	moderate	biological	alr_panel_reference	exp4
+tan	4.23345337638828	5.24540969305141	3.22149705972515	moderate	biological	alr_panel_reference	exp4
+turquoise	16.4224212507955	9.55742824194763	23.2874142596433	strong	biological	alr_panel_reference	exp4
+yellow	9.82820938088043	9.14689207274616	10.5095266890147	moderate	biological	alr_panel_reference	exp4
+blue	16.9644726656462	10.6697923077911	23.2591530235013	strong	biological	alr_panel_reference	opt5
+brown	11.2765095881027	9.01069452495275	13.5423246512526	strong	biological	alr_panel_reference	opt5
+gold	21.62491471696	4.07334261695946	39.1764868169605	strong	technical	alr_panel_reference	opt5
+grey	11.0304751929322	0.0748122450851971	21.9861381407791	strong	technical	alr_panel_reference	opt5
+turquoise	20.5887159603708	11.675384352131	29.5020475686106	strong	biological	alr_panel_reference	opt5
+yellow	9.26521314502458	4.49934516960376	14.0310811204454	moderate	biological	alr_panel_reference	opt5

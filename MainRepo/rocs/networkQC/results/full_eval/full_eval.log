@@ -1,0 +1,136 @@
+Allowing multi-threading with up to 88 threads.
+[10:03:27] full_eval settings: n_boot=120, n_perm=700, top_n=5
+[1] TRUE
+[1] TRUE
+[2026-05-11 10:03:27] full_eval settings: n_boot=120, n_perm=700, top_n=5
+[2026-05-11 10:03:27] Evaluating baseline
+[2026-05-11 10:27:57] [baseline] bootstrap replicate 1/120
+[2026-05-11 10:32:19] [baseline] bootstrap replicate 10/120
+[2026-05-11 10:37:27] [baseline] bootstrap replicate 20/120
+[2026-05-11 10:41:46] [baseline] bootstrap replicate 30/120
+[2026-05-11 10:46:35] [baseline] bootstrap replicate 40/120
+[2026-05-11 10:51:41] [baseline] bootstrap replicate 50/120
+[2026-05-11 10:56:22] [baseline] bootstrap replicate 60/120
+[2026-05-11 11:01:07] [baseline] bootstrap replicate 70/120
+[2026-05-11 11:05:46] [baseline] bootstrap replicate 80/120
+[2026-05-11 11:10:36] [baseline] bootstrap replicate 90/120
+[2026-05-11 11:15:28] [baseline] bootstrap replicate 100/120
+[2026-05-11 11:20:19] [baseline] bootstrap replicate 110/120
+[2026-05-11 11:25:04] [baseline] bootstrap replicate 120/120
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+Fontconfig warning: using without calling FcInit()
+[2026-05-11 11:25:48] Evaluating opt1
+[2026-05-11 12:01:45] [opt1] bootstrap replicate 1/120
+[2026-05-11 12:07:25] [opt1] bootstrap replicate 10/120
+[2026-05-11 12:14:02] [opt1] bootstrap replicate 20/120
+     mergeCloseModules: less than two proper modules.
+      ..color levels are grey, turquoise
+      ..there is nothing to merge.
+[2026-05-11 12:19:14] [opt1] bootstrap replicate 30/120
+[2026-05-11 12:23:38] [opt1] bootstrap replicate 40/120
+[2026-05-11 12:27:43] [opt1] bootstrap replicate 50/120
+[2026-05-11 12:31:49] [opt1] bootstrap replicate 60/120
+[2026-05-11 12:36:00] [opt1] bootstrap replicate 70/120
+[2026-05-11 12:40:16] [opt1] bootstrap replicate 80/120
+[2026-05-11 12:44:25] [opt1] bootstrap replicate 90/120
+[2026-05-11 12:48:27] [opt1] bootstrap replicate 100/120
+[2026-05-11 12:52:42] [opt1] bootstrap replicate 110/120
+[2026-05-11 12:57:06] [opt1] bootstrap replicate 120/120
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+[2026-05-11 12:57:39] Evaluating opt2
+[2026-05-11 13:21:36] [opt2] bootstrap replicate 1/120
+[2026-05-11 13:24:09] [opt2] bootstrap replicate 10/120
+[2026-05-11 13:27:23] [opt2] bootstrap replicate 20/120
+     mergeCloseModules: less than two proper modules.
+      ..color levels are grey, turquoise
+      ..there is nothing to merge.
+[2026-05-11 13:29:55] [opt2] bootstrap replicate 30/120
+[2026-05-11 13:32:50] [opt2] bootstrap replicate 40/120
+[2026-05-11 13:35:19] [opt2] bootstrap replicate 50/120
+[2026-05-11 13:37:52] [opt2] bootstrap replicate 60/120
+[2026-05-11 13:40:38] [opt2] bootstrap replicate 70/120
+[2026-05-11 13:43:06] [opt2] bootstrap replicate 80/120
+[2026-05-11 13:45:50] [opt2] bootstrap replicate 90/120
+[2026-05-11 13:48:21] [opt2] bootstrap replicate 100/120
+[2026-05-11 13:50:55] [opt2] bootstrap replicate 110/120
+[2026-05-11 13:53:28] [opt2] bootstrap replicate 120/120
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+[2026-05-11 13:53:53] Evaluating opt3
+[2026-05-11 14:14:38] [opt3] bootstrap replicate 1/120
+[2026-05-11 14:16:53] [opt3] bootstrap replicate 10/120
+[2026-05-11 14:19:16] [opt3] bootstrap replicate 20/120
+     mergeCloseModules: less than two proper modules.
+      ..color levels are grey, turquoise
+      ..there is nothing to merge.
+[2026-05-11 14:21:28] [opt3] bootstrap replicate 30/120
+[2026-05-11 14:24:20] [opt3] bootstrap replicate 40/120
+[2026-05-11 14:27:34] [opt3] bootstrap replicate 50/120
+[2026-05-11 14:31:33] [opt3] bootstrap replicate 60/120
+[2026-05-11 14:36:10] [opt3] bootstrap replicate 70/120
+[2026-05-11 14:40:36] [opt3] bootstrap replicate 80/120
+[2026-05-11 14:48:30] [opt3] bootstrap replicate 90/120
+[2026-05-11 14:54:02] [opt3] bootstrap replicate 100/120
+[2026-05-11 15:00:20] [opt3] bootstrap replicate 110/120
+[2026-05-11 15:05:42] [opt3] bootstrap replicate 120/120
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+[2026-05-11 15:06:16] Evaluating opt4
+[2026-05-11 15:32:09] [opt4] bootstrap replicate 1/120
+[2026-05-11 15:37:08] [opt4] bootstrap replicate 10/120
+[2026-05-11 15:41:00] [opt4] bootstrap replicate 20/120
+     mergeCloseModules: less than two proper modules.
+      ..color levels are grey, turquoise
+      ..there is nothing to merge.
+[2026-05-11 15:44:24] [opt4] bootstrap replicate 30/120
+[2026-05-11 15:49:14] [opt4] bootstrap replicate 40/120
+[2026-05-11 15:53:03] [opt4] bootstrap replicate 50/120
+[2026-05-11 15:56:41] [opt4] bootstrap replicate 60/120
+[2026-05-11 16:00:41] [opt4] bootstrap replicate 70/120
+[2026-05-11 16:04:50] [opt4] bootstrap replicate 80/120
+[2026-05-11 16:08:59] [opt4] bootstrap replicate 90/120
+[2026-05-11 16:12:44] [opt4] bootstrap replicate 100/120
+[2026-05-11 16:16:37] [opt4] bootstrap replicate 110/120
+[2026-05-11 16:20:41] [opt4] bootstrap replicate 120/120
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+[2026-05-11 16:21:15] Evaluating opt5
+[2026-05-11 16:46:57] [opt5] bootstrap replicate 1/120
+[2026-05-11 16:51:25] [opt5] bootstrap replicate 10/120
+[2026-05-11 16:55:46] [opt5] bootstrap replicate 20/120
+     mergeCloseModules: less than two proper modules.
+      ..color levels are grey, turquoise
+      ..there is nothing to merge.
+[2026-05-11 16:59:42] [opt5] bootstrap replicate 30/120
+[2026-05-11 17:04:19] [opt5] bootstrap replicate 40/120
+[2026-05-11 17:10:03] [opt5] bootstrap replicate 50/120
+[2026-05-11 17:14:59] [opt5] bootstrap replicate 60/120
+[2026-05-11 17:19:20] [opt5] bootstrap replicate 70/120
+[2026-05-11 17:23:35] [opt5] bootstrap replicate 80/120
+[2026-05-11 17:27:52] [opt5] bootstrap replicate 90/120
+[2026-05-11 17:31:56] [opt5] bootstrap replicate 100/120
+[2026-05-11 17:36:47] [opt5] bootstrap replicate 110/120
+[2026-05-11 17:41:41] [opt5] bootstrap replicate 120/120
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+..connectivity..
+..matrix multiplication (system BLAS)..
+..normalization..
+..done.
+[2026-05-11 17:42:30] Full eval complete
+[networkQC] full evaluation report written: /src/networkQC/results/full_eval/FULL_EVAL_REPORT.md
+[networkQC] full eval complete

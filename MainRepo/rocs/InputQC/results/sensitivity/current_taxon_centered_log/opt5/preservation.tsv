@@ -1,0 +1,8 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	variant	setting_id
+blue	16.0879369885808	16.2036975061523	15.9721764710092	strong	biological	current_taxon_centered_log	opt5
+brown	22.2756503636492	26.5449769098644	18.0063238174341	strong	biological	current_taxon_centered_log	opt5
+gold	20.9348021311165	2.98756439969545	38.8820398625376	strong	technical	current_taxon_centered_log	opt5
+green	12.8637406205098	16.1550967717	9.57238446931956	strong	biological	current_taxon_centered_log	opt5
+grey	17.7047413465323	8.63684061465922	26.7726420784053	strong	technical	current_taxon_centered_log	opt5
+turquoise	21.1684590832026	29.2850041257654	13.0519140406399	strong	biological	current_taxon_centered_log	opt5
+yellow	12.5027252150665	14.6891414913338	10.3163089387992	strong	biological	current_taxon_centered_log	opt5

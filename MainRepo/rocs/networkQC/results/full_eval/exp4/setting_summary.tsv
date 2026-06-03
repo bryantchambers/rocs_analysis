@@ -1,0 +1,2 @@
+setting_id	power	deepSplit	mergeCutHeight	minModuleSize	non_grey_modules	grey_pct	bio_pres_strong	bio_pres_moderate	mean_concordance_pearson	mean_concordance_spearman	mean_concordance_rmse	mean_bootstrap_jaccard	mean_balanced_jaccard
+exp4	12	3	0.2	20	9	28.6588759042849	7	2	0.859068064820485	0.750533338700302	0.0934813003891682	0.377504628157064	0.459198457199746

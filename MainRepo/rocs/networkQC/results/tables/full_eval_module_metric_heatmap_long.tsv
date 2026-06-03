@@ -1,0 +1,871 @@
+setting_id	module	module_type	preserved	row_label	metric	value	scaled	label
+baseline	blue	biological	strong	baseline | blue | biological | strong	jaccard_median	0.373448275862069	0.536031578101345	0.37
+baseline	brown	biological	strong	baseline | brown | biological | strong	jaccard_median	0.553769657724329	0.82520325944072	0.55
+baseline	gold	technical	strong	baseline | gold | technical | strong	jaccard_median			""
+baseline	green	biological	strong	baseline | green | biological | strong	jaccard_median	0.039190251572327	0	0.04
+baseline	grey	technical	strong	baseline | grey | technical | strong	jaccard_median			""
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	jaccard_median	0.475382895093521	0.699498633008699	0.48
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	jaccard_median	0.313859275053305	0.440471909163326	0.31
+opt1	blue	biological	strong	opt1 | blue | biological | strong	jaccard_median	0.332960500296619	0.471103514590298	0.33
+opt1	brown	biological	strong	opt1 | brown | biological | strong	jaccard_median	0.402196762665545	0.582133976935412	0.40
+opt1	gold	technical	strong	opt1 | gold | technical | strong	jaccard_median			""
+opt1	green	biological	strong	opt1 | green | biological | strong	jaccard_median	0.539130434782609	0.801727126616978	0.54
+opt1	grey	technical	strong	opt1 | grey | technical | strong	jaccard_median			""
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	jaccard_median	0.341980870569973	0.4855689962282	0.34
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	jaccard_median	0.314761934322428	0.441919455182734	0.31
+opt2	blue	biological	strong	opt2 | blue | biological | strong	jaccard_median	0.341184649042099	0.484292138677774	0.34
+opt2	brown	biological	strong	opt2 | brown | biological | strong	jaccard_median	0.416149275769934	0.604508870204518	0.42
+opt2	gold	technical	strong	opt2 | gold | technical | strong	jaccard_median			""
+opt2	green	biological	strong	opt2 | green | biological | strong	jaccard_median	0.662769230769231	1	0.66
+opt2	grey	technical	strong	opt2 | grey | technical | strong	jaccard_median			""
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	jaccard_median	0.368087799493695	0.527435271062134	0.37
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	jaccard_median	0.101282051282051	0.0995732726425302	0.10
+opt3	blue	biological	strong	opt3 | blue | biological | strong	jaccard_median	0.336198311322797	0.476295817625189	0.34
+opt3	brown	biological	strong	opt3 | brown | biological | strong	jaccard_median	0.420452367260878	0.6114095061055	0.42
+opt3	gold	technical	strong	opt3 | gold | technical | strong	jaccard_median			""
+opt3	green	biological	strong	opt3 | green | biological | strong	jaccard_median	0.543478260869565	0.808699500978531	0.54
+opt3	grey	technical	strong	opt3 | grey | technical | strong	jaccard_median			""
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	jaccard_median	0.344884887052709	0.490226010944244	0.34
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	jaccard_median	0.314761934322428	0.441919455182734	0.31
+opt4	blue	biological	strong	opt4 | blue | biological | strong	jaccard_median	0.339082044776211	0.480920305540301	0.34
+opt4	brown	biological	strong	opt4 | brown | biological | strong	jaccard_median	0.420452367260878	0.6114095061055	0.42
+opt4	gold	technical	strong	opt4 | gold | technical | strong	jaccard_median			""
+opt4	green	biological	strong	opt4 | green | biological | strong	jaccard_median	0.662769230769231	1	0.66
+opt4	grey	technical	strong	opt4 | grey | technical | strong	jaccard_median			""
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	jaccard_median	0.368087799493695	0.527435271062134	0.37
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	jaccard_median	0.101282051282051	0.0995732726425302	0.10
+opt5	blue	biological	strong	opt5 | blue | biological | strong	jaccard_median	0.333761782347901	0.472388487429367	0.33
+opt5	brown	biological	strong	opt5 | brown | biological | strong	jaccard_median	0.43128390596745	0.628779460943493	0.43
+opt5	gold	technical	strong	opt5 | gold | technical | strong	jaccard_median			""
+opt5	green	biological	strong	opt5 | green | biological | strong	jaccard_median	0.548249326664102	0.816350602047848	0.55
+opt5	grey	technical	strong	opt5 | grey | technical | strong	jaccard_median			""
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	jaccard_median	0.344884887052709	0.490226010944244	0.34
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	jaccard_median	0.314761934322428	0.441919455182734	0.31
+exp1	blue	biological	strong	exp1 | blue | biological | strong	jaccard_median	0.36825584374911	0.527704754577488	0.37
+exp1	brown	biological	strong	exp1 | brown | biological | strong	jaccard_median	0.432239690134427	0.630312200498325	0.43
+exp1	gold	technical	strong	exp1 | gold | technical | strong	jaccard_median			""
+exp1	green	biological	strong	exp1 | green | biological | strong	jaccard_median	0.662769230769231	1	0.66
+exp1	grey	technical	strong	exp1 | grey | technical | strong	jaccard_median			""
+exp1	red	biological	moderate	exp1 | red | biological | moderate	jaccard_median	0.14974860714771	0.177296476089956	0.15
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	jaccard_median	0.549212598425197	0.81789534905381	0.55
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	jaccard_median	0.175308844654217	0.218286051363044	0.18
+exp2	black	biological	moderate	exp2 | black | biological | moderate	jaccard_median	0.29520697167756	0.410560215539902	0.30
+exp2	blue	biological	strong	exp2 | blue | biological | strong	jaccard_median	0.344853214418432	0.490175219247709	0.34
+exp2	brown	biological	strong	exp2 | brown | biological | strong	jaccard_median	0.416073435743724	0.604387249642023	0.42
+exp2	gold	technical	strong	exp2 | gold | technical | strong	jaccard_median			""
+exp2	green	biological	strong	exp2 | green | biological | strong	jaccard_median	0.555999448959912	0.828779055466517	0.56
+exp2	grey	technical	strong	exp2 | grey | technical | strong	jaccard_median			""
+exp2	red	biological	strong	exp2 | red | biological | strong	jaccard_median	0.0408253205128205	0.00262207193481614	0.04
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	jaccard_median	0.525264150943396	0.779490514572949	0.53
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	jaccard_median	0.190128606187	0.242051704194814	0.19
+exp3	black	biological	strong	exp3 | black | biological | strong	jaccard_median	0.455128205128205	0.667017278375158	0.46
+exp3	blue	biological	strong	exp3 | blue | biological | strong	jaccard_median	0.289292795769993	0.401075970392345	0.29
+exp3	brown	biological	strong	exp3 | brown | biological | strong	jaccard_median	0.385671358815218	0.555633077447732	0.39
+exp3	gold	technical	strong	exp3 | gold | technical | strong	jaccard_median			""
+exp3	green	biological	strong	exp3 | green | biological | strong	jaccard_median	0.559390278976129	0.834216746808493	0.56
+exp3	grey	technical	strong	exp3 | grey | technical | strong	jaccard_median			""
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	jaccard_median	0.32	0.450319458794655	0.32
+exp3	red	biological	moderate	exp3 | red | biological | moderate	jaccard_median	0.219991971095945	0.289941972958212	0.22
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	jaccard_median	0.547650261606964	0.815389913703431	0.55
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	jaccard_median	0.425587551652893	0.61964452454475	0.43
+exp4	black	biological	moderate	exp4 | black | biological | moderate	jaccard_median	0.231406218248324	0.3082463859246	0.23
+exp4	blue	biological	strong	exp4 | blue | biological | strong	jaccard_median	0.28893815915628	0.400507258768727	0.29
+exp4	brown	biological	strong	exp4 | brown | biological | strong	jaccard_median	0.265620328849028	0.363113711062416	0.27
+exp4	gold	technical	strong	exp4 | gold | technical | strong	jaccard_median			""
+exp4	green	biological	strong	exp4 | green | biological | strong	jaccard_median	0.395927752599307	0.572080703372034	0.40
+exp4	grey	technical	strong	exp4 | grey | technical | strong	jaccard_median			""
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	jaccard_median	0.32	0.450319458794655	0.32
+exp4	pink	biological	strong	exp4 | pink | biological | strong	jaccard_median	0.455128205128205	0.667017278375158	0.46
+exp4	red	biological	strong	exp4 | red | biological | strong	jaccard_median	0.548249326664102	0.816350602047848	0.55
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	jaccard_median	0.488759625041848	0.720950173863322	0.49
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	jaccard_median	0.403512037726483	0.584243212661465	0.40
+exp5	blue	biological	strong	exp5 | blue | biological | strong	jaccard_median	0.302996540820441	0.423051927741159	0.30
+exp5	brown	biological	strong	exp5 | brown | biological | strong	jaccard_median	0.428443221251645	0.624224007968694	0.43
+exp5	gold	technical	strong	exp5 | gold | technical | strong	jaccard_median			""
+exp5	green	biological	strong	exp5 | green | biological | strong	jaccard_median	0.051701862247171	0.0200641957029364	0.05
+exp5	grey	technical	strong	exp5 | grey | technical | strong	jaccard_median			""
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	jaccard_median	0.33189597670933	0.469396395487823	0.33
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	jaccard_median	0.536700336700337	0.797830109297052	0.54
+baseline	blue	biological	strong	baseline | blue | biological | strong	jaccard_p05	0	0	0.00
+baseline	brown	biological	strong	baseline | brown | biological | strong	jaccard_p05	0.269179894179894	0.848468037035847	0.27
+baseline	gold	technical	strong	baseline | gold | technical | strong	jaccard_p05			""
+baseline	green	biological	strong	baseline | green | biological | strong	jaccard_p05	0	0	0.00
+baseline	grey	technical	strong	baseline | grey | technical | strong	jaccard_p05			""
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	jaccard_p05	0.280566280566281	0.884358477277023	0.28
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	jaccard_p05	0.148607520564042	0.468418087635741	0.15
+opt1	blue	biological	strong	opt1 | blue | biological | strong	jaccard_p05	0.193050595238095	0.608504807126501	0.19
+opt1	brown	biological	strong	opt1 | brown | biological | strong	jaccard_p05	0.253189886529498	0.798066760058404	0.25
+opt1	gold	technical	strong	opt1 | gold | technical | strong	jaccard_p05			""
+opt1	green	biological	strong	opt1 | green | biological | strong	jaccard_p05	0.254453457882661	0.802049598037218	0.25
+opt1	grey	technical	strong	opt1 | grey | technical | strong	jaccard_p05			""
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	jaccard_p05	0.0364846915570991	0.115001511244455	0.04
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	jaccard_p05	0.0272071460877431	0.0857582395027896	0.03
+opt2	blue	biological	strong	opt2 | blue | biological | strong	jaccard_p05	0.202252959361835	0.637511103632958	0.20
+opt2	brown	biological	strong	opt2 | brown | biological | strong	jaccard_p05	0.257569366982711	0.811871094125387	0.26
+opt2	gold	technical	strong	opt2 | gold | technical | strong	jaccard_p05			""
+opt2	green	biological	strong	opt2 | green | biological | strong	jaccard_p05	0.291281700515627	0.918133998878054	0.29
+opt2	grey	technical	strong	opt2 | grey | technical | strong	jaccard_p05			""
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	jaccard_p05	0.0360027229802149	0.113482322994575	0.04
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	jaccard_p05	0.0185771102121146	0.0585559492973781	0.02
+opt3	blue	biological	strong	opt3 | blue | biological | strong	jaccard_p05	0.195175577627501	0.615202854327122	0.20
+opt3	brown	biological	strong	opt3 | brown | biological | strong	jaccard_p05	0.253189886529498	0.798066760058404	0.25
+opt3	gold	technical	strong	opt3 | gold | technical | strong	jaccard_p05			""
+opt3	green	biological	strong	opt3 | green | biological | strong	jaccard_p05	0.254453457882661	0.802049598037218	0.25
+opt3	grey	technical	strong	opt3 | grey | technical | strong	jaccard_p05			""
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	jaccard_p05	0.0379764172851442	0.119703502840545	0.04
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	jaccard_p05	0.0241634475062237	0.076164354459263	0.02
+opt4	blue	biological	strong	opt4 | blue | biological | strong	jaccard_p05	0.202252959361835	0.637511103632958	0.20
+opt4	brown	biological	strong	opt4 | brown | biological | strong	jaccard_p05	0.257569366982711	0.811871094125387	0.26
+opt4	gold	technical	strong	opt4 | gold | technical | strong	jaccard_p05			""
+opt4	green	biological	strong	opt4 | green | biological | strong	jaccard_p05	0.291281700515627	0.918133998878054	0.29
+opt4	grey	technical	strong	opt4 | grey | technical | strong	jaccard_p05			""
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	jaccard_p05	0.0360027229802149	0.113482322994575	0.04
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	jaccard_p05	0.0185771102121146	0.0585559492973781	0.02
+opt5	blue	biological	strong	opt5 | blue | biological | strong	jaccard_p05	0.208062295443102	0.655822411750421	0.21
+opt5	brown	biological	strong	opt5 | brown | biological | strong	jaccard_p05	0.257569366982711	0.811871094125387	0.26
+opt5	gold	technical	strong	opt5 | gold | technical | strong	jaccard_p05			""
+opt5	green	biological	strong	opt5 | green | biological | strong	jaccard_p05	0.254453457882661	0.802049598037218	0.25
+opt5	grey	technical	strong	opt5 | grey | technical | strong	jaccard_p05			""
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	jaccard_p05	0.0379764172851442	0.119703502840545	0.04
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	jaccard_p05	0.0232261677317346	0.0732100033074541	0.02
+exp1	blue	biological	strong	exp1 | blue | biological | strong	jaccard_p05	0.0642121320890165	0.20239974398327	0.06
+exp1	brown	biological	strong	exp1 | brown | biological | strong	jaccard_p05	0.0288446430990112	0.0909197092293294	0.03
+exp1	gold	technical	strong	exp1 | gold | technical | strong	jaccard_p05			""
+exp1	green	biological	strong	exp1 | green | biological | strong	jaccard_p05	0.300528440366973	0.947280169822788	0.30
+exp1	grey	technical	strong	exp1 | grey | technical | strong	jaccard_p05			""
+exp1	red	biological	moderate	exp1 | red | biological | moderate	jaccard_p05	0	0	0.00
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	jaccard_p05	0.317254018336723	1	0.32
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	jaccard_p05	0.0765855148342059	0.241401244453019	0.08
+exp2	black	biological	moderate	exp2 | black | biological | moderate	jaccard_p05	0	0	0.00
+exp2	blue	biological	strong	exp2 | blue | biological | strong	jaccard_p05	0.120770672224976	0.38067499620066	0.12
+exp2	brown	biological	strong	exp2 | brown | biological | strong	jaccard_p05	0.0409831305711216	0.12918080844487	0.04
+exp2	gold	technical	strong	exp2 | gold | technical | strong	jaccard_p05			""
+exp2	green	biological	strong	exp2 | green | biological | strong	jaccard_p05	0.254453457882661	0.802049598037218	0.25
+exp2	grey	technical	strong	exp2 | grey | technical | strong	jaccard_p05			""
+exp2	red	biological	strong	exp2 | red | biological | strong	jaccard_p05	0	0	0.00
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	jaccard_p05	0.300114301472856	0.945974784011481	0.30
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	jaccard_p05	0.0772057897482953	0.243356380962688	0.08
+exp3	black	biological	strong	exp3 | black | biological | strong	jaccard_p05	0.00423597678916828	0.0133520035817871	0.00
+exp3	blue	biological	strong	exp3 | blue | biological | strong	jaccard_p05	0.166628264208909	0.52522034262165	0.17
+exp3	brown	biological	strong	exp3 | brown | biological | strong	jaccard_p05	0.0471101713294296	0.148493537060351	0.05
+exp3	gold	technical	strong	exp3 | gold | technical | strong	jaccard_p05			""
+exp3	green	biological	strong	exp3 | green | biological | strong	jaccard_p05	0.261102693602694	0.823008310411905	0.26
+exp3	grey	technical	strong	exp3 | grey | technical | strong	jaccard_p05			""
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	jaccard_p05	0.0203568596352102	0.0641658055016472	0.02
+exp3	red	biological	moderate	exp3 | red | biological | moderate	jaccard_p05	0.110984126984127	0.349827332577178	0.11
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	jaccard_p05	0.301426805310933	0.950111859547854	0.30
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	jaccard_p05	0.247865957205932	0.781285477502936	0.25
+exp4	black	biological	moderate	exp4 | black | biological | moderate	jaccard_p05	0.136752136752137	0.431049344840741	0.14
+exp4	blue	biological	strong	exp4 | blue | biological | strong	jaccard_p05	0.179878504672897	0.566985741003223	0.18
+exp4	brown	biological	strong	exp4 | brown | biological | strong	jaccard_p05	0.154821987480438	0.488006387727184	0.15
+exp4	gold	technical	strong	exp4 | gold | technical | strong	jaccard_p05			""
+exp4	green	biological	strong	exp4 | green | biological | strong	jaccard_p05	0.24463653229887	0.771106174104376	0.24
+exp4	grey	technical	strong	exp4 | grey | technical | strong	jaccard_p05			""
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	jaccard_p05	0.0208225945017182	0.0656338243117784	0.02
+exp4	pink	biological	strong	exp4 | pink | biological | strong	jaccard_p05	0.00654609929078014	0.0206336213646704	0.01
+exp4	red	biological	strong	exp4 | red | biological | strong	jaccard_p05	0.261102693602694	0.823008310411905	0.26
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	jaccard_p05	0.256207470880223	0.807578331784258	0.26
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	jaccard_p05	0.0471101713294296	0.148493537060351	0.05
+exp5	blue	biological	strong	exp5 | blue | biological | strong	jaccard_p05	0.00620092141831272	0.0195456040267747	0.01
+exp5	brown	biological	strong	exp5 | brown | biological | strong	jaccard_p05	0.30573754789272	0.963699528521717	0.31
+exp5	gold	technical	strong	exp5 | gold | technical | strong	jaccard_p05			""
+exp5	green	biological	strong	exp5 | green | biological | strong	jaccard_p05	0.00688819106212082	0.0217119111626505	0.01
+exp5	grey	technical	strong	exp5 | grey | technical | strong	jaccard_p05			""
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	jaccard_p05	0.179028867831777	0.56430764461354	0.18
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	jaccard_p05	0.288735294117647	0.910107602833238	0.29
+baseline	blue	biological	strong	baseline | blue | biological | strong	jaccard_p95	0.617409824394874	0.558038196993754	0.62
+baseline	brown	biological	strong	baseline | brown | biological | strong	jaccard_p95	0.819202725316758	1	0.82
+baseline	gold	technical	strong	baseline | gold | technical | strong	jaccard_p95			""
+baseline	green	biological	strong	baseline | green | biological | strong	jaccard_p95	0.565731946328961	0.444854591122557	0.57
+baseline	grey	technical	strong	baseline | grey | technical | strong	jaccard_p95			""
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	jaccard_p95	0.728847443888532	0.802106105275654	0.73
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	jaccard_p95	0.51484778121775	0.333409355664428	0.51
+opt1	blue	biological	strong	opt1 | blue | biological | strong	jaccard_p95	0.451429760715475	0.194512781224861	0.45
+opt1	brown	biological	strong	opt1 | brown | biological | strong	jaccard_p95	0.652525761648746	0.634948251173426	0.65
+opt1	gold	technical	strong	opt1 | gold | technical | strong	jaccard_p95			""
+opt1	green	biological	strong	opt1 | green | biological | strong	jaccard_p95	0.76926480599047	0.890627208573752	0.77
+opt1	grey	technical	strong	opt1 | grey | technical | strong	jaccard_p95			""
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	jaccard_p95	0.67794845536781	0.690628403953938	0.68
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	jaccard_p95	0.667796610169491	0.668394084574059	0.67
+opt2	blue	biological	strong	opt2 | blue | biological | strong	jaccard_p95	0.469099813432836	0.233213292107567	0.47
+opt2	brown	biological	strong	opt2 | brown | biological | strong	jaccard_p95	0.672309318097362	0.678277705470191	0.67
+opt2	gold	technical	strong	opt2 | gold | technical | strong	jaccard_p95			""
+opt2	green	biological	strong	opt2 | green | biological | strong	jaccard_p95	0.795498809023399	0.948084270876419	0.80
+opt2	grey	technical	strong	opt2 | grey | technical | strong	jaccard_p95			""
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	jaccard_p95	0.689006656426011	0.71484780144196	0.69
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	jaccard_p95	0.701337209302325	0.741853872301654	0.70
+opt3	blue	biological	strong	opt3 | blue | biological | strong	jaccard_p95	0.451429760715475	0.194512781224861	0.45
+opt3	brown	biological	strong	opt3 | brown | biological | strong	jaccard_p95	0.656336522801303	0.643294485664907	0.66
+opt3	gold	technical	strong	opt3 | gold | technical | strong	jaccard_p95			""
+opt3	green	biological	strong	opt3 | green | biological | strong	jaccard_p95	0.76926480599047	0.890627208573752	0.77
+opt3	grey	technical	strong	opt3 | grey | technical | strong	jaccard_p95			""
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	jaccard_p95	0.67794845536781	0.690628403953938	0.68
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	jaccard_p95	0.667796610169491	0.668394084574059	0.67
+opt4	blue	biological	strong	opt4 | blue | biological | strong	jaccard_p95	0.469099813432836	0.233213292107567	0.47
+opt4	brown	biological	strong	opt4 | brown | biological | strong	jaccard_p95	0.672309318097362	0.678277705470191	0.67
+opt4	gold	technical	strong	opt4 | gold | technical | strong	jaccard_p95			""
+opt4	green	biological	strong	opt4 | green | biological | strong	jaccard_p95	0.795498809023399	0.948084270876419	0.80
+opt4	grey	technical	strong	opt4 | grey | technical | strong	jaccard_p95			""
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	jaccard_p95	0.689006656426011	0.71484780144196	0.69
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	jaccard_p95	0.701337209302325	0.741853872301654	0.70
+opt5	blue	biological	strong	opt5 | blue | biological | strong	jaccard_p95	0.450614261514883	0.19272669511679	0.45
+opt5	brown	biological	strong	opt5 | brown | biological | strong	jaccard_p95	0.659781420765027	0.6508394156811	0.66
+opt5	gold	technical	strong	opt5 | gold | technical | strong	jaccard_p95			""
+opt5	green	biological	strong	opt5 | green | biological | strong	jaccard_p95	0.770605118392729	0.893562727530008	0.77
+opt5	grey	technical	strong	opt5 | grey | technical | strong	jaccard_p95			""
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	jaccard_p95	0.69131889915815	0.71991201808296	0.69
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	jaccard_p95	0.667796610169491	0.668394084574059	0.67
+exp1	blue	biological	strong	exp1 | blue | biological | strong	jaccard_p95	0.695156453715776	0.728316934825198	0.70
+exp1	brown	biological	strong	exp1 | brown | biological | strong	jaccard_p95	0.591902712713803	0.502173154088147	0.59
+exp1	gold	technical	strong	exp1 | gold | technical | strong	jaccard_p95			""
+exp1	green	biological	strong	exp1 | green | biological | strong	jaccard_p95	0.795498809023399	0.948084270876419	0.80
+exp1	grey	technical	strong	exp1 | grey | technical | strong	jaccard_p95			""
+exp1	red	biological	moderate	exp1 | red | biological | moderate	jaccard_p95	0.52042957042957	0.345634451853573	0.52
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	jaccard_p95	0.70912388744377	0.758908061498104	0.71
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	jaccard_p95	0.362618243243243	0	0.36
+exp2	black	biological	moderate	exp2 | black | biological | moderate	jaccard_p95	0.538621794871795	0.385478610287534	0.54
+exp2	blue	biological	strong	exp2 | blue | biological | strong	jaccard_p95	0.676895488477767	0.68832222200649	0.68
+exp2	brown	biological	strong	exp2 | brown | biological | strong	jaccard_p95	0.58743384993385	0.492385561746729	0.59
+exp2	gold	technical	strong	exp2 | gold | technical | strong	jaccard_p95			""
+exp2	green	biological	strong	exp2 | green | biological | strong	jaccard_p95	0.770154667942279	0.89257616213382	0.77
+exp2	grey	technical	strong	exp2 | grey | technical | strong	jaccard_p95			""
+exp2	red	biological	strong	exp2 | red | biological | strong	jaccard_p95	0.65021645021645	0.629890454592587	0.65
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	jaccard_p95	0.712258487512037	0.765773384765403	0.71
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	jaccard_p95	0.374304541175707	0.0255950396723785	0.37
+exp3	black	biological	strong	exp3 | black | biological | strong	jaccard_p95	0.693332853855006	0.724322931672729	0.69
+exp3	blue	biological	strong	exp3 | blue | biological | strong	jaccard_p95	0.437482482482482	0.163965798616838	0.44
+exp3	brown	biological	strong	exp3 | brown | biological | strong	jaccard_p95	0.602339870022987	0.525032356971664	0.60
+exp3	gold	technical	strong	exp3 | gold | technical | strong	jaccard_p95			""
+exp3	green	biological	strong	exp3 | green | biological | strong	jaccard_p95	0.770154667942279	0.89257616213382	0.77
+exp3	grey	technical	strong	exp3 | grey | technical | strong	jaccard_p95			""
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	jaccard_p95	0.541789215686275	0.392415816738563	0.54
+exp3	red	biological	moderate	exp3 | red | biological | moderate	jaccard_p95	0.397639751552795	0.0767032382495934	0.40
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	jaccard_p95	0.733527354086929	0.812355928434654	0.73
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	jaccard_p95	0.566931332556333	0.447481457068428	0.57
+exp4	black	biological	moderate	exp4 | black | biological | moderate	jaccard_p95	0.394328331142041	0.0694506474569418	0.39
+exp4	blue	biological	strong	exp4 | blue | biological | strong	jaccard_p95	0.426446245733788	0.139794506814334	0.43
+exp4	brown	biological	strong	exp4 | brown | biological | strong	jaccard_p95	0.413815045248869	0.112129965024485	0.41
+exp4	gold	technical	strong	exp4 | gold | technical | strong	jaccard_p95			""
+exp4	green	biological	strong	exp4 | green | biological | strong	jaccard_p95	0.550459082901831	0.411404344723971	0.55
+exp4	grey	technical	strong	exp4 | grey | technical | strong	jaccard_p95			""
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	jaccard_p95	0.544362745098039	0.398052296980021	0.54
+exp4	pink	biological	strong	exp4 | pink | biological | strong	jaccard_p95	0.693332853855006	0.724322931672729	0.69
+exp4	red	biological	strong	exp4 | red | biological | strong	jaccard_p95	0.770154667942279	0.89257616213382	0.77
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	jaccard_p95	0.674717837260734	0.683552784361251	0.67
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	jaccard_p95	0.610824627341063	0.543615461854124	0.61
+exp5	blue	biological	strong	exp5 | blue | biological | strong	jaccard_p95	0.603221672985555	0.526963659933524	0.60
+exp5	brown	biological	strong	exp5 | brown | biological | strong	jaccard_p95	0.756461452095808	0.862585620658812	0.76
+exp5	gold	technical	strong	exp5 | gold | technical | strong	jaccard_p95			""
+exp5	green	biological	strong	exp5 | green | biological | strong	jaccard_p95	0.504444884750017	0.310625190025487	0.50
+exp5	grey	technical	strong	exp5 | grey | technical | strong	jaccard_p95			""
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	jaccard_p95	0.536870980465198	0.381644020030226	0.54
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	jaccard_p95	0.808173076923077	0.97584313784912	0.81
+baseline	blue	biological	strong	baseline | blue | biological | strong	Zsummary	19.1409466068404	0.842949483195453	19.14
+baseline	brown	biological	strong	baseline | brown | biological | strong	Zsummary	11.9229368126126	0.432038932518447	11.92
+baseline	gold	technical	strong	baseline | gold | technical | strong	Zsummary	18.4694689656925	0.804723260849228	18.47
+baseline	green	biological	strong	baseline | green | biological | strong	Zsummary	10.7968106615937	0.36793024743229	10.80
+baseline	grey	technical	strong	baseline | grey | technical | strong	Zsummary	15.4514235791466	0.632910430566633	15.45
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	Zsummary	21.8996788093017	1	21.90
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	Zsummary	8.13751088115434	0.216540270368331	8.14
+opt1	blue	biological	strong	opt1 | blue | biological | strong	Zsummary	14.6626600058012	0.58800729472765	14.66
+opt1	brown	biological	strong	opt1 | brown | biological | strong	Zsummary	20.9606376858605	0.946541786982591	20.96
+opt1	gold	technical	strong	opt1 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+opt1	green	biological	strong	opt1 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+opt1	grey	technical	strong	opt1 | grey | technical | strong	Zsummary	19.5538889493955	0.866457675926483	19.55
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	Zsummary	19.9984388472319	0.891765239719128	20.00
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	Zsummary	12.0481912521249	0.439169481268312	12.05
+opt2	blue	biological	strong	opt2 | blue | biological | strong	Zsummary	14.6626600058012	0.58800729472765	14.66
+opt2	brown	biological	strong	opt2 | brown | biological | strong	Zsummary	20.9606376858605	0.946541786982591	20.96
+opt2	gold	technical	strong	opt2 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+opt2	green	biological	strong	opt2 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+opt2	grey	technical	strong	opt2 | grey | technical | strong	Zsummary	19.5538889493955	0.866457675926483	19.55
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	Zsummary	19.9984388472319	0.891765239719128	20.00
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	Zsummary	12.0481912521249	0.439169481268312	12.05
+opt3	blue	biological	strong	opt3 | blue | biological | strong	Zsummary	14.6626600058012	0.58800729472765	14.66
+opt3	brown	biological	strong	opt3 | brown | biological | strong	Zsummary	20.9606376858605	0.946541786982591	20.96
+opt3	gold	technical	strong	opt3 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+opt3	green	biological	strong	opt3 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+opt3	grey	technical	strong	opt3 | grey | technical | strong	Zsummary	19.5538889493955	0.866457675926483	19.55
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	Zsummary	19.9984388472319	0.891765239719128	20.00
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	Zsummary	12.0481912521249	0.439169481268312	12.05
+opt4	blue	biological	strong	opt4 | blue | biological | strong	Zsummary	14.6626600058012	0.58800729472765	14.66
+opt4	brown	biological	strong	opt4 | brown | biological | strong	Zsummary	20.9606376858605	0.946541786982591	20.96
+opt4	gold	technical	strong	opt4 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+opt4	green	biological	strong	opt4 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+opt4	grey	technical	strong	opt4 | grey | technical | strong	Zsummary	19.5538889493955	0.866457675926483	19.55
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	Zsummary	19.9984388472319	0.891765239719128	20.00
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	Zsummary	12.0481912521249	0.439169481268312	12.05
+opt5	blue	biological	strong	opt5 | blue | biological | strong	Zsummary	14.6626600058012	0.58800729472765	14.66
+opt5	brown	biological	strong	opt5 | brown | biological | strong	Zsummary	20.9606376858605	0.946541786982591	20.96
+opt5	gold	technical	strong	opt5 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+opt5	green	biological	strong	opt5 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+opt5	grey	technical	strong	opt5 | grey | technical | strong	Zsummary	19.5538889493955	0.866457675926483	19.55
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	Zsummary	19.9984388472319	0.891765239719128	20.00
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	Zsummary	12.0481912521249	0.439169481268312	12.05
+exp1	blue	biological	strong	exp1 | blue | biological | strong	Zsummary	20.0516193964133	0.894792729203406	20.05
+exp1	brown	biological	strong	exp1 | brown | biological | strong	Zsummary	12.3263127314756	0.455002522992152	12.33
+exp1	gold	technical	strong	exp1 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+exp1	green	biological	strong	exp1 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+exp1	grey	technical	strong	exp1 | grey | technical | strong	Zsummary	19.8483081533163	0.883218522844386	19.85
+exp1	red	biological	moderate	exp1 | red | biological | moderate	Zsummary	4.33378817364973	0	4.33
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	Zsummary	21.8346464727238	0.996297805905389	21.83
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	Zsummary	9.25079691777841	0.279917986859662	9.25
+exp2	black	biological	moderate	exp2 | black | biological | moderate	Zsummary	4.33378817364973	0	4.33
+exp2	blue	biological	strong	exp2 | blue | biological | strong	Zsummary	20.0516193964133	0.894792729203406	20.05
+exp2	brown	biological	strong	exp2 | brown | biological | strong	Zsummary	12.3263127314756	0.455002522992152	12.33
+exp2	gold	technical	strong	exp2 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+exp2	green	biological	strong	exp2 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+exp2	grey	technical	strong	exp2 | grey | technical | strong	Zsummary	14.8106697390319	0.596433268468503	14.81
+exp2	red	biological	strong	exp2 | red | biological | strong	Zsummary	11.0742665527386	0.38372539821057	11.07
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	Zsummary	21.8346464727238	0.996297805905389	21.83
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	Zsummary	9.25079691777841	0.279917986859662	9.25
+exp3	black	biological	strong	exp3 | black | biological | strong	Zsummary	11.0742665527386	0.38372539821057	11.07
+exp3	blue	biological	strong	exp3 | blue | biological | strong	Zsummary	10.9645141900571	0.377477359613612	10.96
+exp3	brown	biological	strong	exp3 | brown | biological | strong	Zsummary	18.9649783809819	0.832931874096751	18.96
+exp3	gold	technical	strong	exp3 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+exp3	green	biological	strong	exp3 | green | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+exp3	grey	technical	strong	exp3 | grey | technical | strong	Zsummary	14.356166203964	0.570559058928257	14.36
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	Zsummary	4.33378817364973	0	4.33
+exp3	red	biological	moderate	exp3 | red | biological | moderate	Zsummary	8.8816081074784	0.258900617575197	8.88
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	Zsummary	21.6927880315358	0.988222016061856	21.69
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	Zsummary	12.3263127314756	0.455002522992152	12.33
+exp4	black	biological	moderate	exp4 | black | biological | moderate	Zsummary	8.8816081074784	0.258900617575197	8.88
+exp4	blue	biological	strong	exp4 | blue | biological | strong	Zsummary	12.1546114070814	0.445227822240816	12.15
+exp4	brown	biological	strong	exp4 | brown | biological | strong	Zsummary	10.9645141900571	0.377477359613612	10.96
+exp4	gold	technical	strong	exp4 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+exp4	green	biological	strong	exp4 | green | biological | strong	Zsummary	12.3263127314756	0.455002522992152	12.33
+exp4	grey	technical	strong	exp4 | grey | technical | strong	Zsummary	14.356166203964	0.570559058928257	14.36
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	Zsummary	4.33378817364973	0	4.33
+exp4	pink	biological	strong	exp4 | pink | biological | strong	Zsummary	11.0742665527386	0.38372539821057	11.07
+exp4	red	biological	strong	exp4 | red | biological | strong	Zsummary	12.5507248910645	0.467777973109861	12.55
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	Zsummary	20.7472410464338	0.934393434026687	20.75
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	Zsummary	18.9649783809819	0.832931874096751	18.96
+exp5	blue	biological	strong	exp5 | blue | biological | strong	Zsummary	20.6821681504319	0.930688930944456	20.68
+exp5	brown	biological	strong	exp5 | brown | biological | strong	Zsummary	16.963578869209	0.718995179779025	16.96
+exp5	gold	technical	strong	exp5 | gold | technical | strong	Zsummary	18.1385387183874	0.785883894592817	18.14
+exp5	green	biological	strong	exp5 | green | biological | strong	Zsummary	11.8908458893467	0.430212044037156	11.89
+exp5	grey	technical	strong	exp5 | grey | technical | strong	Zsummary	17.3984548972441	0.743752024567325	17.40
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	Zsummary	16.5227779954177	0.693901042343337	16.52
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	Zsummary	12.9372960294188	0.489784892449875	12.94
+baseline	blue	biological	strong	baseline | blue | biological | strong	Zdensity	28.0360078183661	0.954364306021624	28.04
+baseline	brown	biological	strong	baseline | brown | biological | strong	Zdensity	20.4593617933968	0.703487751039591	20.46
+baseline	gold	technical	strong	baseline | gold | technical | strong	Zdensity	3.20763321744995	0.13225158422445	3.21
+baseline	green	biological	strong	baseline | green | biological | strong	Zdensity	14.9924610444068	0.522468706225383	14.99
+baseline	grey	technical	strong	baseline | grey | technical | strong	Zdensity	-0.786456385629285	0	-0.79
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	Zdensity	25.8992993245149	0.883613994581489	25.90
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	Zdensity	12.8266681044497	0.450755355781109	12.83
+opt1	blue	biological	strong	opt1 | blue | biological | strong	Zdensity	14.2552842567892	0.49805943960784	14.26
+opt1	brown	biological	strong	opt1 | brown | biological | strong	Zdensity	22.4609475779033	0.769763903371788	22.46
+opt1	gold	technical	strong	opt1 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+opt1	green	biological	strong	opt1 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+opt1	grey	technical	strong	opt1 | grey | technical | strong	Zdensity	9.50603429900058	0.340803120092319	9.51
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	Zdensity	27.4428985491542	0.934725377437997	27.44
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	Zdensity	13.6134300694376	0.476806477968496	13.61
+opt2	blue	biological	strong	opt2 | blue | biological | strong	Zdensity	14.2552842567892	0.49805943960784	14.26
+opt2	brown	biological	strong	opt2 | brown | biological | strong	Zdensity	22.4609475779033	0.769763903371788	22.46
+opt2	gold	technical	strong	opt2 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+opt2	green	biological	strong	opt2 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+opt2	grey	technical	strong	opt2 | grey | technical | strong	Zdensity	9.50603429900058	0.340803120092319	9.51
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	Zdensity	27.4428985491542	0.934725377437997	27.44
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	Zdensity	13.6134300694376	0.476806477968496	13.61
+opt3	blue	biological	strong	opt3 | blue | biological | strong	Zdensity	14.2552842567892	0.49805943960784	14.26
+opt3	brown	biological	strong	opt3 | brown | biological | strong	Zdensity	22.4609475779033	0.769763903371788	22.46
+opt3	gold	technical	strong	opt3 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+opt3	green	biological	strong	opt3 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+opt3	grey	technical	strong	opt3 | grey | technical | strong	Zdensity	9.50603429900058	0.340803120092319	9.51
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	Zdensity	27.4428985491542	0.934725377437997	27.44
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	Zdensity	13.6134300694376	0.476806477968496	13.61
+opt4	blue	biological	strong	opt4 | blue | biological | strong	Zdensity	14.2552842567892	0.49805943960784	14.26
+opt4	brown	biological	strong	opt4 | brown | biological | strong	Zdensity	22.4609475779033	0.769763903371788	22.46
+opt4	gold	technical	strong	opt4 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+opt4	green	biological	strong	opt4 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+opt4	grey	technical	strong	opt4 | grey | technical | strong	Zdensity	9.50603429900058	0.340803120092319	9.51
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	Zdensity	27.4428985491542	0.934725377437997	27.44
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	Zdensity	13.6134300694376	0.476806477968496	13.61
+opt5	blue	biological	strong	opt5 | blue | biological | strong	Zdensity	14.2552842567892	0.49805943960784	14.26
+opt5	brown	biological	strong	opt5 | brown | biological | strong	Zdensity	22.4609475779033	0.769763903371788	22.46
+opt5	gold	technical	strong	opt5 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+opt5	green	biological	strong	opt5 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+opt5	grey	technical	strong	opt5 | grey | technical | strong	Zdensity	9.50603429900058	0.340803120092319	9.51
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	Zdensity	27.4428985491542	0.934725377437997	27.44
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	Zdensity	13.6134300694376	0.476806477968496	13.61
+exp1	blue	biological	strong	exp1 | blue | biological | strong	Zdensity	27.5921132133856	0.939666146848605	27.59
+exp1	brown	biological	strong	exp1 | brown | biological | strong	Zdensity	14.368253412887	0.501800054202694	14.37
+exp1	gold	technical	strong	exp1 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+exp1	green	biological	strong	exp1 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+exp1	grey	technical	strong	exp1 | grey | technical | strong	Zdensity	10.2033932536427	0.363893945709608	10.20
+exp1	red	biological	moderate	exp1 | red | biological | moderate	Zdensity	6.69253551361263	0.247643048947631	6.69
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	Zdensity	19.3652348876648	0.667259215627142	19.37
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	Zdensity	11.3233477539567	0.400977679838066	11.32
+exp2	black	biological	moderate	exp2 | black | biological | moderate	Zdensity	6.69253551361263	0.247643048947631	6.69
+exp2	blue	biological	strong	exp2 | blue | biological | strong	Zdensity	27.5921132133856	0.939666146848605	27.59
+exp2	brown	biological	strong	exp2 | brown | biological | strong	Zdensity	14.368253412887	0.501800054202694	14.37
+exp2	gold	technical	strong	exp2 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+exp2	green	biological	strong	exp2 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+exp2	grey	technical	strong	exp2 | grey | technical | strong	Zdensity	4.8345316482011	0.186121155571381	4.83
+exp2	red	biological	strong	exp2 | red | biological | strong	Zdensity	16.5954855239728	0.575547767548829	16.60
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	Zdensity	19.3652348876648	0.667259215627142	19.37
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	Zdensity	11.3233477539567	0.400977679838066	11.32
+exp3	black	biological	strong	exp3 | black | biological | strong	Zdensity	16.5954855239728	0.575547767548829	16.60
+exp3	blue	biological	strong	exp3 | blue | biological | strong	Zdensity	15.3725053987391	0.535052667260523	15.37
+exp3	brown	biological	strong	exp3 | brown | biological | strong	Zdensity	26.087071644131	0.889831478216204	26.09
+exp3	gold	technical	strong	exp3 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+exp3	green	biological	strong	exp3 | green | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+exp3	grey	technical	strong	exp3 | grey | technical | strong	Zdensity	4.8608917083685	0.186993985193106	4.86
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	Zdensity	6.69253551361263	0.247643048947631	6.69
+exp3	red	biological	moderate	exp3 | red | biological | moderate	Zdensity	10.606135534582	0.377229476451664	10.61
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	Zdensity	19.5186652749537	0.672339575309479	19.52
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	Zdensity	14.368253412887	0.501800054202694	14.37
+exp4	black	biological	moderate	exp4 | black | biological | moderate	Zdensity	10.606135534582	0.377229476451664	10.61
+exp4	blue	biological	strong	exp4 | blue | biological | strong	Zdensity	10.8429862157927	0.385072034062441	10.84
+exp4	brown	biological	strong	exp4 | brown | biological | strong	Zdensity	15.3725053987391	0.535052667260523	15.37
+exp4	gold	technical	strong	exp4 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+exp4	green	biological	strong	exp4 | green | biological | strong	Zdensity	14.368253412887	0.501800054202694	14.37
+exp4	grey	technical	strong	exp4 | grey | technical | strong	Zdensity	4.8608917083685	0.186993985193106	4.86
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	Zdensity	6.69253551361263	0.247643048947631	6.69
+exp4	pink	biological	strong	exp4 | pink | biological | strong	Zdensity	16.5954855239728	0.575547767548829	16.60
+exp4	red	biological	strong	exp4 | red | biological | strong	Zdensity	16.0260355498712	0.556692241334933	16.03
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	Zdensity	22.5791648766799	0.773678293533162	22.58
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	Zdensity	26.087071644131	0.889831478216204	26.09
+exp5	blue	biological	strong	exp5 | blue | biological | strong	Zdensity	29.4142374397141	1	29.41
+exp5	brown	biological	strong	exp5 | brown | biological | strong	Zdensity	20.2302271333243	0.695900684947745	20.23
+exp5	gold	technical	strong	exp5 | gold | technical | strong	Zdensity	3.08741318571425	0.128270879925703	3.09
+exp5	green	biological	strong	exp5 | green | biological | strong	Zdensity	15.6698996370922	0.544899932362212	15.67
+exp5	grey	technical	strong	exp5 | grey | technical | strong	Zdensity	3.49258232084035	0.141686768231755	3.49
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	Zdensity	17.222835051558	0.596320453474963	17.22
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	Zdensity	18.6231769657923	0.642688325760704	18.62
+baseline	blue	biological	strong	baseline | blue | biological | strong	Zconnectivity	10.2458853953148	0.260447658226328	10.25
+baseline	brown	biological	strong	baseline | brown | biological | strong	Zconnectivity	3.38651183182849	0.0444470106264473	3.39
+baseline	gold	technical	strong	baseline | gold | technical | strong	Zconnectivity	33.7313047139351	1	33.73
+baseline	green	biological	strong	baseline | green | biological | strong	Zconnectivity	6.60116027878053	0.145675809425776	6.60
+baseline	grey	technical	strong	baseline | grey | technical | strong	Zconnectivity	31.6893035439225	0.935697688565855	31.69
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	Zconnectivity	17.9000582940885	0.501476418021161	17.90
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	Zconnectivity	3.44835365785895	0.046394400478845	3.45
+opt1	blue	biological	strong	opt1 | blue | biological | strong	Zconnectivity	15.0700357548133	0.412359431528445	15.07
+opt1	brown	biological	strong	opt1 | brown | biological | strong	Zconnectivity	19.4603277938177	0.550609071207723	19.46
+opt1	gold	technical	strong	opt1 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+opt1	green	biological	strong	opt1 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+opt1	grey	technical	strong	opt1 | grey | technical | strong	Zconnectivity	29.6017435997903	0.86996073814863	29.60
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	Zconnectivity	12.5539791453096	0.333129185206281	12.55
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	Zconnectivity	10.4829524348123	0.267912863843445	10.48
+opt2	blue	biological	strong	opt2 | blue | biological | strong	Zconnectivity	15.0700357548133	0.412359431528445	15.07
+opt2	brown	biological	strong	opt2 | brown | biological | strong	Zconnectivity	19.4603277938177	0.550609071207723	19.46
+opt2	gold	technical	strong	opt2 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+opt2	green	biological	strong	opt2 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+opt2	grey	technical	strong	opt2 | grey | technical | strong	Zconnectivity	29.6017435997903	0.86996073814863	29.60
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	Zconnectivity	12.5539791453096	0.333129185206281	12.55
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	Zconnectivity	10.4829524348123	0.267912863843445	10.48
+opt3	blue	biological	strong	opt3 | blue | biological | strong	Zconnectivity	15.0700357548133	0.412359431528445	15.07
+opt3	brown	biological	strong	opt3 | brown | biological | strong	Zconnectivity	19.4603277938177	0.550609071207723	19.46
+opt3	gold	technical	strong	opt3 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+opt3	green	biological	strong	opt3 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+opt3	grey	technical	strong	opt3 | grey | technical | strong	Zconnectivity	29.6017435997903	0.86996073814863	29.60
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	Zconnectivity	12.5539791453096	0.333129185206281	12.55
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	Zconnectivity	10.4829524348123	0.267912863843445	10.48
+opt4	blue	biological	strong	opt4 | blue | biological | strong	Zconnectivity	15.0700357548133	0.412359431528445	15.07
+opt4	brown	biological	strong	opt4 | brown | biological | strong	Zconnectivity	19.4603277938177	0.550609071207723	19.46
+opt4	gold	technical	strong	opt4 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+opt4	green	biological	strong	opt4 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+opt4	grey	technical	strong	opt4 | grey | technical | strong	Zconnectivity	29.6017435997903	0.86996073814863	29.60
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	Zconnectivity	12.5539791453096	0.333129185206281	12.55
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	Zconnectivity	10.4829524348123	0.267912863843445	10.48
+opt5	blue	biological	strong	opt5 | blue | biological | strong	Zconnectivity	15.0700357548133	0.412359431528445	15.07
+opt5	brown	biological	strong	opt5 | brown | biological | strong	Zconnectivity	19.4603277938177	0.550609071207723	19.46
+opt5	gold	technical	strong	opt5 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+opt5	green	biological	strong	opt5 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+opt5	grey	technical	strong	opt5 | grey | technical | strong	Zconnectivity	29.6017435997903	0.86996073814863	29.60
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	Zconnectivity	12.5539791453096	0.333129185206281	12.55
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	Zconnectivity	10.4829524348123	0.267912863843445	10.48
+exp1	blue	biological	strong	exp1 | blue | biological | strong	Zconnectivity	12.5111255794411	0.331779732826427	12.51
+exp1	brown	biological	strong	exp1 | brown | biological | strong	Zconnectivity	10.2843720500643	0.261659597228177	10.28
+exp1	gold	technical	strong	exp1 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+exp1	green	biological	strong	exp1 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+exp1	grey	technical	strong	exp1 | grey | technical | strong	Zconnectivity	29.4932230529899	0.866543442360636	29.49
+exp1	red	biological	moderate	exp1 | red | biological | moderate	Zconnectivity	1.97504083368683	0	1.98
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	Zconnectivity	24.3040580577828	0.703137412773048	24.30
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	Zconnectivity	7.17824608160013	0.163848155045392	7.18
+exp2	black	biological	moderate	exp2 | black | biological | moderate	Zconnectivity	1.97504083368683	0	1.98
+exp2	blue	biological	strong	exp2 | blue | biological | strong	Zconnectivity	12.5111255794411	0.331779732826427	12.51
+exp2	brown	biological	strong	exp2 | brown | biological | strong	Zconnectivity	10.2843720500643	0.261659597228177	10.28
+exp2	gold	technical	strong	exp2 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+exp2	green	biological	strong	exp2 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+exp2	grey	technical	strong	exp2 | grey | technical | strong	Zconnectivity	24.7868078298628	0.718339130893934	24.79
+exp2	red	biological	strong	exp2 | red | biological | strong	Zconnectivity	5.55304758150437	0.112670897348318	5.55
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	Zconnectivity	24.3040580577828	0.703137412773048	24.30
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	Zconnectivity	7.17824608160013	0.163848155045392	7.18
+exp3	black	biological	strong	exp3 | black | biological | strong	Zconnectivity	5.55304758150437	0.112670897348318	5.55
+exp3	blue	biological	strong	exp3 | blue | biological | strong	Zconnectivity	6.55652298137506	0.144270187606604	6.56
+exp3	brown	biological	strong	exp3 | brown | biological | strong	Zconnectivity	11.8428851178328	0.310736940634996	11.84
+exp3	gold	technical	strong	exp3 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+exp3	green	biological	strong	exp3 | green | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+exp3	grey	technical	strong	exp3 | grey | technical | strong	Zconnectivity	23.8514406995596	0.688884559857793	23.85
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	Zconnectivity	1.97504083368683	0	1.98
+exp3	red	biological	moderate	exp3 | red | biological | moderate	Zconnectivity	7.1570806803748	0.163181659726385	7.16
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	Zconnectivity	23.8669107881179	0.689371710632728	23.87
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	Zconnectivity	10.2843720500643	0.261659597228177	10.28
+exp4	black	biological	moderate	exp4 | black | biological | moderate	Zconnectivity	7.1570806803748	0.163181659726385	7.16
+exp4	blue	biological	strong	exp4 | blue | biological | strong	Zconnectivity	13.4662365983701	0.361856035962422	13.47
+exp4	brown	biological	strong	exp4 | brown | biological | strong	Zconnectivity	6.55652298137506	0.144270187606604	6.56
+exp4	gold	technical	strong	exp4 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+exp4	green	biological	strong	exp4 | green | biological | strong	Zconnectivity	10.2843720500643	0.261659597228177	10.28
+exp4	grey	technical	strong	exp4 | grey | technical | strong	Zconnectivity	23.8514406995596	0.688884559857793	23.85
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	Zconnectivity	1.97504083368683	0	1.98
+exp4	pink	biological	strong	exp4 | pink | biological | strong	Zconnectivity	5.55304758150437	0.112670897348318	5.55
+exp4	red	biological	strong	exp4 | red | biological | strong	Zconnectivity	9.07541423225767	0.223589696361829	9.08
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	Zconnectivity	18.9153172161878	0.533446769632037	18.92
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	Zconnectivity	11.8428851178328	0.310736940634996	11.84
+exp5	blue	biological	strong	exp5 | blue | biological | strong	Zconnectivity	11.9500988611497	0.314113085376745	11.95
+exp5	brown	biological	strong	exp5 | brown | biological | strong	Zconnectivity	13.6969306050938	0.369120555730668	13.70
+exp5	gold	technical	strong	exp5 | gold | technical | strong	Zconnectivity	33.1896642510605	0.98294382283391	33.19
+exp5	green	biological	strong	exp5 | green | biological | strong	Zconnectivity	8.1117921416012	0.193245380850085	8.11
+exp5	grey	technical	strong	exp5 | grey | technical | strong	Zconnectivity	31.3043274736479	0.923574849691411	31.30
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	Zconnectivity	15.8227209392774	0.436061375412727	15.82
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	Zconnectivity	7.2514150930454	0.166152236272365	7.25
+baseline	blue	biological	strong	baseline | blue | biological | strong	pearson_r	0.978212027482657	0.99204798426882	0.98
+baseline	brown	biological	strong	baseline | brown | biological | strong	pearson_r	0.940211091620492	0.965231111433849	0.94
+baseline	gold	technical	strong	baseline | gold | technical | strong	pearson_r			""
+baseline	green	biological	strong	baseline | green | biological | strong	pearson_r	0.889927136350619	0.929746237087527	0.89
+baseline	grey	technical	strong	baseline | grey | technical | strong	pearson_r	0.524758381699881	0.6720503715885	0.52
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	pearson_r	0.909715767705885	0.943710872394328	0.91
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	pearson_r	0.840854369149989	0.895116085807762	0.84
+opt1	blue	biological	strong	opt1 | blue | biological | strong	pearson_r	0.849121038212388	0.900949789846505	0.85
+opt1	brown	biological	strong	opt1 | brown | biological | strong	pearson_r	0.922655108182619	0.95284203298973	0.92
+opt1	gold	technical	strong	opt1 | gold | technical | strong	pearson_r			""
+opt1	green	biological	strong	opt1 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+opt1	grey	technical	strong	opt1 | grey | technical | strong	pearson_r	-0.279921086543875	0.104196278439974	-0.28
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	pearson_r	0.888458135742738	0.928709578342097	0.89
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	pearson_r	0.957461600377295	0.977404619511326	0.96
+opt2	blue	biological	strong	opt2 | blue | biological | strong	pearson_r	0.849121038212388	0.900949789846505	0.85
+opt2	brown	biological	strong	opt2 | brown | biological | strong	pearson_r	0.922655108182619	0.95284203298973	0.92
+opt2	gold	technical	strong	opt2 | gold | technical | strong	pearson_r			""
+opt2	green	biological	strong	opt2 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+opt2	grey	technical	strong	opt2 | grey | technical | strong	pearson_r	-0.279921086543875	0.104196278439974	-0.28
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	pearson_r	0.888458135742738	0.928709578342097	0.89
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	pearson_r	0.957461600377295	0.977404619511326	0.96
+opt3	blue	biological	strong	opt3 | blue | biological | strong	pearson_r	0.849121038212388	0.900949789846505	0.85
+opt3	brown	biological	strong	opt3 | brown | biological | strong	pearson_r	0.922655108182619	0.95284203298973	0.92
+opt3	gold	technical	strong	opt3 | gold | technical | strong	pearson_r			""
+opt3	green	biological	strong	opt3 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+opt3	grey	technical	strong	opt3 | grey | technical | strong	pearson_r	-0.279921086543875	0.104196278439974	-0.28
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	pearson_r	0.888458135742738	0.928709578342097	0.89
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	pearson_r	0.957461600377295	0.977404619511326	0.96
+opt4	blue	biological	strong	opt4 | blue | biological | strong	pearson_r	0.849121038212388	0.900949789846505	0.85
+opt4	brown	biological	strong	opt4 | brown | biological | strong	pearson_r	0.922655108182619	0.95284203298973	0.92
+opt4	gold	technical	strong	opt4 | gold | technical | strong	pearson_r			""
+opt4	green	biological	strong	opt4 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+opt4	grey	technical	strong	opt4 | grey | technical | strong	pearson_r	-0.279921086543875	0.104196278439974	-0.28
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	pearson_r	0.888458135742738	0.928709578342097	0.89
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	pearson_r	0.957461600377295	0.977404619511326	0.96
+opt5	blue	biological	strong	opt5 | blue | biological | strong	pearson_r	0.849121038212388	0.900949789846505	0.85
+opt5	brown	biological	strong	opt5 | brown | biological | strong	pearson_r	0.922655108182619	0.95284203298973	0.92
+opt5	gold	technical	strong	opt5 | gold | technical | strong	pearson_r			""
+opt5	green	biological	strong	opt5 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+opt5	grey	technical	strong	opt5 | grey | technical | strong	pearson_r	-0.279921086543875	0.104196278439974	-0.28
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	pearson_r	0.888458135742738	0.928709578342097	0.89
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	pearson_r	0.957461600377295	0.977404619511326	0.96
+exp1	blue	biological	strong	exp1 | blue | biological | strong	pearson_r	0.888069876363824	0.928435587658576	0.89
+exp1	brown	biological	strong	exp1 | brown | biological | strong	pearson_r	0.942804135315002	0.967060995920468	0.94
+exp1	gold	technical	strong	exp1 | gold | technical | strong	pearson_r			""
+exp1	green	biological	strong	exp1 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+exp1	grey	technical	strong	exp1 | grey | technical | strong	pearson_r	-0.3083860873222	0.084108817728784	-0.31
+exp1	red	biological	moderate	exp1 | red | biological | moderate	pearson_r	0.978010725543701	0.991905927543744	0.98
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	pearson_r	0.881898373644089	0.924080421137517	0.88
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	pearson_r	0.861019775497199	0.909346607383339	0.86
+exp2	black	biological	moderate	exp2 | black | biological | moderate	pearson_r	0.978010725543701	0.991905927543744	0.98
+exp2	blue	biological	strong	exp2 | blue | biological | strong	pearson_r	0.888069876363824	0.928435587658576	0.89
+exp2	brown	biological	strong	exp2 | brown | biological | strong	pearson_r	0.942804135315002	0.967060995920468	0.94
+exp2	gold	technical	strong	exp2 | gold | technical | strong	pearson_r			""
+exp2	green	biological	strong	exp2 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+exp2	grey	technical	strong	exp2 | grey | technical | strong	pearson_r	-0.427572757879326	0	-0.43
+exp2	red	biological	strong	exp2 | red | biological | strong	pearson_r	0.847669837183083	0.899925692082124	0.85
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	pearson_r	0.881898373644089	0.924080421137517	0.88
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	pearson_r	0.861019775497199	0.909346607383339	0.86
+exp3	black	biological	strong	exp3 | black | biological | strong	pearson_r	0.847669837183083	0.899925692082124	0.85
+exp3	blue	biological	strong	exp3 | blue | biological | strong	pearson_r	0.835633133795234	0.891431513273607	0.84
+exp3	brown	biological	strong	exp3 | brown | biological | strong	pearson_r	0.98948045693881	1	0.99
+exp3	gold	technical	strong	exp3 | gold | technical | strong	pearson_r			""
+exp3	green	biological	strong	exp3 | green | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+exp3	grey	technical	strong	exp3 | grey | technical | strong	pearson_r	0.43040479097135	0.605466005001646	0.43
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	pearson_r	0.978010725543701	0.991905927543744	0.98
+exp3	red	biological	moderate	exp3 | red | biological | moderate	pearson_r	0.861237173170434	0.909500022703922	0.86
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	pearson_r	0.882522652723875	0.924520968516583	0.88
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	pearson_r	0.942804135315002	0.967060995920468	0.94
+exp4	black	biological	moderate	exp4 | black | biological | moderate	pearson_r	0.861237173170434	0.909500022703922	0.86
+exp4	blue	biological	strong	exp4 | blue | biological | strong	pearson_r	0.838901454055528	0.893737933544996	0.84
+exp4	brown	biological	strong	exp4 | brown | biological | strong	pearson_r	0.835633133795234	0.891431513273607	0.84
+exp4	gold	technical	strong	exp4 | gold | technical | strong	pearson_r			""
+exp4	green	biological	strong	exp4 | green | biological | strong	pearson_r	0.942804135315002	0.967060995920468	0.94
+exp4	grey	technical	strong	exp4 | grey | technical | strong	pearson_r	0.43040479097135	0.605466005001646	0.43
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	pearson_r	0.978010725543701	0.991905927543744	0.98
+exp4	pink	biological	strong	exp4 | pink | biological | strong	pearson_r	0.847669837183083	0.899925692082124	0.85
+exp4	red	biological	strong	exp4 | red | biological | strong	pearson_r	0.943767373228576	0.967740743091218	0.94
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	pearson_r	0.922771568003133	0.952924217497196	0.92
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	pearson_r	0.98948045693881	1	0.99
+exp5	blue	biological	strong	exp5 | blue | biological | strong	pearson_r	0.900355640921924	0.937105526394558	0.90
+exp5	brown	biological	strong	exp5 | brown | biological | strong	pearson_r	0.95362847081905	0.974699619079329	0.95
+exp5	gold	technical	strong	exp5 | gold | technical | strong	pearson_r			""
+exp5	green	biological	strong	exp5 | green | biological | strong	pearson_r	0.918413052427171	0.949848457511344	0.92
+exp5	grey	technical	strong	exp5 | grey | technical | strong	pearson_r	-0.00561138787721427	0.297773834877659	-0.01
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	pearson_r	0.830015117216822	0.887466936277017	0.83
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	pearson_r	0.943579032509938	0.967607832967118	0.94
+baseline	blue	biological	strong	baseline | blue | biological | strong	spearman_rho	0.776181260183188	0.927757788645235	0.78
+baseline	brown	biological	strong	baseline | brown | biological | strong	spearman_rho	0.427626793943762	0.729981154828184	0.43
+baseline	gold	technical	strong	baseline | gold | technical | strong	spearman_rho			""
+baseline	green	biological	strong	baseline | green | biological | strong	spearman_rho	0.792353989522889	0.936934512165522	0.79
+baseline	grey	technical	strong	baseline | grey | technical | strong	spearman_rho	0.486768676867687	0.763539418041662	0.49
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	spearman_rho	0.849324932493249	0.969260941511349	0.85
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	spearman_rho	0.842940294029403	0.965638172544587	0.84
+opt1	blue	biological	strong	opt1 | blue | biological | strong	spearman_rho	0.842352235223522	0.965304496455543	0.84
+opt1	brown	biological	strong	opt1 | brown | biological | strong	spearman_rho	0.860906090609061	0.975832317550682	0.86
+opt1	gold	technical	strong	opt1 | gold | technical | strong	spearman_rho			""
+opt1	green	biological	strong	opt1 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+opt1	grey	technical	strong	opt1 | grey | technical | strong	spearman_rho	-0.633999399939994	0.127593650620706	-0.63
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	spearman_rho	0.787386738673868	0.934115996704098	0.79
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	spearman_rho	0.81012901290129	0.947020408719161	0.81
+opt2	blue	biological	strong	opt2 | blue | biological | strong	spearman_rho	0.842352235223522	0.965304496455543	0.84
+opt2	brown	biological	strong	opt2 | brown | biological | strong	spearman_rho	0.860906090609061	0.975832317550682	0.86
+opt2	gold	technical	strong	opt2 | gold | technical | strong	spearman_rho			""
+opt2	green	biological	strong	opt2 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+opt2	grey	technical	strong	opt2 | grey | technical | strong	spearman_rho	-0.633999399939994	0.127593650620706	-0.63
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	spearman_rho	0.787386738673868	0.934115996704098	0.79
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	spearman_rho	0.81012901290129	0.947020408719161	0.81
+opt3	blue	biological	strong	opt3 | blue | biological | strong	spearman_rho	0.842352235223522	0.965304496455543	0.84
+opt3	brown	biological	strong	opt3 | brown | biological | strong	spearman_rho	0.860906090609061	0.975832317550682	0.86
+opt3	gold	technical	strong	opt3 | gold | technical | strong	spearman_rho			""
+opt3	green	biological	strong	opt3 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+opt3	grey	technical	strong	opt3 | grey | technical | strong	spearman_rho	-0.633999399939994	0.127593650620706	-0.63
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	spearman_rho	0.787386738673868	0.934115996704098	0.79
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	spearman_rho	0.81012901290129	0.947020408719161	0.81
+opt4	blue	biological	strong	opt4 | blue | biological | strong	spearman_rho	0.842352235223522	0.965304496455543	0.84
+opt4	brown	biological	strong	opt4 | brown | biological | strong	spearman_rho	0.860906090609061	0.975832317550682	0.86
+opt4	gold	technical	strong	opt4 | gold | technical | strong	spearman_rho			""
+opt4	green	biological	strong	opt4 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+opt4	grey	technical	strong	opt4 | grey | technical | strong	spearman_rho	-0.633999399939994	0.127593650620706	-0.63
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	spearman_rho	0.787386738673868	0.934115996704098	0.79
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	spearman_rho	0.81012901290129	0.947020408719161	0.81
+opt5	blue	biological	strong	opt5 | blue | biological | strong	spearman_rho	0.842352235223522	0.965304496455543	0.84
+opt5	brown	biological	strong	opt5 | brown | biological | strong	spearman_rho	0.860906090609061	0.975832317550682	0.86
+opt5	gold	technical	strong	opt5 | gold | technical | strong	spearman_rho			""
+opt5	green	biological	strong	opt5 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+opt5	grey	technical	strong	opt5 | grey | technical | strong	spearman_rho	-0.633999399939994	0.127593650620706	-0.63
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	spearman_rho	0.787386738673868	0.934115996704098	0.79
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	spearman_rho	0.81012901290129	0.947020408719161	0.81
+exp1	blue	biological	strong	exp1 | blue | biological | strong	spearman_rho	0.787374737473748	0.934109186987995	0.79
+exp1	brown	biological	strong	exp1 | brown | biological | strong	spearman_rho	0.79989198919892	0.941211720883357	0.80
+exp1	gold	technical	strong	exp1 | gold | technical | strong	spearman_rho			""
+exp1	green	biological	strong	exp1 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+exp1	grey	technical	strong	exp1 | grey | technical | strong	spearman_rho	-0.686408640864087	0.0978556203991853	-0.69
+exp1	red	biological	moderate	exp1 | red | biological | moderate	spearman_rho	0.739443616803382	0.906912129943968	0.74
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	spearman_rho	0.847200720072007	0.968055621761129	0.85
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	spearman_rho	0.856445806475828	0.973301464937442	0.86
+exp2	black	biological	moderate	exp2 | black | biological | moderate	spearman_rho	0.739443616803382	0.906912129943968	0.74
+exp2	blue	biological	strong	exp2 | blue | biological | strong	spearman_rho	0.787374737473748	0.934109186987995	0.79
+exp2	brown	biological	strong	exp2 | brown | biological | strong	spearman_rho	0.79989198919892	0.941211720883357	0.80
+exp2	gold	technical	strong	exp2 | gold | technical | strong	spearman_rho			""
+exp2	green	biological	strong	exp2 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+exp2	grey	technical	strong	exp2 | grey | technical | strong	spearman_rho	-0.858865886588659	0	-0.86
+exp2	red	biological	strong	exp2 | red | biological | strong	spearman_rho	0.701211261101279	0.885218342183223	0.70
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	spearman_rho	0.847200720072007	0.968055621761129	0.85
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	spearman_rho	0.856445806475828	0.973301464937442	0.86
+exp3	black	biological	strong	exp3 | black | biological | strong	spearman_rho	0.701211261101279	0.885218342183223	0.70
+exp3	blue	biological	strong	exp3 | blue | biological | strong	spearman_rho	0.822694269426943	0.954150181478935	0.82
+exp3	brown	biological	strong	exp3 | brown | biological | strong	spearman_rho	0.707686768676868	0.888892672064502	0.71
+exp3	gold	technical	strong	exp3 | gold | technical | strong	spearman_rho			""
+exp3	green	biological	strong	exp3 | green | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+exp3	grey	technical	strong	exp3 | grey | technical | strong	spearman_rho	0.856549654965497	0.973360390605316	0.86
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	spearman_rho	0.739443616803382	0.906912129943968	0.74
+exp3	red	biological	moderate	exp3 | red | biological | moderate	spearman_rho	0.855845625810033	0.972960910667564	0.86
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	spearman_rho	0.848928892889289	0.969036220879952	0.85
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	spearman_rho	0.79989198919892	0.941211720883357	0.80
+exp4	black	biological	moderate	exp4 | black | biological | moderate	spearman_rho	0.855845625810033	0.972960910667564	0.86
+exp4	blue	biological	strong	exp4 | blue | biological | strong	spearman_rho	0.831959195919592	0.959407282310401	0.83
+exp4	brown	biological	strong	exp4 | brown | biological | strong	spearman_rho	0.822694269426943	0.954150181478935	0.82
+exp4	gold	technical	strong	exp4 | gold | technical | strong	spearman_rho			""
+exp4	green	biological	strong	exp4 | green | biological | strong	spearman_rho	0.79989198919892	0.941211720883357	0.80
+exp4	grey	technical	strong	exp4 | grey | technical | strong	spearman_rho	0.856549654965497	0.973360390605316	0.86
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	spearman_rho	0.739443616803382	0.906912129943968	0.74
+exp4	pink	biological	strong	exp4 | pink | biological | strong	spearman_rho	0.701211261101279	0.885218342183223	0.70
+exp4	red	biological	strong	exp4 | red | biological | strong	spearman_rho	0.32998499849985	0.674577286872911	0.33
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	spearman_rho	0.86006600660066	0.975355637423476	0.86
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	spearman_rho	0.707686768676868	0.888892672064502	0.71
+exp5	blue	biological	strong	exp5 | blue | biological | strong	spearman_rho	0.761730458240627	0.919558120470009	0.76
+exp5	brown	biological	strong	exp5 | brown | biological | strong	spearman_rho	0.903498349834983	1	0.90
+exp5	gold	technical	strong	exp5 | gold | technical | strong	spearman_rho			""
+exp5	green	biological	strong	exp5 | green | biological | strong	spearman_rho	0.800682872384473	0.941660483499624	0.80
+exp5	grey	technical	strong	exp5 | grey | technical | strong	spearman_rho	0.46953495349535	0.753760665717847	0.47
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	spearman_rho	0.804356435643564	0.943744935273648	0.80
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	spearman_rho	0.45940594059406	0.748013265326969	0.46
+baseline	blue	biological	strong	baseline | blue | biological | strong	rmse	0.057756893440934	0.185735401179241	0.06
+baseline	brown	biological	strong	baseline | brown | biological | strong	rmse	0.0639981256474349	0.230135787116212	0.06
+baseline	gold	technical	strong	baseline | gold | technical | strong	rmse			""
+baseline	green	biological	strong	baseline | green | biological | strong	rmse	0.120158999774996	0.629666585413387	0.12
+baseline	grey	technical	strong	baseline | grey | technical | strong	rmse	0.0609893081877572	0.208730934355817	0.06
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	rmse	0.142651877392795	0.789681853876413	0.14
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	rmse	0.137032770329022	0.749707292123558	0.14
+opt1	blue	biological	strong	opt1 | blue | biological | strong	rmse	0.135269417928343	0.737162729680987	0.14
+opt1	brown	biological	strong	opt1 | brown | biological | strong	rmse	0.140091508050773	0.771467279708102	0.14
+opt1	gold	technical	strong	opt1 | gold | technical | strong	rmse			""
+opt1	green	biological	strong	opt1 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+opt1	grey	technical	strong	opt1 | grey | technical | strong	rmse	0.170828933767309	0.990134606826877	0.17
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	rmse	0.0652146553965888	0.238790230434308	0.07
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	rmse	0.0521042253454171	0.145522084848353	0.05
+opt2	blue	biological	strong	opt2 | blue | biological | strong	rmse	0.135269417928343	0.737162729680987	0.14
+opt2	brown	biological	strong	opt2 | brown | biological | strong	rmse	0.140091508050773	0.771467279708102	0.14
+opt2	gold	technical	strong	opt2 | gold | technical | strong	rmse			""
+opt2	green	biological	strong	opt2 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+opt2	grey	technical	strong	opt2 | grey | technical | strong	rmse	0.170828933767309	0.990134606826877	0.17
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	rmse	0.0652146553965888	0.238790230434308	0.07
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	rmse	0.0521042253454171	0.145522084848353	0.05
+opt3	blue	biological	strong	opt3 | blue | biological | strong	rmse	0.135269417928343	0.737162729680987	0.14
+opt3	brown	biological	strong	opt3 | brown | biological | strong	rmse	0.140091508050773	0.771467279708102	0.14
+opt3	gold	technical	strong	opt3 | gold | technical | strong	rmse			""
+opt3	green	biological	strong	opt3 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+opt3	grey	technical	strong	opt3 | grey | technical | strong	rmse	0.170828933767309	0.990134606826877	0.17
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	rmse	0.0652146553965888	0.238790230434308	0.07
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	rmse	0.0521042253454171	0.145522084848353	0.05
+opt4	blue	biological	strong	opt4 | blue | biological | strong	rmse	0.135269417928343	0.737162729680987	0.14
+opt4	brown	biological	strong	opt4 | brown | biological | strong	rmse	0.140091508050773	0.771467279708102	0.14
+opt4	gold	technical	strong	opt4 | gold | technical | strong	rmse			""
+opt4	green	biological	strong	opt4 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+opt4	grey	technical	strong	opt4 | grey | technical | strong	rmse	0.170828933767309	0.990134606826877	0.17
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	rmse	0.0652146553965888	0.238790230434308	0.07
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	rmse	0.0521042253454171	0.145522084848353	0.05
+opt5	blue	biological	strong	opt5 | blue | biological | strong	rmse	0.135269417928343	0.737162729680987	0.14
+opt5	brown	biological	strong	opt5 | brown | biological | strong	rmse	0.140091508050773	0.771467279708102	0.14
+opt5	gold	technical	strong	opt5 | gold | technical | strong	rmse			""
+opt5	green	biological	strong	opt5 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+opt5	grey	technical	strong	opt5 | grey | technical | strong	rmse	0.170828933767309	0.990134606826877	0.17
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	rmse	0.0652146553965888	0.238790230434308	0.07
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	rmse	0.0521042253454171	0.145522084848353	0.05
+exp1	blue	biological	strong	exp1 | blue | biological | strong	rmse	0.0652104625060343	0.238760402036221	0.07
+exp1	brown	biological	strong	exp1 | brown | biological | strong	rmse	0.0557709094356325	0.17160702822619	0.06
+exp1	gold	technical	strong	exp1 | gold | technical | strong	rmse			""
+exp1	green	biological	strong	exp1 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+exp1	grey	technical	strong	exp1 | grey | technical | strong	rmse	0.170960419200423	0.991069999675947	0.17
+exp1	red	biological	moderate	exp1 | red | biological | moderate	rmse	0.0316486120991269	0	0.03
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	rmse	0.142187698836669	0.786379668289696	0.14
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	rmse	0.133222784169508	0.722602891854531	0.13
+exp2	black	biological	moderate	exp2 | black | biological | moderate	rmse	0.0316486120991269	0	0.03
+exp2	blue	biological	strong	exp2 | blue | biological | strong	rmse	0.0652104625060343	0.238760402036221	0.07
+exp2	brown	biological	strong	exp2 | brown | biological | strong	rmse	0.0557709094356325	0.17160702822619	0.06
+exp2	gold	technical	strong	exp2 | gold | technical | strong	rmse			""
+exp2	green	biological	strong	exp2 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+exp2	grey	technical	strong	exp2 | grey | technical | strong	rmse	0.172215683190823	1	0.17
+exp2	red	biological	strong	exp2 | red | biological | strong	rmse	0.0715073358783735	0.283556621545067	0.07
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	rmse	0.142187698836669	0.786379668289696	0.14
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	rmse	0.133222784169508	0.722602891854531	0.13
+exp3	black	biological	strong	exp3 | black | biological | strong	rmse	0.0715073358783735	0.283556621545067	0.07
+exp3	blue	biological	strong	exp3 | blue | biological | strong	rmse	0.0655333206360284	0.241057228223796	0.07
+exp3	brown	biological	strong	exp3 | brown | biological | strong	rmse	0.0626841941334959	0.220788423585518	0.06
+exp3	gold	technical	strong	exp3 | gold | technical | strong	rmse			""
+exp3	green	biological	strong	exp3 | green | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+exp3	grey	technical	strong	exp3 | grey | technical | strong	rmse	0.171414942427904	0.994303496852427	0.17
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	rmse	0.0316486120991269	0	0.03
+exp3	red	biological	moderate	exp3 | red | biological | moderate	rmse	0.131249287351866	0.708563353274727	0.13
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	rmse	0.14214791512619	0.786096645315894	0.14
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	rmse	0.0557709094356325	0.17160702822619	0.06
+exp4	black	biological	moderate	exp4 | black | biological | moderate	rmse	0.131249287351866	0.708563353274727	0.13
+exp4	blue	biological	strong	exp4 | blue | biological | strong	rmse	0.138920518132659	0.763136808645287	0.14
+exp4	brown	biological	strong	exp4 | brown | biological | strong	rmse	0.0655333206360284	0.241057228223796	0.07
+exp4	gold	technical	strong	exp4 | gold | technical | strong	rmse			""
+exp4	green	biological	strong	exp4 | green | biological | strong	rmse	0.0557709094356325	0.17160702822619	0.06
+exp4	grey	technical	strong	exp4 | grey | technical | strong	rmse	0.171414942427904	0.994303496852427	0.17
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	rmse	0.0316486120991269	0	0.03
+exp4	pink	biological	strong	exp4 | pink | biological | strong	rmse	0.0715073358783735	0.283556621545067	0.07
+exp4	red	biological	strong	exp4 | red | biological | strong	rmse	0.0657834906274955	0.242836947965583	0.07
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	rmse	0.1403003931691	0.772953297142375	0.14
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	rmse	0.0626841941334959	0.220788423585518	0.06
+exp5	blue	biological	strong	exp5 | blue | biological | strong	rmse	0.0644339732050913	0.2332364247995	0.06
+exp5	brown	biological	strong	exp5 | brown | biological | strong	rmse	0.142324340809035	0.787351744973836	0.14
+exp5	gold	technical	strong	exp5 | gold | technical | strong	rmse			""
+exp5	green	biological	strong	exp5 | green | biological | strong	rmse	0.11638456741924	0.602815116385525	0.12
+exp5	grey	technical	strong	exp5 | grey | technical | strong	rmse	0.0778080096110809	0.328379876975902	0.08
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	rmse	0.137607850146319	0.753798433902573	0.14
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	rmse	0.0647775745834026	0.235680819319801	0.06
+baseline	blue	biological	strong	baseline | blue | biological | strong	best_balanced_jaccard	0.322222222222222	0.276872646964203	0.32
+baseline	brown	biological	strong	baseline | brown | biological | strong	best_balanced_jaccard	0.461538461538462	0.538040174083684	0.46
+baseline	gold	technical	strong	baseline | gold | technical | strong	best_balanced_jaccard			""
+baseline	green	biological	strong	baseline | green | biological | strong	best_balanced_jaccard	0.341463414634146	0.312942918927585	0.34
+baseline	grey	technical	strong	baseline | grey | technical | strong	best_balanced_jaccard			""
+baseline	turquoise	biological	strong	baseline | turquoise | biological | strong	best_balanced_jaccard	0.429775280898876	0.478495706175247	0.43
+baseline	yellow	biological	moderate	baseline | yellow | biological | moderate	best_balanced_jaccard	0.191780821917808	0.0323422309932716	0.19
+opt1	blue	biological	strong	opt1 | blue | biological | strong	best_balanced_jaccard	0.277777777777778	0.193555399048788	0.28
+opt1	brown	biological	strong	opt1 | brown | biological | strong	best_balanced_jaccard	0.581818181818182	0.763521117742888	0.58
+opt1	gold	technical	strong	opt1 | gold | technical | strong	best_balanced_jaccard			""
+opt1	green	biological	strong	opt1 | green | biological | strong	best_balanced_jaccard	0.5	0.61014163862587	0.50
+opt1	grey	technical	strong	opt1 | grey | technical | strong	best_balanced_jaccard			""
+opt1	turquoise	biological	strong	opt1 | turquoise | biological | strong	best_balanced_jaccard	0.23768115942029	0.118388751472922	0.24
+opt1	yellow	biological	strong	opt1 | yellow | biological | strong	best_balanced_jaccard	0.637426900584795	0.867767339416961	0.64
+opt2	blue	biological	strong	opt2 | blue | biological | strong	best_balanced_jaccard	0.306521739130435	0.247439923515823	0.31
+opt2	brown	biological	strong	opt2 | brown | biological | strong	best_balanced_jaccard	0.581818181818182	0.763521117742888	0.58
+opt2	gold	technical	strong	opt2 | gold | technical | strong	best_balanced_jaccard			""
+opt2	green	biological	strong	opt2 | green | biological | strong	best_balanced_jaccard	0.707964601769912	1	0.71
+opt2	grey	technical	strong	opt2 | grey | technical | strong	best_balanced_jaccard			""
+opt2	turquoise	biological	strong	opt2 | turquoise | biological | strong	best_balanced_jaccard	0.32258064516129	0.277544560253844	0.32
+opt2	yellow	biological	strong	opt2 | yellow | biological | strong	best_balanced_jaccard	0.637426900584795	0.867767339416961	0.64
+opt3	blue	biological	strong	opt3 | blue | biological | strong	best_balanced_jaccard	0.277777777777778	0.193555399048788	0.28
+opt3	brown	biological	strong	opt3 | brown | biological | strong	best_balanced_jaccard	0.581818181818182	0.763521117742888	0.58
+opt3	gold	technical	strong	opt3 | gold | technical | strong	best_balanced_jaccard			""
+opt3	green	biological	strong	opt3 | green | biological | strong	best_balanced_jaccard	0.5	0.61014163862587	0.50
+opt3	grey	technical	strong	opt3 | grey | technical | strong	best_balanced_jaccard			""
+opt3	turquoise	biological	strong	opt3 | turquoise | biological | strong	best_balanced_jaccard	0.23768115942029	0.118388751472922	0.24
+opt3	yellow	biological	strong	opt3 | yellow | biological | strong	best_balanced_jaccard	0.637426900584795	0.867767339416961	0.64
+opt4	blue	biological	strong	opt4 | blue | biological | strong	best_balanced_jaccard	0.306521739130435	0.247439923515823	0.31
+opt4	brown	biological	strong	opt4 | brown | biological | strong	best_balanced_jaccard	0.581818181818182	0.763521117742888	0.58
+opt4	gold	technical	strong	opt4 | gold | technical | strong	best_balanced_jaccard			""
+opt4	green	biological	strong	opt4 | green | biological | strong	best_balanced_jaccard	0.707964601769912	1	0.71
+opt4	grey	technical	strong	opt4 | grey | technical | strong	best_balanced_jaccard			""
+opt4	turquoise	biological	strong	opt4 | turquoise | biological | strong	best_balanced_jaccard	0.32258064516129	0.277544560253844	0.32
+opt4	yellow	biological	strong	opt4 | yellow | biological | strong	best_balanced_jaccard	0.637426900584795	0.867767339416961	0.64
+opt5	blue	biological	strong	opt5 | blue | biological | strong	best_balanced_jaccard	0.281639928698752	0.200795534228602	0.28
+opt5	brown	biological	strong	opt5 | brown | biological | strong	best_balanced_jaccard	0.581818181818182	0.763521117742888	0.58
+opt5	gold	technical	strong	opt5 | gold | technical | strong	best_balanced_jaccard			""
+opt5	green	biological	strong	opt5 | green | biological | strong	best_balanced_jaccard	0.5	0.61014163862587	0.50
+opt5	grey	technical	strong	opt5 | grey | technical | strong	best_balanced_jaccard			""
+opt5	turquoise	biological	strong	opt5 | turquoise | biological | strong	best_balanced_jaccard	0.279513888888889	0.196809979045483	0.28
+opt5	yellow	biological	strong	opt5 | yellow | biological | strong	best_balanced_jaccard	0.637426900584795	0.867767339416961	0.64
+exp1	blue	biological	strong	exp1 | blue | biological | strong	best_balanced_jaccard	0.283422459893048	0.204137135080825	0.28
+exp1	brown	biological	strong	exp1 | brown | biological | strong	best_balanced_jaccard	0.451219512195122	0.518695878718706	0.45
+exp1	gold	technical	strong	exp1 | gold | technical | strong	best_balanced_jaccard			""
+exp1	green	biological	strong	exp1 | green | biological | strong	best_balanced_jaccard	0.707964601769912	1	0.71
+exp1	grey	technical	strong	exp1 | grey | technical | strong	best_balanced_jaccard			""
+exp1	red	biological	moderate	exp1 | red | biological | moderate	best_balanced_jaccard	0.263565891472868	0.16691325582002	0.26
+exp1	turquoise	biological	strong	exp1 | turquoise | biological | strong	best_balanced_jaccard	0.678137651821862	0.944085263873896	0.68
+exp1	yellow	biological	moderate	exp1 | yellow | biological | moderate	best_balanced_jaccard	0.174528301886792	0	0.17
+exp2	black	biological	moderate	exp2 | black | biological | moderate	best_balanced_jaccard	0.483333333333333	0.578897670657589	0.48
+exp2	blue	biological	strong	exp2 | blue | biological | strong	best_balanced_jaccard	0.288566243194192	0.213779867122628	0.29
+exp2	brown	biological	strong	exp2 | brown | biological | strong	best_balanced_jaccard	0.522388059701493	0.652111147836995	0.52
+exp2	gold	technical	strong	exp2 | gold | technical | strong	best_balanced_jaccard			""
+exp2	green	biological	strong	exp2 | green | biological | strong	best_balanced_jaccard	0.5	0.61014163862587	0.50
+exp2	grey	technical	strong	exp2 | grey | technical | strong	best_balanced_jaccard			""
+exp2	red	biological	strong	exp2 | red | biological | strong	best_balanced_jaccard	0.586666666666667	0.772610272060933	0.59
+exp2	turquoise	biological	strong	exp2 | turquoise | biological | strong	best_balanced_jaccard	0.678137651821862	0.944085263873896	0.68
+exp2	yellow	biological	moderate	exp2 | yellow | biological | moderate	best_balanced_jaccard	0.178861788617886	0.00812371923703634	0.18
+exp3	black	biological	strong	exp3 | black | biological | strong	best_balanced_jaccard	0.586666666666667	0.772610272060933	0.59
+exp3	blue	biological	strong	exp3 | blue | biological | strong	best_balanced_jaccard	0.454225352112676	0.524330740684816	0.45
+exp3	brown	biological	strong	exp3 | brown | biological | strong	best_balanced_jaccard	0.548837209302326	0.701693730811998	0.55
+exp3	gold	technical	strong	exp3 | gold | technical | strong	best_balanced_jaccard			""
+exp3	green	biological	strong	exp3 | green | biological | strong	best_balanced_jaccard	0.5	0.61014163862587	0.50
+exp3	grey	technical	strong	exp3 | grey | technical | strong	best_balanced_jaccard			""
+exp3	pink	biological	moderate	exp3 | pink | biological | moderate	best_balanced_jaccard	0.543859649122807	0.692362606963453	0.54
+exp3	red	biological	moderate	exp3 | red | biological | moderate	best_balanced_jaccard	0.292237442922374	0.220662037925377	0.29
+exp3	turquoise	biological	strong	exp3 | turquoise | biological | strong	best_balanced_jaccard	0.677484787018256	0.942861378653207	0.68
+exp3	yellow	biological	strong	exp3 | yellow | biological | strong	best_balanced_jaccard	0.533834586466166	0.673569242772006	0.53
+exp4	black	biological	moderate	exp4 | black | biological | moderate	best_balanced_jaccard	0.292237442922374	0.220662037925377	0.29
+exp4	blue	biological	strong	exp4 | blue | biological | strong	best_balanced_jaccard	0.239740820734341	0.122249871000225	0.24
+exp4	brown	biological	strong	exp4 | brown | biological | strong	best_balanced_jaccard	0.454225352112676	0.524330740684816	0.45
+exp4	gold	technical	strong	exp4 | gold | technical | strong	best_balanced_jaccard			""
+exp4	green	biological	strong	exp4 | green | biological | strong	best_balanced_jaccard	0.533834586466166	0.673569242772006	0.53
+exp4	grey	technical	strong	exp4 | grey | technical | strong	best_balanced_jaccard			""
+exp4	magenta	biological	moderate	exp4 | magenta | biological | moderate	best_balanced_jaccard	0.543859649122807	0.692362606963453	0.54
+exp4	pink	biological	strong	exp4 | pink | biological | strong	best_balanced_jaccard	0.586666666666667	0.772610272060933	0.59
+exp4	red	biological	strong	exp4 | red | biological | strong	best_balanced_jaccard	0.5	0.61014163862587	0.50
+exp4	turquoise	biological	strong	exp4 | turquoise | biological | strong	best_balanced_jaccard	0.596256684491979	0.790588084645891	0.60
+exp4	yellow	biological	strong	exp4 | yellow | biological | strong	best_balanced_jaccard	0.385964912280702	0.396367120948157	0.39
+exp5	blue	biological	strong	exp5 | blue | biological | strong	best_balanced_jaccard	0.281786941580756	0.201071130175178	0.28
+exp5	brown	biological	strong	exp5 | brown | biological | strong	best_balanced_jaccard	0.359459459459459	0.346678989812255	0.36
+exp5	gold	technical	strong	exp5 | gold | technical | strong	best_balanced_jaccard			""
+exp5	green	biological	strong	exp5 | green | biological | strong	best_balanced_jaccard	0.467289719626168	0.54882170149186	0.47
+exp5	grey	technical	strong	exp5 | grey | technical | strong	best_balanced_jaccard			""
+exp5	turquoise	biological	strong	exp5 | turquoise | biological | strong	best_balanced_jaccard	0.374	0.373937240785664	0.37
+exp5	yellow	biological	strong	exp5 | yellow | biological | strong	best_balanced_jaccard	0.527777777777778	0.662214918573006	0.53

@@ -1,0 +1,5 @@
+[2026-05-18 10:31:55] Loading raw counts, covariates, low-detection flags, and PC scores 
+[2026-05-18 10:31:55] Computing diversity, Chao1, rarefaction, and coverage metrics 
+[2026-05-18 10:31:58] Writing rarefaction and depth figures 
+[2026-05-18 10:32:02] Report written: /src/InputQC/rarefaction_depth_qc/RAREFACTION_DEPTH_QC_REPORT.md 
+[2026-05-18 10:32:02] Complete 

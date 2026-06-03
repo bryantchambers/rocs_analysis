@@ -11,6 +11,11 @@ taxa <- fread(file.path(DIRS$main, "taxa_after_filter.tsv"))
 mods <- fread(file.path(DIRS$main, "module_assignments.tsv"))
 pres <- fread(file.path(DIRS$main, "module_preservation_validation.tsv"))
 hmm <- fread(file.path(DIRS$main, "hmm_states_main.tsv"))
+balance_summary <- if (file.exists(file.path(DIRS$main, "balance_design_summary.tsv"))) {
+  fread(file.path(DIRS$main, "balance_design_summary.tsv"))
+} else {
+  data.table(metric = character(), value = character())
+}
 state_fp <- if (file.exists(file.path(DIRS$main, "state_fingerprints_main.tsv"))) {
   fread(file.path(DIRS$main, "state_fingerprints_main.tsv"))
 } else {
@@ -43,6 +48,11 @@ tea_taxon <- if (file.exists(file.path(tea_dir, "tea_taxon_metabolic_calls.tsv")
   data.table()
 }
 tea_taxa_with_oap_n <- if ("has_oap" %in% names(tea_taxon)) nrow(tea_taxon[has_oap == TRUE]) else 0L
+get_balance_value <- function(metric_name, default = NA_character_) {
+  val <- balance_summary[metric == metric_name, value]
+  if (length(val) == 0) return(default)
+  as.character(val[1])
+}
 
 nsamp <- nrow(meta_main)
 ntaxa <- nrow(taxa)
@@ -100,6 +110,7 @@ overlap_final_match_pct <- if (nrow(ext_lock_diag) > 0) {
 key_metrics <- data.table(
   metric = c(
     "n_samples_main", "n_taxa_main", "n_modules_non_grey",
+    "wgcna_input_strategy", "wgcna_profile", "wgcna_training_samples", "hmm_input_balancing_status",
     "preservation_strong", "preservation_moderate", "preservation_weak",
     "hmm_states_main", "r1_r2_state_pct_match", "xrf_significant_n", "loco_stable_n",
     "operational_harmonization_mode", "extended_selected_harmonization_mode", "extended_samples_total", "extended_samples_older_than_150kyr",
@@ -111,6 +122,7 @@ key_metrics <- data.table(
   ),
   value = c(
     nsamp, ntaxa, nmods,
+    PARAMS$wgcna_input_strategy, PARAMS$wgcna_profile, get_balance_value("total_training_samples"), PARAMS$hmm_input_balancing_status,
     pres_summary$strong, pres_summary$moderate, pres_summary$weak,
     uniqueN(hmm$state),
     concord[metric == "pct_match", value],
@@ -139,6 +151,14 @@ report_lines <- c(
   sprintf("- Main-window samples (<= %s kyr): %d", PARAMS$main_max_age_kyr, nsamp),
   sprintf("- Taxa retained after prevalence filter: %d", ntaxa),
   sprintf("- Non-grey modules: %d", nmods),
+  sprintf("- WGCNA input strategy: %s", PARAMS$wgcna_input_strategy),
+  sprintf("- WGCNA parameter profile: %s", PARAMS$wgcna_profile),
+  sprintf("- WGCNA training samples used for module construction: %s", get_balance_value("total_training_samples", "NA")),
+  "",
+  "## IMPORTANT HMM balancing note",
+  "Balanced sampling is currently applied to WGCNA module construction only.",
+  "M's HMM stage still consumes all projected main-window module eigengenes.",
+  "This HMM input policy must be reviewed with M before final biological claims about HMM states.",
   "",
   "## Module preservation (GeoB25202_R1 -> GeoB25202_R2)",
   sprintf("- Strong: %d", pres_summary$strong),
@@ -173,12 +193,12 @@ report_lines <- c(
   "- Older-period diagnostics by core: extended_older_period_diagnostics.tsv",
   "",
   "## Output index",
-  "- Main results: results/wgcna_hmm/main/",
-  "- Main HMM state fingerprints: results/wgcna_hmm/main/state_fingerprints_main.tsv",
-  "- Main TEA results: results/wgcna_hmm/main/tea/",
-  "- Taxon-level TEA traits: results/wgcna_hmm/main/tea/tea_taxon_metabolic_calls.tsv",
-  "- Extended results: results/wgcna_hmm/extended/",
-  "- Report tables: results/wgcna_hmm/reports/"
+  sprintf("- Main results: %s/", DIRS$main),
+  sprintf("- Main HMM state fingerprints: %s", file.path(DIRS$main, "state_fingerprints_main.tsv")),
+  sprintf("- Main TEA results: %s/", DIRS$main_tea),
+  sprintf("- Taxon-level TEA traits: %s", file.path(DIRS$main_tea, "tea_taxon_metabolic_calls.tsv")),
+  sprintf("- Extended results: %s/", DIRS$extended),
+  sprintf("- Report tables: %s/", DIRS$reports)
 )
 
 writeLines(report_lines, con = file.path(DIRS$reports, "workflow_execution_report.md"))
@@ -188,6 +208,9 @@ write_run_metadata(
   "06_report.R",
   extra = list(
     q_threshold = PARAMS$q_threshold,
+    wgcna_input_strategy = PARAMS$wgcna_input_strategy,
+    wgcna_profile = PARAMS$wgcna_profile,
+    hmm_input_balancing_status = PARAMS$hmm_input_balancing_status,
     operational_harmonization = operational_mode,
     selected_extended_mode = selected_mode,
     overlap_state_policy = "lock_main_window_states_to_main_analysis",

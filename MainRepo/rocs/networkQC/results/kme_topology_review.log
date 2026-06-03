@@ -1,0 +1,19 @@
+[2026-05-13 15:21:39] Loading WGCNA input and metadata 
+[2026-05-13 15:21:39] Training matrix: 189 samples x 1797 taxa 
+[2026-05-13 15:21:39] Starting kME review 
+[2026-05-13 15:21:39] kME pass: baseline 
+[2026-05-13 15:21:50] kME pass: opt5 
+[2026-05-13 15:22:03] kME pass: exp4 
+[2026-05-13 15:22:18] kME pass: exp3 
+[2026-05-13 15:22:35] Starting topology review 
+[2026-05-13 15:22:35] Computing adjacency/TOM for power 20 
+[2026-05-13 15:22:36] Finished TOM for power 20 
+[2026-05-13 15:22:36] Computing adjacency/TOM for power 12 
+[2026-05-13 15:22:37] Finished TOM for power 12 
+[2026-05-13 15:22:37] Topology pass: baseline 
+[2026-05-13 15:22:39] Topology pass: opt5 
+[2026-05-13 15:22:40] Topology pass: exp4 
+[2026-05-13 15:22:42] Topology pass: exp3 
+[2026-05-13 15:22:43] Building integrated ranking 
+[2026-05-13 15:22:44] Report written: /src/networkQC/results/KME_TOPOLOGY_QC_REPORT.md 
+[2026-05-13 15:22:44] Complete 

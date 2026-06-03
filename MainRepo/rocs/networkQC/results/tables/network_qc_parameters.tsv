@@ -1,0 +1,11 @@
+param	value
+seed	42
+stage1_cores	ST8,ST13,GeoB25202_R1
+validation_core	GeoB25202_R2
+sweep_powers	10,12,14,16,18,20
+sweep_deepSplit	1,2,3
+sweep_mergeCutHeight	0.10,0.15,0.20,0.25
+sweep_minModuleSize	20,30,40
+age_grid_points	100
+leiden_resolution	0.05,0.1,0.2,0.4
+leiden_tom_threshold	0.05

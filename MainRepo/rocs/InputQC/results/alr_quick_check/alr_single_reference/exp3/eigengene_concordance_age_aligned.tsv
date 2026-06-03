@@ -1,0 +1,3 @@
+module	pearson_r	spearman_rho	rmse	variant	setting_id
+MEturquoise	0.765813503782609	0.792319231923192	0.140882750467161	alr_single_reference	exp3
+MEgrey	0.858001594466549	0.884578253384269	0.130088596431285	alr_single_reference	exp3

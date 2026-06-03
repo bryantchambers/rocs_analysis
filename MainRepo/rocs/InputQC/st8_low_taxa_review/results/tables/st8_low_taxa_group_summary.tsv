@@ -1,0 +1,5 @@
+group	n	median_library_concentration	p25_library_concentration	p75_library_concentration	median_total_reads	median_detected_taxa	median_shannon	median_age_kyr
+ST8 low taxa (<250)	27	36.23	24.875	60.3	39371	109	4.00340158156778	92.1385
+ST8 not low taxa	91	99.94	70.49	131.865	361920	508	5.39329565723569	33.276
+non-ST8	100	93.77	46.0225	185.32	619230	558	5.05264546243521	59.3675
+all samples	218	84.65	48.4775	136.78	405218	497	5.20080259408144	50.52015

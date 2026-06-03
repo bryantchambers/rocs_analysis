@@ -1,0 +1,37 @@
+core	N	step
+ST8	118	All raw-count samples
+ST13	48	All raw-count samples
+GeoB25202_R1	26	All raw-count samples
+GeoB25202_R2	26	All raw-count samples
+ST8	118	Has age/core metadata
+ST13	48	Has age/core metadata
+GeoB25202_R1	26	Has age/core metadata
+GeoB25202_R2	26	Has age/core metadata
+ST8	96	Pass reads >= 50k
+ST13	45	Pass reads >= 50k
+GeoB25202_R1	23	Pass reads >= 50k
+GeoB25202_R2	24	Pass reads >= 50k
+ST8	91	Pass reads >= 100k
+ST13	45	Pass reads >= 100k
+GeoB25202_R1	22	Pass reads >= 100k
+GeoB25202_R2	24	Pass reads >= 100k
+ST8	94	Pass taxa >= 150
+ST13	45	Pass taxa >= 150
+GeoB25202_R1	23	Pass taxa >= 150
+GeoB25202_R2	24	Pass taxa >= 150
+ST8	88	Pass taxa >= 250
+ST13	44	Pass taxa >= 250
+GeoB25202_R1	22	Pass taxa >= 250
+GeoB25202_R2	23	Pass taxa >= 250
+ST8	93	Pass reads >= 50k and taxa >= 150
+ST13	45	Pass reads >= 50k and taxa >= 150
+GeoB25202_R1	23	Pass reads >= 50k and taxa >= 150
+GeoB25202_R2	24	Pass reads >= 50k and taxa >= 150
+ST8	91	Not low-detection
+ST13	44	Not low-detection
+GeoB25202_R1	22	Not low-detection
+GeoB25202_R2	24	Not low-detection
+ST8	115	Not sequencing-attention
+ST13	48	Not sequencing-attention
+GeoB25202_R1	26	Not sequencing-attention
+GeoB25202_R2	26	Not sequencing-attention

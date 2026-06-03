@@ -1,0 +1,127 @@
+module	Zsummary	Zdensity	Zconnectivity	preserved	module_type	source	method_family	setting_id	comparison_id
+black	11.0742665527386	16.5954855239728	5.55304758150437	strong	biological	original	original_best	exp3	exp3
+blue	10.9645141900571	15.3725053987391	6.55652298137506	strong	biological	original	original_best	exp3	exp3
+brown	18.9649783809819	26.087071644131	11.8428851178328	strong	biological	original	original_best	exp3	exp3
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_best	exp3	exp3
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_best	exp3	exp3
+grey	14.356166203964	4.8608917083685	23.8514406995596	strong	technical	original	original_best	exp3	exp3
+pink	4.33378817364973	6.69253551361263	1.97504083368683	moderate	biological	original	original_best	exp3	exp3
+red	8.8816081074784	10.606135534582	7.1570806803748	moderate	biological	original	original_best	exp3	exp3
+turquoise	21.6927880315358	19.5186652749537	23.8669107881179	strong	biological	original	original_best	exp3	exp3
+yellow	12.3263127314756	14.368253412887	10.2843720500643	strong	biological	original	original_best	exp3	exp3
+black	8.8816081074784	10.606135534582	7.1570806803748	moderate	biological	original	original_candidates	exp4	exp4
+blue	12.1546114070814	10.8429862157927	13.4662365983701	strong	biological	original	original_candidates	exp4	exp4
+brown	10.9645141900571	15.3725053987391	6.55652298137506	strong	biological	original	original_candidates	exp4	exp4
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	exp4	exp4
+green	12.3263127314756	14.368253412887	10.2843720500643	strong	biological	original	original_candidates	exp4	exp4
+grey	14.356166203964	4.8608917083685	23.8514406995596	strong	technical	original	original_candidates	exp4	exp4
+magenta	4.33378817364973	6.69253551361263	1.97504083368683	moderate	biological	original	original_candidates	exp4	exp4
+pink	11.0742665527386	16.5954855239728	5.55304758150437	strong	biological	original	original_candidates	exp4	exp4
+red	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	exp4	exp4
+turquoise	20.7472410464338	22.5791648766799	18.9153172161878	strong	biological	original	original_candidates	exp4	exp4
+yellow	18.9649783809819	26.087071644131	11.8428851178328	strong	biological	original	original_candidates	exp4	exp4
+blue	14.6626600058012	14.2552842567892	15.0700357548133	strong	biological	original	original_candidates	opt5	opt5
+brown	20.9606376858605	22.4609475779033	19.4603277938177	strong	biological	original	original_candidates	opt5	opt5
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	opt5	opt5
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	opt5	opt5
+grey	19.5538889493955	9.50603429900058	29.6017435997903	strong	technical	original	original_candidates	opt5	opt5
+turquoise	19.9984388472319	27.4428985491542	12.5539791453096	strong	biological	original	original_candidates	opt5	opt5
+yellow	12.0481912521249	13.6134300694376	10.4829524348123	strong	biological	original	original_candidates	opt5	opt5
+blue	20.0516193964133	27.5921132133856	12.5111255794411	strong	biological	original	original_candidates	exp1	exp1
+brown	12.3263127314756	14.368253412887	10.2843720500643	strong	biological	original	original_candidates	exp1	exp1
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	exp1	exp1
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	exp1	exp1
+grey	19.8483081533163	10.2033932536427	29.4932230529899	strong	technical	original	original_candidates	exp1	exp1
+red	4.33378817364973	6.69253551361263	1.97504083368683	moderate	biological	original	original_candidates	exp1	exp1
+turquoise	21.8346464727238	19.3652348876648	24.3040580577828	strong	biological	original	original_candidates	exp1	exp1
+yellow	9.25079691777841	11.3233477539567	7.17824608160013	moderate	biological	original	original_candidates	exp1	exp1
+blue	14.6626600058012	14.2552842567892	15.0700357548133	strong	biological	original	original_candidates	opt3	opt3
+brown	20.9606376858605	22.4609475779033	19.4603277938177	strong	biological	original	original_candidates	opt3	opt3
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	opt3	opt3
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	opt3	opt3
+grey	19.5538889493955	9.50603429900058	29.6017435997903	strong	technical	original	original_candidates	opt3	opt3
+turquoise	19.9984388472319	27.4428985491542	12.5539791453096	strong	biological	original	original_candidates	opt3	opt3
+yellow	12.0481912521249	13.6134300694376	10.4829524348123	strong	biological	original	original_candidates	opt3	opt3
+blue	14.6626600058012	14.2552842567892	15.0700357548133	strong	biological	original	original_candidates	opt4	opt4
+brown	20.9606376858605	22.4609475779033	19.4603277938177	strong	biological	original	original_candidates	opt4	opt4
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	opt4	opt4
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	opt4	opt4
+grey	19.5538889493955	9.50603429900058	29.6017435997903	strong	technical	original	original_candidates	opt4	opt4
+turquoise	19.9984388472319	27.4428985491542	12.5539791453096	strong	biological	original	original_candidates	opt4	opt4
+yellow	12.0481912521249	13.6134300694376	10.4829524348123	strong	biological	original	original_candidates	opt4	opt4
+blue	14.6626600058012	14.2552842567892	15.0700357548133	strong	biological	original	original_candidates	opt2	opt2
+brown	20.9606376858605	22.4609475779033	19.4603277938177	strong	biological	original	original_candidates	opt2	opt2
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	opt2	opt2
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	opt2	opt2
+grey	19.5538889493955	9.50603429900058	29.6017435997903	strong	technical	original	original_candidates	opt2	opt2
+turquoise	19.9984388472319	27.4428985491542	12.5539791453096	strong	biological	original	original_candidates	opt2	opt2
+yellow	12.0481912521249	13.6134300694376	10.4829524348123	strong	biological	original	original_candidates	opt2	opt2
+blue	14.6626600058012	14.2552842567892	15.0700357548133	strong	biological	original	original_candidates	opt1	opt1
+brown	20.9606376858605	22.4609475779033	19.4603277938177	strong	biological	original	original_candidates	opt1	opt1
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	opt1	opt1
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	opt1	opt1
+grey	19.5538889493955	9.50603429900058	29.6017435997903	strong	technical	original	original_candidates	opt1	opt1
+turquoise	19.9984388472319	27.4428985491542	12.5539791453096	strong	biological	original	original_candidates	opt1	opt1
+yellow	12.0481912521249	13.6134300694376	10.4829524348123	strong	biological	original	original_candidates	opt1	opt1
+black	4.33378817364973	6.69253551361263	1.97504083368683	moderate	biological	original	original_candidates	exp2	exp2
+blue	20.0516193964133	27.5921132133856	12.5111255794411	strong	biological	original	original_candidates	exp2	exp2
+brown	12.3263127314756	14.368253412887	10.2843720500643	strong	biological	original	original_candidates	exp2	exp2
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	exp2	exp2
+green	12.5507248910645	16.0260355498712	9.07541423225767	strong	biological	original	original_candidates	exp2	exp2
+grey	14.8106697390319	4.8345316482011	24.7868078298628	strong	technical	original	original_candidates	exp2	exp2
+red	11.0742665527386	16.5954855239728	5.55304758150437	strong	biological	original	original_candidates	exp2	exp2
+turquoise	21.8346464727238	19.3652348876648	24.3040580577828	strong	biological	original	original_candidates	exp2	exp2
+yellow	9.25079691777841	11.3233477539567	7.17824608160013	moderate	biological	original	original_candidates	exp2	exp2
+blue	19.1409466068404	28.0360078183661	10.2458853953148	strong	biological	original	original_baseline	baseline	baseline
+brown	11.9229368126126	20.4593617933968	3.38651183182849	strong	biological	original	original_baseline	baseline	baseline
+gold	18.4694689656925	3.20763321744995	33.7313047139351	strong	technical	original	original_baseline	baseline	baseline
+green	10.7968106615937	14.9924610444068	6.60116027878053	strong	biological	original	original_baseline	baseline	baseline
+grey	15.4514235791466	-0.786456385629285	31.6893035439225	strong	technical	original	original_baseline	baseline	baseline
+turquoise	21.8996788093017	25.8992993245149	17.9000582940885	strong	biological	original	original_baseline	baseline	baseline
+yellow	8.13751088115434	12.8266681044497	3.44835365785895	moderate	biological	original	original_baseline	baseline	baseline
+blue	20.6821681504319	29.4142374397141	11.9500988611497	strong	biological	original	original_candidates	exp5	exp5
+brown	16.963578869209	20.2302271333243	13.6969306050938	strong	biological	original	original_candidates	exp5	exp5
+gold	18.1385387183874	3.08741318571425	33.1896642510605	strong	technical	original	original_candidates	exp5	exp5
+green	11.8908458893467	15.6698996370922	8.1117921416012	strong	biological	original	original_candidates	exp5	exp5
+grey	17.3984548972441	3.49258232084035	31.3043274736479	strong	technical	original	original_candidates	exp5	exp5
+turquoise	16.5227779954177	17.222835051558	15.8227209392774	strong	biological	original	original_candidates	exp5	exp5
+yellow	12.9372960294188	18.6231769657923	7.2514150930454	strong	biological	original	original_candidates	exp5	exp5
+blue	21.2855871313683			strong	biological	balanced	balanced_best	top3	balanced_top3
+brown	10.9635377479098			strong	biological	balanced	balanced_best	top3	balanced_top3
+gold	18.1900741141313			strong	technical	balanced	balanced_best	top3	balanced_top3
+green	4.9510412948186			moderate	biological	balanced	balanced_best	top3	balanced_top3
+grey	9.58982244726358			moderate	technical	balanced	balanced_best	top3	balanced_top3
+turquoise	13.8446494961625			strong	biological	balanced	balanced_best	top3	balanced_top3
+yellow	11.2425456512525			strong	biological	balanced	balanced_best	top3	balanced_top3
+blue	21.2855871313683			strong	biological	balanced	balanced_candidates	top2	balanced_top2
+brown	10.9635377479098			strong	biological	balanced	balanced_candidates	top2	balanced_top2
+gold	18.1900741141313			strong	technical	balanced	balanced_candidates	top2	balanced_top2
+green	4.9510412948186			moderate	biological	balanced	balanced_candidates	top2	balanced_top2
+grey	9.58982244726358			moderate	technical	balanced	balanced_candidates	top2	balanced_top2
+turquoise	13.8446494961625			strong	biological	balanced	balanced_candidates	top2	balanced_top2
+yellow	11.2425456512525			strong	biological	balanced	balanced_candidates	top2	balanced_top2
+blue	21.2855871313683			strong	biological	balanced	balanced_candidates	top1	balanced_top1
+brown	10.9635377479098			strong	biological	balanced	balanced_candidates	top1	balanced_top1
+gold	18.1900741141313			strong	technical	balanced	balanced_candidates	top1	balanced_top1
+green	4.9510412948186			moderate	biological	balanced	balanced_candidates	top1	balanced_top1
+grey	9.58982244726358			moderate	technical	balanced	balanced_candidates	top1	balanced_top1
+turquoise	13.8446494961625			strong	biological	balanced	balanced_candidates	top1	balanced_top1
+yellow	11.2425456512525			strong	biological	balanced	balanced_candidates	top1	balanced_top1
+blue	20.9795492070189			strong	biological	balanced	balanced_candidates	top6	balanced_top6
+brown	11.8955441157806			strong	biological	balanced	balanced_candidates	top6	balanced_top6
+gold	18.1900741141313			strong	technical	balanced	balanced_candidates	top6	balanced_top6
+grey	13.3881902301638			strong	technical	balanced	balanced_candidates	top6	balanced_top6
+turquoise	14.7886313684524			strong	biological	balanced	balanced_candidates	top6	balanced_top6
+yellow	11.1316247426323			strong	biological	balanced	balanced_candidates	top6	balanced_top6
+blue	20.9795492070189			strong	biological	balanced	balanced_candidates	top4	balanced_top4
+brown	11.8955441157806			strong	biological	balanced	balanced_candidates	top4	balanced_top4
+gold	18.1900741141313			strong	technical	balanced	balanced_candidates	top4	balanced_top4
+grey	13.3881902301638			strong	technical	balanced	balanced_candidates	top4	balanced_top4
+turquoise	14.7886313684524			strong	biological	balanced	balanced_candidates	top4	balanced_top4
+yellow	11.1316247426323			strong	biological	balanced	balanced_candidates	top4	balanced_top4
+blue	20.9795492070189			strong	biological	balanced	balanced_candidates	top5	balanced_top5
+brown	11.8955441157806			strong	biological	balanced	balanced_candidates	top5	balanced_top5
+gold	18.1900741141313			strong	technical	balanced	balanced_candidates	top5	balanced_top5
+grey	13.3881902301638			strong	technical	balanced	balanced_candidates	top5	balanced_top5
+turquoise	14.7886313684524			strong	biological	balanced	balanced_candidates	top5	balanced_top5
+yellow	11.1316247426323			strong	biological	balanced	balanced_candidates	top5	balanced_top5
