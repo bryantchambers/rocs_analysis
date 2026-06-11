@@ -16,6 +16,14 @@ This merge intentionally updates M's workflow only through the WGCNA handoff.
 
 ## WGCNA Production Setting
 
+The active WGCNA input contract is:
+
+- abundance feedstock: aggregated `tax_abund_tad`
+- prevalence basis: `tax_abund_tad > 0`
+- centering: sample-wise CLR with pseudocount `0.5`
+
+Legacy file names such as `clr_matrix_train_centered.rds` are preserved only for downstream path compatibility.
+
 The default WGCNA input strategy is now `balanced`, using balancednetwork-selected `top3` parameters:
 
 |parameter|value|
@@ -57,7 +65,8 @@ M's HMM stage still consumes all projected main-window module eigengenes. This i
   - Adds `DIRS$qc` and `DIRS$wgcna_stability`.
   - Honors documented input path environment variables.
 - `code/wgcna_hmm/01_data_prep.R`
-  - Writes the WGCNA training manifest.
+  - Builds WGCNA input from `tax_abund_tad` with sample-wise CLR.
+  - Writes the WGCNA input metadata and training manifest.
   - Writes balanced core-age-bin QC tables when balanced mode is active.
 - `code/wgcna_hmm/02_wgcna_main.R`
   - Fits WGCNA on the selected balanced training manifest by default.
@@ -73,6 +82,7 @@ M's HMM stage still consumes all projected main-window module eigengenes. This i
 - `code/wgcna_hmm/run_workflow.R`
   - Adds `--mode build|final`.
   - Runs `02b_wgcna_stability.R` after WGCNA and before HMM.
+  - Writes `results/.../logs/workflow_progress.tsv` for run monitoring.
 
 ## Copied QC Directories
 

@@ -35,6 +35,11 @@ tax <- fread(UPSTREAM$tax_damage)
 meta <- fread(UPSTREAM$metadata)
 func <- fread(CLASS$prokaryote_function)
 
+sample_centered_clr <- function(count_mat, pseudocount = 0.5) {
+  log_mat <- log(count_mat + pseudocount)
+  sweep(log_mat, 2, colMeans(log_mat), "-")
+}
+
 meta_s1 <- meta[
   core %in% PARAMS$all_cores &
     y_bp / 1000 <= PARAMS$stage1_max_age_kyr &
@@ -48,18 +53,30 @@ prok <- tax[
 ]
 
 prok_agg <- prok[, .(
-  n_reads = sum(n_reads),
+  tax_abund_tad = sum(tax_abund_tad),
   reference_length = mean(reference_length)
 ), by = .(subspecies, label)]
 
-keep_taxa <- prok_agg[n_reads > 0, .(n = .N), by = subspecies][n >= PARAMS$prevalence_min_samples, subspecies]
+keep_taxa <- prok_agg[tax_abund_tad > 0, .(n = .N), by = subspecies][n >= PARAMS$prevalence_min_samples, subspecies]
 prok_agg <- prok_agg[subspecies %in% keep_taxa]
 
-wide <- dcast(prok_agg, subspecies ~ label, value.var = "n_reads", fill = 0L)
+wide <- dcast(prok_agg, subspecies ~ label, value.var = "tax_abund_tad", fill = 0L)
 taxa_ids <- wide$subspecies
 count_mat <- as.matrix(wide[, -1, with = FALSE])
 rownames(count_mat) <- taxa_ids
+if (any(abs(count_mat - round(count_mat)) > 1e-8, na.rm = TRUE)) {
+  stop("`tax_abund_tad` matrix contains non-integer values; DESeq2 input requires count-like integers.")
+}
 storage.mode(count_mat) <- "integer"
+
+sample_totals_retained <- colSums(count_mat)
+zero_samples <- names(sample_totals_retained)[sample_totals_retained <= 0]
+if (length(zero_samples) > 0) {
+  log_msg(sprintf("Removing %d zero-total samples after prevalence filter", length(zero_samples)))
+  count_mat <- count_mat[, sample_totals_retained > 0, drop = FALSE]
+  sample_totals_retained <- sample_totals_retained[sample_totals_retained > 0]
+  meta_s1 <- meta_s1[label %in% colnames(count_mat)]
+}
 
 ref_len <- prok_agg[, .(reference_length = mean(reference_length)), by = subspecies]
 ref_lengths <- setNames(ref_len[match(taxa_ids, subspecies), reference_length], taxa_ids)
@@ -80,17 +97,17 @@ normalizationFactors(dds) <- outer(len_fac, sizeFactors(dds))
 totals <- colSums(count_mat)
 log_total <- log10(totals + 1)
 
-# Current main-pipeline input: taxon-centered log raw counts.
+# Current main-pipeline input: sample-wise CLR on `tax_abund_tad`.
 log_raw <- log(count_mat + 0.5)
-current_taxon_centered <- t(log_raw - rowMeans(log_raw))
+current_taxon_centered <- t(sample_centered_clr(count_mat, pseudocount = 0.5))
 
-# Standard sample-wise CLR on raw filtered counts.
-sample_clr_raw <- t(sweep(log_raw, 2, colMeans(log_raw), "-"))
+# Alias retained for continuity with earlier InputQC reports.
+sample_clr_raw <- current_taxon_centered
 
-# DESeq2 size-factor + reference-length normalized log abundance, taxon-centered.
+# DESeq2 size-factor + reference-length normalized log abundance, sample-centered.
 norm_counts <- counts(dds, normalized = TRUE)
 log_norm <- log(norm_counts + 0.5)
-deseq_length_log <- t(log_norm - rowMeans(log_norm))
+deseq_length_log <- t(sweep(log_norm, 2, colMeans(log_norm), "-"))
 
 # Remove linear log-depth signal per taxon from the current log matrix.
 sample_by_taxon <- t(log_raw)
@@ -128,5 +145,19 @@ fwrite(taxa_meta, file.path(OUT, "prokaryotes_taxa_metadata.tsv"), sep = "\t")
 fwrite(data.table(sample = names(totals), total_reads = as.numeric(totals), log_total_reads = log_total),
        file.path(OUT, "sample_depth_summary.tsv"), sep = "\t")
 fwrite(variant_summary, file.path(OUT, "input_variant_depth_pca_summary.tsv"), sep = "\t")
+fwrite(
+  data.table(
+    input_measure = "tax_abund_tad",
+    prevalence_measure = "tax_abund_tad",
+    prevalence_rule = sprintf("tax_abund_tad > 0 in >= %d samples", PARAMS$prevalence_min_samples),
+    current_variant = "current_taxon_centered_log",
+    current_variant_label = "sample-centered CLR on tax_abund_tad",
+    clr_centering = "sample",
+    clr_pseudocount = 0.5,
+    zero_total_samples_excluded = length(zero_samples)
+  ),
+  file.path(OUT, "input_construction_metadata.tsv"),
+  sep = "\t"
+)
 
 log_msg("Input variants written to ", OUT)

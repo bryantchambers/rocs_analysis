@@ -6,9 +6,9 @@
 
 ## Input Variants
 
-- `current_taxon_centered_log`: current main-pipeline WGCNA input, taxon-centered log raw counts.
-- `sample_clr_raw`: sample-wise CLR on raw filtered counts with pseudocount 0.5.
-- `deseq_length_log`: DESeq2 poscounts + reference-length normalized log counts, taxon-centered.
+- `current_taxon_centered_log`: current main-pipeline WGCNA input, sample-wise CLR on aggregated `tax_abund_tad` with pseudocount 0.5.
+- `sample_clr_raw`: alias of the same sample-wise CLR baseline, retained for continuity with earlier report naming.
+- `deseq_length_log`: DESeq2 poscounts + reference-length normalized log counts, sample-centered.
 - `log_depth_residualized`: current log matrix after removing linear log-total-read signal per taxon.
 
 ## Summary Table

@@ -4,6 +4,8 @@ Generated: 2026-05-15
 
 Purpose: create a contained plan for investigating why the leading axis of the WGCNA input is strongly associated with sequencing depth, and identify defensible input transformations / correction strategies before changing the main pipeline.
 
+Update note: the main pipeline target has now shifted to sample-wise CLR on aggregated `tax_abund_tad`. The historical framing below explains why that promotion was necessary; rerun outputs should be interpreted against the new baseline rather than the earlier `n_reads` taxon-centered input.
+
 ## Current Starting Point
 
 We found that the main WGCNA input is not a true sample-wise CLR. In `scripts/01_data_prep.R`, the transform is:

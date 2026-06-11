@@ -3,7 +3,8 @@
 #
 # Input:   dmg-summary-ssp_selected.tsv.gz  (pre-filtered to damaged reads,
 #          is_dmg == "Damaged" already set by upstream CCC criterion)
-# Method:  estimateSizeFactors(type="poscounts") + reference-length offset → CLR
+# Method:  estimateSizeFactors(type="poscounts") + reference-length offset;
+#          WGCNA input uses sample-wise CLR on `tax_abund_tad`
 # Outputs: results/stage1/
 #   prokaryotes_dds.rds           DESeq2 object (used by 04_emp.R for norm counts)
 #   prokaryotes_vst.rds           CLR matrix (samples × taxa); named "vst" for legacy
@@ -34,6 +35,11 @@ meta <- fread(UPSTREAM$metadata)
 log_msg("Loading functional classification...")
 func <- fread(CLASS$prokaryote_function)
 
+sample_centered_clr <- function(count_mat, pseudocount = 0.5) {
+  log_mat <- log(count_mat + pseudocount)
+  sweep(log_mat, 2, colMeans(log_mat), "-")
+}
+
 # ── 2. Stage-1 sample filter ──────────────────────────────────────────────────
 
 meta_s1 <- meta[
@@ -51,30 +57,42 @@ prok <- tax[
   label %in% meta_s1$label
 ]
 
-# Aggregate by subspecies × sample
+# Aggregate by subspecies × sample using the WGCNA input measure.
 prok_agg <- prok[, .(
-  n_reads          = sum(n_reads),
+  tax_abund_tad    = sum(tax_abund_tad),
   reference_length = mean(reference_length)
 ), by = .(subspecies, label)]
 
 log_msg(sprintf("  %d taxa × %d samples (after damage + domain filter)",
                 uniqueN(prok_agg$subspecies), uniqueN(prok_agg$label)))
 
-# ── 4. Prevalence filter (≥10 samples, absolute count — matches original) ────
+# ── 4. Prevalence filter (≥10 samples, absolute `tax_abund_tad`) ─────────────
 
 prev_thr  <- PARAMS$prevalence_min_samples
-keep_taxa <- prok_agg[n_reads > 0, .(n = .N), by = subspecies][n >= prev_thr, subspecies]
+keep_taxa <- prok_agg[tax_abund_tad > 0, .(n = .N), by = subspecies][n >= prev_thr, subspecies]
 prok_agg  <- prok_agg[subspecies %in% keep_taxa]
 
 log_msg(sprintf("  %d taxa after prevalence filter (>= %d samples)", length(keep_taxa), prev_thr))
 
 # ── 5. Count matrix (taxa × samples) ─────────────────────────────────────────
 
-wide      <- dcast(prok_agg, subspecies ~ label, value.var = "n_reads", fill = 0L)
+wide      <- dcast(prok_agg, subspecies ~ label, value.var = "tax_abund_tad", fill = 0L)
 taxa_ids  <- wide$subspecies
 count_mat <- as.matrix(wide[, -1, with = FALSE])
 rownames(count_mat) <- taxa_ids
+if (any(abs(count_mat - round(count_mat)) > 1e-8, na.rm = TRUE)) {
+  stop("`tax_abund_tad` matrix contains non-integer values; DESeq2 input requires count-like integers.")
+}
 storage.mode(count_mat) <- "integer"
+
+sample_totals_retained <- colSums(count_mat)
+zero_samples <- names(sample_totals_retained)[sample_totals_retained <= 0]
+if (length(zero_samples) > 0) {
+  log_msg(sprintf("  Removing %d zero-total samples after prevalence filter", length(zero_samples)))
+  count_mat <- count_mat[, sample_totals_retained > 0, drop = FALSE]
+  sample_totals_retained <- sample_totals_retained[sample_totals_retained > 0]
+  meta_s1 <- meta_s1[label %in% colnames(count_mat)]
+}
 
 # Reference lengths
 ref_len <- prok_agg[, .(reference_length = mean(reference_length)), by = subspecies]
@@ -82,19 +100,13 @@ ref_lengths <- setNames(ref_len[match(taxa_ids, subspecies), reference_length], 
 
 log_msg(sprintf("  Count matrix: %d taxa × %d samples", nrow(count_mat), ncol(count_mat)))
 
-# ── 6. CLR transform directly on raw counts (matches original) ───────────────
-# The original applies CLR to raw filtered counts, not to DESeq2-normalised
-# counts. CLR itself handles compositionality, so library-size normalisation
-# before CLR is redundant and would alter the result.
+# ── 6. Sample-wise CLR transform on `tax_abund_tad` ──────────────────────────
 
 log_msg("CLR transform...")
 
-# Pseudocount 0.5 before log: prevents log(0) with minimal distortion of
-# abundant taxa; matches original (clr_pseudocount = 0.5).
-# Subtracting row means centres each taxon across samples (geometric mean
-# ratio transform), making the matrix compositionally coherent for WGCNA.
-clr_mat <- log(count_mat + 0.5)
-clr_mat <- clr_mat - rowMeans(clr_mat)   # taxa × samples
+# Pseudocount 0.5 before log prevents log(0). Sample-wise centering subtracts
+# the within-sample geometric-mean log abundance across taxa.
+clr_mat <- sample_centered_clr(count_mat, pseudocount = 0.5)
 
 # Remove zero-variance taxa
 keep_var <- rowVars(clr_mat) > 0
@@ -146,5 +158,19 @@ saveRDS(dds,     file.path(RESULTS$stage1, "prokaryotes_dds.rds"))
 saveRDS(vst_mat, file.path(RESULTS$stage1, "prokaryotes_vst.rds"))
 fwrite(taxa_meta, file.path(RESULTS$stage1, "prokaryotes_taxa_metadata.tsv"), sep = "\t")
 fwrite(meta_s1,   file.path(RESULTS$stage1, "sample_metadata_stage1.tsv"),    sep = "\t")
+fwrite(
+  data.table(
+    input_measure = "tax_abund_tad",
+    prevalence_measure = "tax_abund_tad",
+    prevalence_rule = sprintf("tax_abund_tad > 0 in >= %d samples", prev_thr),
+    clr_centering = "sample",
+    clr_pseudocount = 0.5,
+    zero_total_samples_excluded = length(zero_samples),
+    matrix_orientation = "samples_by_taxa",
+    legacy_matrix_filename = "prokaryotes_vst.rds"
+  ),
+  file.path(RESULTS$stage1, "wgcna_input_metadata.tsv"),
+  sep = "\t"
+)
 
 log_msg(sprintf("Done → %d samples × %d taxa", nrow(vst_mat), ncol(vst_mat)))

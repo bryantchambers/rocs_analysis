@@ -35,7 +35,7 @@ prok <- tax[
     label %in% meta_ext$label
 ]
 
-prok_agg_full <- prok[, .(n_reads = sum(n_reads)), by = .(subspecies, label)]
+prok_agg_full <- prok[, .(tax_abund_tad = sum(tax_abund_tad)), by = .(subspecies, label)]
 
 deep_manifest_path <- file.path(DIRS$main, "deep_sediment_excluded_taxa.tsv")
 deep_manifest <- data.table(
@@ -140,7 +140,7 @@ if (isTRUE(PARAMS$exclude_deep_sediment_taxa) || length(extra_excluded_phyla) > 
   if (length(excluded_taxa) > 0) {
     excl_stats <- prok_agg_full[
       subspecies %in% excluded_taxa,
-      .(n_samples = sum(n_reads > 0), total_reads = sum(n_reads)),
+      .(n_samples = sum(tax_abund_tad > 0), total_reads = sum(tax_abund_tad)),
       by = subspecies
     ]
 
@@ -154,13 +154,13 @@ if (isTRUE(PARAMS$exclude_deep_sediment_taxa) || length(extra_excluded_phyla) > 
     deep_manifest[is.na(total_reads), total_reads := 0]
 
     n_deep_sediment_excluded_prevalent <- prok_agg_full[
-      subspecies %in% intersect(unique(deep_candidates$taxon), taxa_in_run) & label %in% meta_main$label & n_reads > 0,
+      subspecies %in% intersect(unique(deep_candidates$taxon), taxa_in_run) & label %in% meta_main$label & tax_abund_tad > 0,
       .(n_samples = .N),
       by = subspecies
     ][n_samples >= PARAMS$prevalence_min_samples, uniqueN(subspecies)]
 
     n_extra_phylum_excluded_prevalent <- prok_agg_full[
-      subspecies %in% intersect(unique(phylum_candidates$taxon), taxa_in_run) & label %in% meta_main$label & n_reads > 0,
+      subspecies %in% intersect(unique(phylum_candidates$taxon), taxa_in_run) & label %in% meta_main$label & tax_abund_tad > 0,
       .(n_samples = .N),
       by = subspecies
     ][n_samples >= PARAMS$prevalence_min_samples, uniqueN(subspecies)]
@@ -186,29 +186,39 @@ setcolorder(
 )
 fwrite(deep_manifest[order(-total_reads, taxon)], deep_manifest_path, sep = "\t")
 
-prok_agg <- prok[, .(n_reads = sum(n_reads)), by = .(subspecies, label)]
+prok_agg <- prok[, .(tax_abund_tad = sum(tax_abund_tad)), by = .(subspecies, label)]
 
 # prevalence filter on main window to preserve training logic
 keep_taxa <- prok_agg[
-  label %in% meta_main$label & n_reads > 0,
+  label %in% meta_main$label & tax_abund_tad > 0,
   .(n_samples = .N),
   by = subspecies
 ][n_samples >= PARAMS$prevalence_min_samples, subspecies]
 
 prok_agg <- prok_agg[subspecies %in% keep_taxa]
 
-wide <- dcast(prok_agg, subspecies ~ label, value.var = "n_reads", fill = 0)
+wide <- dcast(prok_agg, subspecies ~ label, value.var = "tax_abund_tad", fill = 0)
 taxa <- wide$subspecies
 count_mat <- as.matrix(wide[, -1, with = FALSE])
 rownames(count_mat) <- taxa
+if (any(abs(count_mat - round(count_mat)) > 1e-8, na.rm = TRUE)) {
+  stop("`tax_abund_tad` matrix contains non-integer values; WGCNA-HMM input requires count-like integers.")
+}
 storage.mode(count_mat) <- "integer"
 
-main_ids <- intersect(meta_main$label, colnames(count_mat))
+sample_totals_retained <- colSums(count_mat)
+zero_samples <- names(sample_totals_retained)[sample_totals_retained <= 0]
+if (length(zero_samples) > 0) {
+  log_msg(sprintf("Removing %d zero-total samples after prevalence filter", length(zero_samples)))
+  count_mat <- count_mat[, sample_totals_retained > 0, drop = FALSE]
+  meta_main <- meta_main[label %in% colnames(count_mat)]
+  meta_ext <- meta_ext[label %in% colnames(count_mat)]
+}
+
 ext_ids <- intersect(meta_ext$label, colnames(count_mat))
 
-clr_obj <- compute_clr_train_centered(
+clr_obj <- compute_sample_centered_clr(
   count_mat_taxa_by_samples = count_mat[, ext_ids, drop = FALSE],
-  train_sample_ids = main_ids,
   pseudocount = PARAMS$clr_pseudocount
 )
 
@@ -345,11 +355,26 @@ fwrite(
   sep = "\t"
 )
 saveRDS(clr_mat, file.path(DIRS$main, "clr_matrix_train_centered.rds"))
-saveRDS(clr_obj$train_row_means, file.path(DIRS$main, "clr_training_row_means.rds"))
+saveRDS(clr_obj$sample_log_geomeans, file.path(DIRS$main, "clr_sample_log_geomeans.rds"))
+fwrite(
+  data.table(
+    input_measure = "tax_abund_tad",
+    prevalence_measure = "tax_abund_tad",
+    prevalence_rule = sprintf("tax_abund_tad > 0 in >= %d main-window samples", PARAMS$prevalence_min_samples),
+    clr_centering = "sample",
+    clr_pseudocount = PARAMS$clr_pseudocount,
+    zero_total_samples_excluded = length(zero_samples),
+    matrix_orientation = "samples_by_taxa",
+    legacy_matrix_filename = "clr_matrix_train_centered.rds"
+  ),
+  file.path(DIRS$main, "wgcna_input_metadata.tsv"),
+  sep = "\t"
+)
 
 summary_dt <- data.table(
   metric = c(
-    "n_samples_main", "n_samples_extended", "n_taxa_after_prevalence",
+    "n_samples_main", "n_samples_extended", "n_taxa_after_prevalence", "zero_total_samples_excluded",
+    "wgcna_input_measure", "wgcna_prevalence_measure", "wgcna_clr_centering",
     "wgcna_input_strategy", "wgcna_profile", "wgcna_training_samples", "hmm_input_balancing_status",
     "deep_sediment_filter_enabled", "deep_sediment_candidates_total",
     "deep_sediment_excluded_selected_samples", "deep_sediment_excluded_prevalent_main_window",
@@ -358,7 +383,8 @@ summary_dt <- data.table(
     "main_max_age_kyr", "st13_max_age_kyr_extended", "geob_max_age_kyr_extended"
   ),
   value = c(
-    nrow(meta_main), nrow(meta_ext), ncol(clr_mat),
+    nrow(meta_main), nrow(meta_ext), ncol(clr_mat), length(zero_samples),
+    "tax_abund_tad", "tax_abund_tad", "sample",
     PARAMS$wgcna_input_strategy, PARAMS$wgcna_profile, nrow(wgcna_design$manifest), PARAMS$hmm_input_balancing_status,
     as.integer(isTRUE(PARAMS$exclude_deep_sediment_taxa)),
     n_deep_sediment_candidates,
@@ -389,6 +415,10 @@ write_run_metadata(
     main_max_age_kyr = PARAMS$main_max_age_kyr,
     prevalence_min_samples = PARAMS$prevalence_min_samples,
     clr_pseudocount = PARAMS$clr_pseudocount,
+    zero_total_samples_excluded = length(zero_samples),
+    wgcna_input_measure = "tax_abund_tad",
+    prevalence_measure = "tax_abund_tad",
+    clr_centering = "sample",
     exclude_deep_sediment_taxa = PARAMS$exclude_deep_sediment_taxa,
     extra_excluded_phyla = if (length(extra_excluded_phyla) > 0) paste(extra_excluded_phyla, collapse = ";") else "",
     deep_sediment_display_category = PARAMS$deep_sediment_display_category,

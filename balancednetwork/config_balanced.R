@@ -18,6 +18,8 @@ BAL <- list(
   qc_tables_dir = here("balancednetwork", "results", "qc", "tables"),
   qc_fig_dir = here("balancednetwork", "results", "qc", "figures"),
   qc_full_dir = here("balancednetwork", "results", "qc", "full_eval"),
+  qc_broad_dir = here("balancednetwork", "results", "qc", "broad_sweep"),
+  qc_broad_cache_dir = here("balancednetwork", "results", "qc", "broad_sweep", "cache"),
   logs_dir = here("balancednetwork", "results", "logs")
 )
 
@@ -34,6 +36,18 @@ BAL_PARAMS <- list(
   grid_deepSplit = c(1L, 2L, 3L),
   grid_mergeCutHeight = c(0.10, 0.15, 0.20, 0.25),
   grid_minModuleSize = c(20L, 30L),
+  broad_power_scan = c(1:10, 12L, 14L, 16L),
+  broad_power_recut = c(2:10, 12L, 14L, 16L),
+  broad_deepSplit = 0:4,
+  broad_mergeCutHeight = c(0.02, 0.05, 0.08, 0.10, 0.12, 0.15, 0.20),
+  broad_minModuleSize = c(8L, 10L, 12L, 15L, 20L),
+  broad_target_modules = 6L,
+  broad_keep_module_min = 4L,
+  broad_keep_module_max = 9L,
+  broad_keep_grey_pct_max = 70,
+  broad_keep_module_median_min = 10,
+  broad_keep_largest_module_pct_max = 45,
+  broad_top_n_confirm = 15L,
   age_grid_points = PARAMS$wgcna_stability_age_grid_points
 )
 
@@ -104,5 +118,23 @@ fit_consensus_from_expr <- function(expr_by_core, power, deepSplit, mergeCutHeig
     numericLabels = FALSE,
     saveTOMs = FALSE,
     verbose = 0
+  )
+}
+
+module_summary_from_colors <- function(colors) {
+  tab <- sort(table(as.character(colors)), decreasing = TRUE)
+  non_g_names <- setdiff(names(tab), c("grey", "gold"))
+  non_g_sizes <- as.numeric(tab[non_g_names])
+  grey_n <- if ("grey" %in% names(tab)) as.numeric(tab[["grey"]]) else 0
+  total_n <- length(colors)
+  data.table(
+    non_grey_modules = length(non_g_names),
+    grey_pct = grey_n / total_n * 100,
+    module_size_median = if (length(non_g_sizes)) median(non_g_sizes) else NA_real_,
+    min_non_grey_module_size = if (length(non_g_sizes)) min(non_g_sizes) else NA_real_,
+    max_non_grey_module_size = if (length(non_g_sizes)) max(non_g_sizes) else NA_real_,
+    largest_non_grey_module_pct = if (length(non_g_sizes)) max(non_g_sizes) / total_n * 100 else NA_real_,
+    singleton_non_grey_modules = sum(non_g_sizes <= 1),
+    total_taxa = total_n
   )
 }

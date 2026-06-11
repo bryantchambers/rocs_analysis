@@ -4,6 +4,8 @@ Generated: 2026-05-13
 
 Purpose: capture the current QC interpretation, literature-grounded concerns, and reasonable next checks before we lock WGCNA module parameters for downstream biological analysis.
 
+Update note: the main pipeline has now been promoted to sample-wise CLR on aggregated `tax_abund_tad`. The preprocessing concern documented below remains useful historical context, but the `n_reads` taxon-centered path is no longer the intended production baseline.
+
 ## Current Decision State
 
 The expanded NetworkQC run supports `exp3` as the best current WGCNA parameter set:

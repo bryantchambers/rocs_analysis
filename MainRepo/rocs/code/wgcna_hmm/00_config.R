@@ -324,17 +324,15 @@ corewise_z_transform <- function(mat, core_ids, feature_names = colnames(mat), v
   )
 }
 
-compute_clr_train_centered <- function(count_mat_taxa_by_samples, train_sample_ids, pseudocount = 0.5) {
+compute_sample_centered_clr <- function(count_mat_taxa_by_samples, pseudocount = 0.5) {
   log_mat <- log(count_mat_taxa_by_samples + pseudocount)
-  train_ids <- intersect(train_sample_ids, colnames(log_mat))
-  if (length(train_ids) == 0) stop("No training sample IDs found in count matrix.")
-  train_row_means <- rowMeans(log_mat[, train_ids, drop = FALSE])
-  clr <- sweep(log_mat, 1, train_row_means, "-")
+  sample_log_geomeans <- colMeans(log_mat)
+  clr <- sweep(log_mat, 2, sample_log_geomeans, "-")
   keep <- apply(clr, 1, function(v) stats::var(v, na.rm = TRUE) > 0)
   clr <- clr[keep, , drop = FALSE]
   list(
     clr = t(clr),
-    train_row_means = train_row_means[keep],
+    sample_log_geomeans = sample_log_geomeans,
     kept_taxa = rownames(clr)
   )
 }

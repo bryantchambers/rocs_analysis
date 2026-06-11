@@ -311,10 +311,10 @@ cat("- Scope: focused preprocessing/depth sensitivity for `exp3`, `exp4`, and `o
 cat("- Preservation permutations per sensitivity run: `", n_perm, "`\n\n", sep = "")
 
 cat("## Input Variants\n\n")
-cat("- `current_taxon_centered_log`: current main-pipeline WGCNA input, taxon-centered log raw counts.\n")
-cat("- `sample_clr_raw`: sample-wise CLR on raw filtered counts with pseudocount 0.5.\n")
-cat("- `deseq_length_log`: DESeq2 poscounts + reference-length normalized log counts, taxon-centered.\n")
-cat("- `log_depth_residualized`: current log matrix after removing linear log-total-read signal per taxon.\n\n")
+cat("- `current_taxon_centered_log`: current main-pipeline WGCNA input, sample-wise CLR on `tax_abund_tad` with pseudocount 0.5.\n")
+cat("- `sample_clr_raw`: alias of the same sample-wise CLR baseline, retained for continuity with earlier InputQC report naming.\n")
+cat("- `deseq_length_log`: DESeq2 poscounts + reference-length normalized log counts, sample-centered.\n")
+cat("- `log_depth_residualized`: current sample-wise log matrix after removing linear log-total-read signal per taxon.\n\n")
 
 cat("## Summary Table\n\n")
 cat("|setting|variant|grey_pct|mean_overlap|min_overlap|strong|moderate|pearson|spearman|rmse|PC1_depth|drastic|\n")

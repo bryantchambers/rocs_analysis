@@ -5,8 +5,8 @@
 
 ## Plain-language summary
 
-The current network uses a taxon-centered log transform. That means each taxon is compared to its own average across samples.
-It is useful, but it is not the same thing as a sample-wise CLR, where each sample is centered against all taxa inside that sample.
+Update note: the current network now uses sample-wise CLR on aggregated `tax_abund_tad`.
+This historical report pre-dates that promotion and should be read as background for why the input contract changed.
 
 Why this matters: if the transform leaves sample-wide read-depth structure in place, WGCNA may partly organize taxa around technical recovery rather than only around biology.
 
