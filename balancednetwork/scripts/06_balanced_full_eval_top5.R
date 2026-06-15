@@ -9,6 +9,10 @@ source(here::here("balancednetwork", "config_balanced.R"))
 set.seed(PARAMS$seed)
 allowWGCNAThreads()
 
+full_eval_dir <- Sys.getenv("BALANCED_FULL_EVAL_DIR", unset = BAL$qc_full_dir)
+source_tsv <- Sys.getenv("BALANCED_FULL_EVAL_SOURCE_TSV", unset = file.path(BAL$qc_tables_dir, "qc_decision_matrix.tsv"))
+dir.create(full_eval_dir, recursive = TRUE, showWarnings = FALSE)
+
 args <- commandArgs(trailingOnly = TRUE)
 arg_val <- function(key, default = NA_character_) {
   hit <- grep(paste0("^--", key, "="), args, value = TRUE)
@@ -63,21 +67,30 @@ expr_validation <- ctx$expr_validation
 pool_by_core_bin <- ctx$pool_by_core_bin
 quotas <- ctx$quotas
 
-sel_all <- fread(file.path(BAL$qc_tables_dir, "qc_decision_matrix.tsv"))
-sel_all[, setting_id := paste0("top", rank)]
+sel_all <- fread(source_tsv)
+if (!"mergeCutHeight" %in% names(sel_all) && "representative_mergeCutHeight" %in% names(sel_all)) {
+  sel_all[, mergeCutHeight := representative_mergeCutHeight]
+}
+if (!"setting_id" %in% names(sel_all)) {
+  if ("rank" %in% names(sel_all)) {
+    sel_all[, setting_id := paste0("top", rank)]
+  } else {
+    sel_all[, setting_id := sprintf("setting_%03d", .I)]
+  }
+}
 if (nzchar(setting_rank)) {
   sel <- sel_all[rank == as.integer(setting_rank)]
 } else if (nzchar(setting_id_filter)) {
   sel <- sel_all[setting_id == setting_id_filter]
 } else {
   sel <- sel_all[1:min(top_n, .N)]
-  if (nrow(sel) > 0) {
+  if (nrow(sel) > 0 && "decision_score" %in% names(sel_all)) {
     cutoff <- sel[nrow(sel), decision_score]
     sel <- sel_all[decision_score >= cutoff]
   }
 }
 if (nrow(sel) == 0) stop("No settings matched the requested selector.")
-fwrite(sel, file.path(BAL$qc_full_dir, "settings_to_evaluate.tsv"), sep = "\t")
+fwrite(sel, file.path(full_eval_dir, "settings_to_evaluate.tsv"), sep = "\t")
 progress_update("global", "select_settings", "ok", sprintf("selected_n=%d", nrow(sel)))
 
 r1 <- "GeoB25202_R1"
@@ -129,7 +142,7 @@ all_fail_rows <- list()
 for (k in seq_len(nrow(sel))) {
   par <- sel[k]
   sid <- par$setting_id
-  sdir <- file.path(BAL$qc_full_dir, sid)
+  sdir <- file.path(full_eval_dir, sid)
   dir.create(sdir, recursive = TRUE, showWarnings = FALSE)
   summary_path <- file.path(sdir, "setting_summary.tsv")
   progress_update(sid, "setting", "start", sprintf("power=%s deepSplit=%s mergeCutHeight=%s minModuleSize=%s", par$power, par$deepSplit, par$mergeCutHeight, par$minModuleSize))
@@ -184,7 +197,14 @@ for (k in seq_len(nrow(sel))) {
     verbose = 0
   )
   ps <- mp$preservation$Z[[1]][[2]]
-  pres <- data.table(module = rownames(ps), Zsummary = ps$Zsummary.pres)
+  ps_dt <- as.data.table(ps, keep.rownames = "module")
+  z_col <- grep("^Zsummary(\\.pres)?$", names(ps_dt), value = TRUE)
+  if (!length(z_col)) z_col <- grep("Zsummary", names(ps_dt), value = TRUE)
+  if (length(z_col)) {
+    pres <- data.table(module = ps_dt$module, Zsummary = as.numeric(ps_dt[[z_col[[1]]]]))
+  } else {
+    pres <- data.table(module = ps_dt$module, Zsummary = NA_real_)
+  }
   pres[, preserved := fcase(Zsummary > 10, "strong", Zsummary > 2, "moderate", default = "weak")]
   pres[, module_type := fcase(module %in% c("grey", "gold"), "technical", default = "biological")]
   fwrite(pres, file.path(sdir, "preservation.tsv"), sep = "\t")
@@ -270,8 +290,8 @@ for (k in seq_len(nrow(sel))) {
 res <- rbindlist(results_rows, fill = TRUE)
 score_input <- copy(res)
 if (nzchar(setting_rank) || nzchar(setting_id_filter)) {
-  summary_dirs <- list.dirs(BAL$qc_full_dir, recursive = FALSE, full.names = TRUE)
-  summary_dirs <- summary_dirs[grepl("/top[0-9]+$", summary_dirs)]
+  summary_dirs <- list.dirs(full_eval_dir, recursive = FALSE, full.names = TRUE)
+  summary_dirs <- summary_dirs[file.exists(file.path(summary_dirs, "setting_summary.tsv"))]
   summary_rows <- rbindlist(lapply(summary_dirs, function(d) {
     f <- file.path(d, "setting_summary.tsv")
     if (file.exists(f)) fread(f) else NULL
@@ -287,8 +307,8 @@ score[, final_score := 0.30 * s_grey + 0.35 * s_boot + 0.20 * s_pres + 0.15 * s_
 setorder(score, -final_score, grey_pct)
 score[, rank := .I]
 
-fwrite(score, file.path(BAL$qc_full_dir, "all_settings_ranked.tsv"), sep = "\t")
-if (length(all_fail_rows)) fwrite(rbindlist(all_fail_rows), file.path(BAL$qc_full_dir, "all_bootstrap_failures.tsv"), sep = "\t")
+fwrite(score, file.path(full_eval_dir, "all_settings_ranked.tsv"), sep = "\t")
+if (length(all_fail_rows)) fwrite(rbindlist(all_fail_rows), file.path(full_eval_dir, "all_bootstrap_failures.tsv"), sep = "\t")
 progress_update("global", "ranking", "ok", sprintf("ranked_n=%d", nrow(score)))
 
 log_msg("balanced full evaluation complete")

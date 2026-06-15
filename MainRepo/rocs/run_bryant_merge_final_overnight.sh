@@ -5,7 +5,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 export WGCNA_HMM_RESULTS_SUFFIX="${WGCNA_HMM_RESULTS_SUFFIX:-balanced_default_final_$(date +%Y%m%d)}"
 export WGCNA_HMM_INPUT_STRATEGY="${WGCNA_HMM_INPUT_STRATEGY:-balanced}"
-export WGCNA_HMM_WGCNA_PROFILE="${WGCNA_HMM_WGCNA_PROFILE:-balanced_top3}"
+export WGCNA_HMM_WGCNA_PROFILE="${WGCNA_HMM_WGCNA_PROFILE:-balanced_clr_default}"
 export WGCNA_HMM_INPUT_TAX_DAMAGE="${WGCNA_HMM_INPUT_TAX_DAMAGE:-/src/results/microbial/damage/damage-classification-depositional/dmg-summary-ssp-damage-classification-depositional.tsv.gz}"
 export WGCNA_HMM_INPUT_KEGG_MODS="${WGCNA_HMM_INPUT_KEGG_MODS:-/src/data/functional/kegg-modules-summary-rocs.tsv.gz}"
 

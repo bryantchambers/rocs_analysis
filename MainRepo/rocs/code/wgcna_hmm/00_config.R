@@ -98,14 +98,72 @@ wgcna_input_strategy_env <- env_choice(
   default = "balanced"
 )
 
-wgcna_profile_default <- if (identical(wgcna_input_strategy_env, "balanced")) "balanced_top3" else "original_exp3"
+wgcna_profile_default <- if (identical(wgcna_input_strategy_env, "balanced")) "balanced_clr_default" else "original_clr_default"
 wgcna_profile_env <- env_choice(
   "WGCNA_HMM_WGCNA_PROFILE",
-  choices = c("balanced_top3", "original_exp3", "custom"),
+  choices = c(
+    "balanced_clr_default",
+    "balanced_clr_alt001",
+    "balanced_clr_alt005",
+    "balanced_clr_fallback_p2_ds3",
+    "balanced_clr_fallback_p2_ds4",
+    "original_clr_default",
+    "balanced_top3",
+    "original_exp3",
+    "custom"
+  ),
   default = wgcna_profile_default
 )
 
 WGCNA_PARAMETER_PROFILES <- list(
+  balanced_clr_default = list(
+    label = "balanced_clr_default",
+    soft_power = 3L,
+    deep_split = 4L,
+    merge_cut_height = 0.02,
+    min_module_size = 8L,
+    rationale = "balanced CLR default; 7 non-grey modules, grey_pct ~48.55"
+  ),
+  balanced_clr_alt001 = list(
+    label = "balanced_clr_alt001",
+    soft_power = 3L,
+    deep_split = 4L,
+    merge_cut_height = 0.01,
+    min_module_size = 8L,
+    rationale = "balanced CLR alternate; tied 7-module neighborhood at mergeCutHeight 0.01"
+  ),
+  balanced_clr_alt005 = list(
+    label = "balanced_clr_alt005",
+    soft_power = 3L,
+    deep_split = 4L,
+    merge_cut_height = 0.05,
+    min_module_size = 8L,
+    rationale = "balanced CLR alternate; tied 7-module neighborhood at mergeCutHeight 0.05"
+  ),
+  balanced_clr_fallback_p2_ds3 = list(
+    label = "balanced_clr_fallback_p2_ds3",
+    soft_power = 2L,
+    deep_split = 3L,
+    merge_cut_height = 0.02,
+    min_module_size = 6L,
+    rationale = "balanced CLR fallback; 6 non-grey modules, grey_pct ~55.49"
+  ),
+  balanced_clr_fallback_p2_ds4 = list(
+    label = "balanced_clr_fallback_p2_ds4",
+    soft_power = 2L,
+    deep_split = 4L,
+    merge_cut_height = 0.02,
+    min_module_size = 6L,
+    rationale = "balanced CLR fallback; 6 non-grey modules, grey_pct ~55.49"
+  ),
+  original_clr_default = list(
+    label = "original_clr_default",
+    soft_power = 2L,
+    deep_split = 4L,
+    merge_cut_height = 0.02,
+    min_module_size = 6L,
+    rationale = "original sample-selection fallback under corrected CLR; 7 non-grey modules, grey_pct ~45.66"
+  ),
   balanced_top3 = list(
     label = "balanced_top3",
     soft_power = 12L,
@@ -124,10 +182,10 @@ WGCNA_PARAMETER_PROFILES <- list(
   ),
   custom = list(
     label = "custom",
-    soft_power = 12L,
-    deep_split = 1L,
-    merge_cut_height = 0.25,
-    min_module_size = 30L,
+    soft_power = 3L,
+    deep_split = 4L,
+    merge_cut_height = 0.02,
+    min_module_size = 8L,
     rationale = "environment override"
   )
 )
@@ -177,10 +235,10 @@ PARAMS <- list(
   wgcna_profile_rationale = wgcna_profile$rationale,
   wgcna_balance_bin_width_kyr = env_numeric("WGCNA_HMM_BALANCE_BIN_WIDTH_KYR", default = 10),
 
-  # Default as of the balanced merge is balanced_top3:
-  # power=12, deepSplit=1, mergeCutHeight=0.25, minModuleSize=30.
-  # The original exp3 method is preserved with WGCNA_HMM_INPUT_STRATEGY=original
-  # or WGCNA_HMM_WGCNA_PROFILE=original_exp3.
+  # Default as of the CLR update merge is balanced_clr_default:
+  # power=3, deepSplit=4, mergeCutHeight=0.02, minModuleSize=8.
+  # Historical balanced_top3 and original_exp3 profiles are preserved for compatibility.
+  # The runnable original-selection fallback under corrected CLR is original_clr_default.
   wgcna_min_module_size = env_integer("WGCNA_HMM_WGCNA_MIN_MODULE_SIZE", default = wgcna_profile$min_module_size),
   wgcna_deep_split = env_integer("WGCNA_HMM_WGCNA_DEEP_SPLIT", default = wgcna_profile$deep_split),
   wgcna_merge_cut_height = env_numeric("WGCNA_HMM_WGCNA_MERGE_CUT_HEIGHT", default = wgcna_profile$merge_cut_height),

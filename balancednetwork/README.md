@@ -36,6 +36,9 @@ bash balancednetwork/run_balancednetwork.sh --mode=final
 bash balancednetwork/run_balancednetwork_qc.sh
 bash balancednetwork/run_balancednetwork_full_eval.sh --mode=build
 bash balancednetwork/run_balancednetwork_full_eval.sh --mode=final
+bash balancednetwork/run_balancednetwork_neighborhood_scan.sh
+bash balancednetwork/run_balancednetwork_neighborhood_full_eval.sh --mode=build
+bash balancednetwork/run_balancednetwork_neighborhood_full_eval.sh --mode=final
 ```
 
 Optional overrides:
@@ -48,6 +51,8 @@ Optional overrides:
 - `N_BOOT` default in `run_balancednetwork_full_eval.sh`: build `100`, final `500` (initial run target)
 - `BALANCED_SWEEP_PROGRESS_TSV` or `BAL_PROGRESS_TSV` to override the default progress-log path
 - `BALANCED_BROAD_SWEEP_PROGRESS_TSV` to override the broad-sweep progress-log path
+- `BALANCED_NEIGHBORHOOD_RUN_ID` to keep a neighborhood scan and its downstream full eval in a dedicated result directory
+- `BALANCED_NEIGHBORHOOD_LIMIT` to smoke-test only the first `N` neighborhood settings before committing to the full local scan
 
 ## Broad Sweep
 
@@ -65,6 +70,26 @@ This staged run does three things:
 
 Outputs land in `balancednetwork/results/qc/broad_sweep/`.
 
+## Neighborhood Scan
+
+Use this after the broad scan has identified seed clusters:
+
+```bash
+export BALANCED_BROAD_SCAN_RUN_ID=20260612_full_broad
+export BALANCED_NEIGHBORHOOD_RUN_ID=20260615_neighborhood
+
+bash balancednetwork/run_balancednetwork_neighborhood_scan.sh
+bash balancednetwork/run_balancednetwork_neighborhood_full_eval.sh --mode=build
+```
+
+This staged flow does three things:
+
+- scans the local neighborhood grids around clusters A-D,
+- ranks representative neighborhood settings and writes `neighborhood_settings_to_full_eval.tsv`,
+- runs the existing preservation, concordance, and bootstrap full evaluation on the selected neighborhood winners.
+
+Outputs land in `balancednetwork/results/qc/neighborhood_scan/<run_id>/`.
+
 ## Outputs
 
 - `balancednetwork/results/tables/` sample balancing design tables
@@ -74,5 +99,6 @@ Outputs land in `balancednetwork/results/qc/broad_sweep/`.
 - `balancednetwork/results/qc/tables/` sweep + decision matrix tables
 - `balancednetwork/results/qc/BALANCED_QC_DECISION_REPORT.md`
 - `balancednetwork/results/qc/broad_sweep/` broad power scan, broad recut sweep, candidates, and confirmation report
+- `balancednetwork/results/qc/neighborhood_scan/` neighborhood scan grids, ranked local candidates, and neighborhood full-eval outputs
 - `balancednetwork/results/qc/full_eval/` per-candidate full evaluation outputs
 - `balancednetwork/results/qc/BALANCED_FULL_EVAL_REPORT.md`

@@ -7,6 +7,9 @@ suppressPackageStartupMessages({
 
 source(here("config.R"))
 
+BALANCED_BROAD_SCAN_RUN_ID <- Sys.getenv("BALANCED_BROAD_SCAN_RUN_ID", unset = "")
+BALANCED_NEIGHBORHOOD_RUN_ID <- Sys.getenv("BALANCED_NEIGHBORHOOD_RUN_ID", unset = "")
+
 BAL <- list(
   base_dir = here("balancednetwork"),
   results_dir = here("balancednetwork", "results"),
@@ -18,8 +21,26 @@ BAL <- list(
   qc_tables_dir = here("balancednetwork", "results", "qc", "tables"),
   qc_fig_dir = here("balancednetwork", "results", "qc", "figures"),
   qc_full_dir = here("balancednetwork", "results", "qc", "full_eval"),
-  qc_broad_dir = here("balancednetwork", "results", "qc", "broad_sweep"),
-  qc_broad_cache_dir = here("balancednetwork", "results", "qc", "broad_sweep", "cache"),
+  qc_neighborhood_dir = if (nzchar(BALANCED_NEIGHBORHOOD_RUN_ID)) {
+    here("balancednetwork", "results", "qc", "neighborhood_scan", BALANCED_NEIGHBORHOOD_RUN_ID)
+  } else {
+    here("balancednetwork", "results", "qc", "neighborhood_scan")
+  },
+  qc_neighborhood_full_dir = if (nzchar(BALANCED_NEIGHBORHOOD_RUN_ID)) {
+    here("balancednetwork", "results", "qc", "neighborhood_scan", BALANCED_NEIGHBORHOOD_RUN_ID, "full_eval")
+  } else {
+    here("balancednetwork", "results", "qc", "neighborhood_scan", "full_eval")
+  },
+  qc_broad_dir = if (nzchar(BALANCED_BROAD_SCAN_RUN_ID)) {
+    here("balancednetwork", "results", "qc", "broad_sweep", BALANCED_BROAD_SCAN_RUN_ID)
+  } else {
+    here("balancednetwork", "results", "qc", "broad_sweep")
+  },
+  qc_broad_cache_dir = if (nzchar(BALANCED_BROAD_SCAN_RUN_ID)) {
+    here("balancednetwork", "results", "qc", "broad_sweep", BALANCED_BROAD_SCAN_RUN_ID, "cache")
+  } else {
+    here("balancednetwork", "results", "qc", "broad_sweep", "cache")
+  },
   logs_dir = here("balancednetwork", "results", "logs")
 )
 
@@ -48,10 +69,22 @@ BAL_PARAMS <- list(
   broad_keep_module_median_min = 10,
   broad_keep_largest_module_pct_max = 45,
   broad_top_n_confirm = 15L,
+  neighborhood_mergeCutHeight = c(0.01, 0.02, 0.05, 0.08),
+  neighborhood_main_grey_pct_max = 60,
+  neighborhood_secondary_grey_pct_max = 65,
+  neighborhood_largest_module_pct_max = 20,
+  neighborhood_eval_top_n = 8L,
   age_grid_points = PARAMS$wgcna_stability_age_grid_points
 )
 
 log_msg <- function(...) message(sprintf("[%s] %s", format(Sys.time(), "%H:%M:%S"), paste0(...)))
+
+allow_balanced_wgcna_threads <- function(default_threads = 8L) {
+  n_threads <- suppressWarnings(as.integer(Sys.getenv("BALANCED_WGCNA_THREADS", default_threads)))
+  if (!is.finite(n_threads) || n_threads < 1L) n_threads <- default_threads
+  WGCNA::allowWGCNAThreads(nThreads = n_threads)
+  invisible(n_threads)
+}
 
 jaccard <- function(a, b) {
   inter <- length(intersect(a, b))

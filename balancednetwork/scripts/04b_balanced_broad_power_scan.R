@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
 
 source(here::here("balancednetwork", "config_balanced.R"))
 set.seed(PARAMS$seed)
-allowWGCNAThreads()
+allow_balanced_wgcna_threads()
 
 progress_tsv <- Sys.getenv("BALANCED_BROAD_SWEEP_PROGRESS_TSV", unset = "")
 if (!nzchar(progress_tsv)) {

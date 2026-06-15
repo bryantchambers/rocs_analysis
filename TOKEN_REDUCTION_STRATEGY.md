@@ -4,29 +4,16 @@
 
 This repository is configured for aggressive token reduction when used with coding agents such as Codex, Claude Code, Gemini CLI, Cursor, or similar tools.
 
-## Integration Status In This Repo (2026-05-27)
+## Integration Status In This Repo (2026-06-15)
 
-- `scripts/start_codex.sh`: supports `codex-squeezr` and `codex-full-context`.
-- `scripts/start_codex_v1_bridge.sh`: supports `codex-v1-squeezr`,
-  `codex-v1-full-context`, and compatibility aliases `codex-squeezr`,
-  `codex-full-context`.
-- `scripts/start_codex_v2.sh`: supports `codex-v2-squeezr`,
-  `codex-v2-full-context`, and compatibility aliases `codex-squeezr`,
-  `codex-full-context`.
-- `scripts/v2/check_tools.sh` reports host availability for `rtk`, `sqz`,
-  `squeezr`, and `squeezr-mcp`.
-
-Mode selection:
-
-- Host default at container launch: `CODEX_TOKEN_MODE=balanced|proxy|full-context`
-- In-container switching (no restart): exit Codex and relaunch with
-  `codex`, `codex-squeezr`, or `codex-full-context`.
+- `rtk` is the shell-output reducer used for noisy commands.
+- `sqz` is the context and MCP/tool-output reducer.
+- Legacy proxy tooling is not part of the active repo guidance; do not use it.
 
 Use the installed token-reduction stack whenever available:
 
 1. **RTK**: reduce shell command output.
 2. **sqz**: reduce repeated context and MCP/tool output.
-3. **Squeezr AI**: reduce model/API traffic through local proxying.
 
 Correctness always comes before token savings. If compression hides information needed for debugging, inspect the raw source or raw command output narrowly.
 
@@ -139,50 +126,6 @@ If sqz is unavailable, continue with RTK and targeted native commands.
 
 ---
 
-### Squeezr AI
-
-Squeezr AI is the model/API proxy compression layer.
-
-Use it for supported clients when running Codex, Gemini CLI, Claude Code, or similar tools.
-
-Check status:
-
-```bash
-squeezr status
-squeezr gain
-squeezr config
-```
-
-For Codex CLI, prefer launching through Squeezr with:
-
-```bash
-HTTPS_PROXY=http://localhost:8081 codex
-```
-
-If a local alias exists, use:
-
-```bash
-codex-squeezr
-```
-
-Do not globally export `HTTPS_PROXY` unless the user explicitly wants all HTTPS traffic in the shell routed through Squeezr.
-
-For Gemini CLI, use the configured Squeezr base URL if present:
-
-```bash
-echo "$GEMINI_API_BASE_URL"
-gemini
-```
-
-If Squeezr is not running, either start it or continue without it:
-
-```bash
-squeezr start
-squeezr status
-```
-
----
-
 ## Startup Verification
 
 At the beginning of a session, verify tools only when relevant to the task.
@@ -199,23 +142,6 @@ sqz --version || true
 sqz gain || sqz stats || true
 
 which sqz-mcp || true
-
-which squeezr || true
-squeezr status || true
-squeezr gain || true
-```
-
-For Codex CLI through Squeezr:
-
-```bash
-HTTPS_PROXY=http://localhost:8081 codex
-```
-
-For Gemini CLI through Squeezr:
-
-```bash
-echo "$GEMINI_API_BASE_URL"
-gemini
 ```
 
 ---
@@ -449,17 +375,8 @@ rg -n "error|failed|exception" /tmp/agent-output.log
 
 ## Codex Usage
 
-When using Codex CLI, prefer Squeezr:
-
-```bash
-HTTPS_PROXY=http://localhost:8081 codex
-```
-
-If configured:
-
-```bash
-codex-squeezr
-```
+When using Codex CLI, keep `rtk` for noisy shell output and `sqz` for larger
+intermediate context or MCP/tool output.
 
 Inside Codex, check available MCP tools if needed:
 
@@ -467,21 +384,14 @@ Inside Codex, check available MCP tools if needed:
 /mcp
 ```
 
-If sqz or Squeezr tools are visible, use them for compression/status checks instead of manually dumping long context.
+If sqz tools are visible, use them for compression/status checks instead of
+manually dumping long context.
 
 ---
 
 ## Gemini CLI Usage
 
-For Gemini CLI, mirror this file into `GEMINI.md` when possible.
-
-Check whether Squeezr is configured:
-
-```bash
-echo "$GEMINI_API_BASE_URL"
-```
-
-Then run:
+For Gemini CLI, mirror this file into `GEMINI.md` when possible. Then run:
 
 ```bash
 gemini
@@ -545,7 +455,6 @@ Example fallback checks:
 ```bash
 command -v rtk || echo "rtk not found"
 command -v sqz || echo "sqz not found"
-command -v squeezr || echo "squeezr not found"
 ```
 
 ---
@@ -630,18 +539,6 @@ if [ -d "$HOME/.pixi/envs/nodejs/bin" ]; then
 fi
 ```
 
-### Create a Codex alias for Squeezr
-
-```bash
-if ! grep -q 'alias codex-squeezr=' "$HOME/.bashrc" 2>/dev/null; then
-  printf '\nalias codex-squeezr='\''HTTPS_PROXY=http://localhost:8081 codex'\''\n' >> "$HOME/.bashrc"
-fi
-
-if [ -f "$HOME/.zshrc" ] && ! grep -q 'alias codex-squeezr=' "$HOME/.zshrc" 2>/dev/null; then
-  printf '\nalias codex-squeezr='\''HTTPS_PROXY=http://localhost:8081 codex'\''\n' >> "$HOME/.zshrc"
-fi
-```
-
 ### Verify token-reduction tools
 
 ```bash
@@ -658,11 +555,6 @@ sqz gain || sqz stats || true
 echo "== sqz-mcp =="
 command -v sqz-mcp || true
 
-echo "== Squeezr =="
-command -v squeezr || true
-squeezr status || true
-squeezr gain || true
-
 echo "== Codex =="
 command -v codex || true
 
@@ -671,18 +563,9 @@ command -v gemini || true
 echo "GEMINI_API_BASE_URL=${GEMINI_API_BASE_URL:-}"
 ```
 
-### Start Squeezr and launch Codex
-
-```bash
-squeezr start || true
-squeezr status || true
-HTTPS_PROXY=http://localhost:8081 codex
-```
-
 ### Launch Gemini
 
 ```bash
-echo "GEMINI_API_BASE_URL=${GEMINI_API_BASE_URL:-}"
 gemini
 ```
 

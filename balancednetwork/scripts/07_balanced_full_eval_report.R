@@ -6,11 +6,11 @@ suppressPackageStartupMessages({
 
 source(here::here("balancednetwork", "config_balanced.R"))
 
-ranked_path <- file.path(BAL$qc_full_dir, "all_settings_ranked.tsv")
+ranked_path <- Sys.getenv("BALANCED_FULL_EVAL_RANKED_TSV", unset = file.path(BAL$qc_full_dir, "all_settings_ranked.tsv"))
 if (!file.exists(ranked_path)) stop("Missing all_settings_ranked.tsv. Run full eval first.")
 ranked <- fread(ranked_path)
 
-report <- file.path(BAL$qc_dir, "BALANCED_FULL_EVAL_REPORT.md")
+report <- Sys.getenv("BALANCED_FULL_EVAL_REPORT", unset = file.path(dirname(ranked_path), "BALANCED_FULL_EVAL_REPORT.md"))
 sink(report)
 
 cat("# Balanced Network Full Evaluation Report\n\n")

@@ -56,8 +56,10 @@ Rscript code/wgcna_hmm/run_workflow_leiden.R
 This working branch includes Bryant's WGCNA and QC updates through the WGCNA handoff:
 
 - `code/wgcna_hmm/01_data_prep.R` writes a WGCNA training manifest and balanced core-age-bin design tables.
-- `code/wgcna_hmm/02_wgcna_main.R` now defaults to the balanced `top3` WGCNA input/parameter profile.
-- The original networkQC-selected `exp3` method is preserved with `WGCNA_HMM_INPUT_STRATEGY=original`.
+- `code/wgcna_hmm/02_wgcna_main.R` now defaults to the balanced CLR profile `balanced_clr_default`.
+- The production WGCNA input contract is aggregated `tax_abund_tad` with sample-wise CLR centering and prevalence on `tax_abund_tad > 0`.
+- Alternate balanced CLR profiles are preserved for the tied `7`-module neighborhood and the nearby `6`-module fallback neighborhood.
+- The original sample-selection path is preserved and now defaults to a CLR-era runnable fallback profile; the historical `original_exp3` profile remains available for comparison.
 - `code/wgcna_hmm/02b_wgcna_stability.R` adds bootstrap module stability diagnostics before HMM.
 - Top-level `InputQC/` and `networkQC/` contain the supporting QC analyses and reports.
 - M's HMM and downstream scripts remain the default workflow after WGCNA.
@@ -65,6 +67,8 @@ This working branch includes Bryant's WGCNA and QC updates through the WGCNA han
 Important HMM note: balanced sampling currently controls WGCNA module construction only. Module eigengenes are projected back to all main-window samples before M's HMM stage. HMM input balancing is expected to need review with M before final biological claims.
 
 See `MERGE_AUDIT.md` for the merge boundary, file changes, output contract, and recovery notes.
+
+Git note: `/src/MainRepo/rocs/.git` is the canonical repo for current merge work. `.MAT-GIT` is legacy metadata from an older merge workflow and is not the active repo for this branch.
 
 ## Notes
 
