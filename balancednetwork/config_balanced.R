@@ -9,10 +9,22 @@ source(here("config.R"))
 
 BALANCED_BROAD_SCAN_RUN_ID <- Sys.getenv("BALANCED_BROAD_SCAN_RUN_ID", unset = "")
 BALANCED_NEIGHBORHOOD_RUN_ID <- Sys.getenv("BALANCED_NEIGHBORHOOD_RUN_ID", unset = "")
+BALANCED_STAGE1_VARIANT <- Sys.getenv("BALANCED_STAGE1_VARIANT", unset = "")
+BALANCED_RUN_PROGRESS_TSV <- Sys.getenv("BALANCED_RUN_PROGRESS_TSV", unset = "")
+BALANCED_NEIGHBORHOOD_EVAL_TOP_N <- suppressWarnings(as.integer(Sys.getenv("BALANCED_NEIGHBORHOOD_EVAL_TOP_N", unset = "8")))
+if (!is.finite(BALANCED_NEIGHBORHOOD_EVAL_TOP_N) || BALANCED_NEIGHBORHOOD_EVAL_TOP_N < 1L) {
+  BALANCED_NEIGHBORHOOD_EVAL_TOP_N <- 8L
+}
+
+if (nzchar(BALANCED_STAGE1_VARIANT)) {
+  RESULTS$stage1 <- here("balancednetwork", "results", "stage1", BALANCED_STAGE1_VARIANT)
+}
 
 BAL <- list(
   base_dir = here("balancednetwork"),
   results_dir = here("balancednetwork", "results"),
+  stage1_variant = if (nzchar(BALANCED_STAGE1_VARIANT)) BALANCED_STAGE1_VARIANT else "shared",
+  stage1_dir = RESULTS$stage1,
   tables_dir = here("balancednetwork", "results", "tables"),
   wgcna_dir = here("balancednetwork", "results", "wgcna"),
   stability_dir = here("balancednetwork", "results", "stability"),
@@ -44,7 +56,25 @@ BAL <- list(
   logs_dir = here("balancednetwork", "results", "logs")
 )
 
-for (d in BAL) dir.create(d, recursive = TRUE, showWarnings = FALSE)
+for (d in BAL[c(
+  "base_dir",
+  "results_dir",
+  "stage1_dir",
+  "tables_dir",
+  "wgcna_dir",
+  "stability_dir",
+  "reports_dir",
+  "qc_dir",
+  "qc_tables_dir",
+  "qc_fig_dir",
+  "qc_full_dir",
+  "qc_neighborhood_dir",
+  "qc_neighborhood_full_dir",
+  "qc_broad_dir",
+  "qc_broad_cache_dir",
+  "logs_dir"
+)]) dir.create(d, recursive = TRUE, showWarnings = FALSE)
+dir.create(RESULTS$stage1, recursive = TRUE, showWarnings = FALSE)
 
 BAL_PARAMS <- list(
   train_cores = PARAMS$stage1_cores,
@@ -73,7 +103,7 @@ BAL_PARAMS <- list(
   neighborhood_main_grey_pct_max = 60,
   neighborhood_secondary_grey_pct_max = 65,
   neighborhood_largest_module_pct_max = 20,
-  neighborhood_eval_top_n = 8L,
+  neighborhood_eval_top_n = BALANCED_NEIGHBORHOOD_EVAL_TOP_N,
   age_grid_points = PARAMS$wgcna_stability_age_grid_points
 )
 

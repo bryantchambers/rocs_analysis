@@ -39,6 +39,8 @@ bash balancednetwork/run_balancednetwork_full_eval.sh --mode=final
 bash balancednetwork/run_balancednetwork_neighborhood_scan.sh
 bash balancednetwork/run_balancednetwork_neighborhood_full_eval.sh --mode=build
 bash balancednetwork/run_balancednetwork_neighborhood_full_eval.sh --mode=final
+bash balancednetwork/run_balancednetwork_permissive_scan.sh --mode=build
+bash balancednetwork/launch_balancednetwork_permissive_scan.sh --mode=build
 ```
 
 Optional overrides:
@@ -53,6 +55,9 @@ Optional overrides:
 - `BALANCED_BROAD_SWEEP_PROGRESS_TSV` to override the broad-sweep progress-log path
 - `BALANCED_NEIGHBORHOOD_RUN_ID` to keep a neighborhood scan and its downstream full eval in a dedicated result directory
 - `BALANCED_NEIGHBORHOOD_LIMIT` to smoke-test only the first `N` neighborhood settings before committing to the full local scan
+- `BALANCED_STAGE1_VARIANT=permissive_abund10` to switch balancednetwork onto the permissive stage-1 input branch
+- `BALANCED_RUN_PROGRESS_TSV` to force one shared TSV for stage-1 prep, bootstrap progress, and both scans
+- `BALANCED_NEIGHBORHOOD_EVAL_TOP_N=4` to cap the neighborhood handoff to the top `N` selected settings
 
 ## Broad Sweep
 
@@ -69,6 +74,25 @@ This staged run does three things:
 - confirms the top `4-9` module candidates by rerunning the full WGCNA fit from scratch.
 
 Outputs land in `balancednetwork/results/qc/broad_sweep/`.
+
+## Permissive Branch Scan
+
+Use this when you want the balancednetwork branch-local permissive input filter, the broad grid scan, and the neighborhood scan under one run ID with one progress TSV:
+
+```bash
+bash balancednetwork/launch_balancednetwork_permissive_scan.sh --mode=build
+```
+
+This branch-local path does the following:
+
+- applies the permissive stage-1 gate `is_dmg == "Damaged" && n_reads >= 100`,
+- computes prevalence on `abund_val = tax_abund_tad if tax_abund_tad > 0 else tax_abund_read`,
+- keeps taxa present in at least `10` samples,
+- runs the balanced design, bootstrap stability, broad scan, and neighborhood scan,
+- writes all stage progress into `balancednetwork/results/logs/permissive_scan_<run_id>.progress.tsv`,
+- stores the branch-local stage-1 outputs in `balancednetwork/results/stage1/permissive_abund10/`.
+
+The neighborhood handoff is capped at the top `4` settings by default; override with `BALANCED_NEIGHBORHOOD_EVAL_TOP_N`.
 
 ## Neighborhood Scan
 
@@ -102,3 +126,4 @@ Outputs land in `balancednetwork/results/qc/neighborhood_scan/<run_id>/`.
 - `balancednetwork/results/qc/neighborhood_scan/` neighborhood scan grids, ranked local candidates, and neighborhood full-eval outputs
 - `balancednetwork/results/qc/full_eval/` per-candidate full evaluation outputs
 - `balancednetwork/results/qc/BALANCED_FULL_EVAL_REPORT.md`
+- `balancednetwork/results/stage1/permissive_abund10/` branch-local permissive stage-1 inputs

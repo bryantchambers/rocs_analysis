@@ -38,6 +38,27 @@ if (file.exists(summary_file) && !force) {
   quit(save = "no")
 }
 
+progress_tsv <- Sys.getenv("BALANCED_RUN_PROGRESS_TSV", unset = Sys.getenv("BAL_PROGRESS_TSV", unset = ""))
+if (!nzchar(progress_tsv)) {
+  progress_tsv <- file.path(OUT_LOG, sprintf("balanced_stability_progress_%s.tsv", format(Sys.time(), "%Y%m%d_%H%M%S")))
+}
+
+progress_update <- function(stage, status, detail = "") {
+  fwrite(
+    data.table(
+      timestamp = format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"),
+      lane = "balancednetwork_stability",
+      stage = stage,
+      status = status,
+      detail = detail
+    ),
+    progress_tsv,
+    sep = "\t",
+    append = file.exists(progress_tsv),
+    col.names = !file.exists(progress_tsv)
+  )
+}
+
 vst <- readRDS(file.path(RESULTS$stage1, "prokaryotes_vst.rds"))
 meta <- fread(file.path(RESULTS$stage1, "sample_metadata_stage1.tsv"))
 mods <- fread(file.path(OUT_WGCNA, "module_assignments.tsv"))
@@ -72,9 +93,11 @@ sample_manifest_rows <- vector("list", n_boot)
 boot_rows <- vector("list", n_boot)
 fail_rows <- list()
 
+progress_update("bootstrap", "start", sprintf("mode=%s n_boot=%d", run_mode, n_boot))
 for (i in seq_len(n_boot)) {
   if (i %% 25 == 0 || i == 1 || i == n_boot) {
     message(sprintf("[balancednetwork] bootstrap %d/%d", i, n_boot))
+    progress_update("bootstrap_progress", "ok", sprintf("%d/%d", i, n_boot))
   }
   set.seed(PARAMS$seed + i)
 
@@ -119,6 +142,7 @@ for (i in seq_len(n_boot)) {
 
   if (inherits(fit, "error")) {
     fail_rows[[length(fail_rows) + 1L]] <- data.table(replicate = i, error = conditionMessage(fit))
+    progress_update("bootstrap_replicate", "failed", sprintf("replicate=%d error=%s", i, conditionMessage(fit)))
     next
   }
 
@@ -180,6 +204,11 @@ fwrite(stab_summary, summary_file, sep = "\t")
 fwrite(fail_dt, file.path(OUT_STAB, "bootstrap_failures.tsv"), sep = "\t")
 fwrite(run_summary, file.path(OUT_STAB, "stability_run_summary.tsv"), sep = "\t")
 
+progress_update(
+  "bootstrap",
+  "ok",
+  sprintf("successful=%d failed=%d", length(unique(boot_dt$replicate)), nrow(fail_dt))
+)
 message(sprintf(
   "[balancednetwork] stability complete: requested=%d successful=%d failed=%d",
   n_boot, length(unique(boot_dt$replicate)), nrow(fail_dt)

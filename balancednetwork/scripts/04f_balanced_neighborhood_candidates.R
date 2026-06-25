@@ -160,6 +160,9 @@ settings_to_eval <- rbindlist(
 settings_to_eval <- unique(settings_to_eval, by = "setting_id")
 settings_to_eval[, mergeCutHeight := representative_mergeCutHeight]
 setorder(settings_to_eval, candidate_rank)
+if (is.finite(BAL_PARAMS$neighborhood_eval_top_n) && BAL_PARAMS$neighborhood_eval_top_n > 0L && nrow(settings_to_eval) > BAL_PARAMS$neighborhood_eval_top_n) {
+  settings_to_eval <- settings_to_eval[seq_len(BAL_PARAMS$neighborhood_eval_top_n)]
+}
 if ("quota" %in% names(settings_to_eval)) settings_to_eval[, quota := NULL]
 
 candidate_rows <- regions[
